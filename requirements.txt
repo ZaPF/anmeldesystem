@@ -1,0 +1,5 @@
+Flask-Script>=2.0.5
+Flask>=0.12
+flask_oauthlib>=0.9.3
+flask_bootstrap>=3.3.7
+flask-cache>=0.13.1

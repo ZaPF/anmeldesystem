@@ -1,0 +1,28 @@
+[Unit]
+Description=ZaPF Anmeldesystem
+After=syslog.target network.target
+
+[Service]
+PIDFile=/var/run/zapf-anmeldung-gunicorn.pid
+WorkingDirectory=/srv/zapf-anmeldung
+Environment=ANMELDUNG_SETTINGS=/etc/zapf-anmeldung.conf
+ExecStart=/usr/bin/gunicorn3 -c gunicorn.conf manage:app
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+User=www-data
+Group=www-data
+PrivateTmp=true
+Restart=on-failure
+CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_NET_ADMIN CAP_SYS_BOOT CAP_SYS_CHROOT CAP_SYS_MODULE CAP_SYS_TIME
+SystemCallFilter=~@mount @privileged @module @cpu-emulation @clock
+ProtectSystem=strict
+PrivateDevices=yes
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+NoNewPrivileges=yes
+ProtectKernelModules=yes
+MemoryDenyWriteExecute=yes
+
+[Install]
+WantedBy=multi-user.target

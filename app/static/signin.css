@@ -1,0 +1,77 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+}
+
+.form-signin,
+.form-signup {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.form-signin .form-signin-heading,
+.form-signup .form-signup-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signup .form-control
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signup .form-control:focus,
+.form-signin .form-control:focus {
+  z-index: 5;
+}
+
+.form-signup input#username,
+.form-signin input#username {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signup input#givenName,
+.form-signup input#surname,
+.form-signup input#mail,
+.form-signup input#password {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-signup input#givenName,
+.form-signup input#surname {
+  width: 50%;
+}
+.form-signup input#surname {
+}
+
+.form-signup input#confirm,
+.form-signin input#password {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-signup button[type=submit] {
+  margin-top: 10px;
+}
