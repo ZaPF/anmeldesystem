@@ -24,8 +24,8 @@ def create_app(profile="default"):
     from flask_bootstrap import Bootstrap
     Bootstrap(app)
 
-    from app.oauth2 import oauth2_blueprint, init_app as init_oauth2
-    app.register_blueprint(oauth2_blueprint)
-    init_oauth2(app)
+    from app.oauth_client import oauth_client_blueprint, init_app as init_oauth_client
+    app.register_blueprint(oauth_client_blueprint)
+    init_oauth_client(app)
 
     return app
