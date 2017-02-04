@@ -1,5 +1,7 @@
 # ZaPF Anmeldesystem
 
+[![Code Climate](https://codeclimate.com/github/ZaPF/anmeldesystem/badges/gpa.svg)](https://codeclimate.com/github/ZaPF/anmeldesystem)
+
 Referenzimplementation für Sommer17 in Berlin
 
 ## Deployment
