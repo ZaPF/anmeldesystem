@@ -24,9 +24,3 @@ def logout():
     deleteOAuthToken()
     session.clear()
     return redirect('/')
-
-@oauth_client_blueprint.route('/')
-@oauth_login_required
-def index():
-    me = oauth_remoteapp.get('me')
-    return jsonify(res = me.data)
