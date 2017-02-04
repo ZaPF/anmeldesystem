@@ -1,14 +1,9 @@
 from flask import Blueprint, session, redirect, url_for
 from flask_oauthlib.client import OAuth
-from flask_cache import Cache
-from werkzeug.contrib.cache import SimpleCache
 from functools import wraps
 
 oauth2_blueprint = Blueprint('oauth2', __name__, template_folder = 'templates/')
 oauth = OAuth()
-
-# FIXME: Use a memcached in production.
-cache = SimpleCache()
 
 oauth_remoteapp = oauth.remote_app(
     'zapfauth',
