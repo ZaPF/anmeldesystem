@@ -35,8 +35,4 @@ def init_app(app):
     oauth.init_app(app)
     app.oauth_client = oauth
 
-    # Set up sanity checks.
-    from . import sanity
-    getattr(app, 'sanity_check_modules', []).append(sanity)
-
     return app
