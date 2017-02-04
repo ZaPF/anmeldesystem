@@ -12,11 +12,6 @@ cache = SimpleCache()
 
 oauth_remoteapp = oauth.remote_app(
     'zapfauth',
-    base_url='https://auth.zapf.in/api/',
-    request_token_url=None,
-    access_token_url='https://auth.zapf.in/oauth/token',
-    authorize_url='https://auth.zapf.in/oauth/authorize',
-    access_token_method='POST',
     request_token_params={'scope': 'ownUserData'},
     app_key='ZAPFAUTH'
 )
