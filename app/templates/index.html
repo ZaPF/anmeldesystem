@@ -3,21 +3,4 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        You are member in the following groups:
-      </div>
-      {% if current_user.is_authenticated %}
-        <ul class="list-group">
-        {% for group in current_user.groups %}
-          <li class="list-group-item">
-            <h4 class="list-group-item-heading">{{ group.group_name }}</h4>
-            <p class="list-group-item-text">{{ group.description }}</p>
-          </li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
-  </div>
 {% endblock %}
