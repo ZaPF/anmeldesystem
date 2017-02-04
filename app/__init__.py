@@ -1,6 +1,7 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, session
 from config import config
 import logging
+from flask_login import AnonymousUserMixin
 
 from . import models
 
@@ -27,5 +28,12 @@ def create_app(profile="default"):
     from app.oauth_client import oauth_client_blueprint, init_app as init_oauth_client
     app.register_blueprint(oauth_client_blueprint)
     init_oauth_client(app)
+
+    @app.context_processor
+    def inject_current_user():
+        try:
+            return dict(current_user=models.User(**session['me']))
+        except:
+            return dict(current_user=AnonymousUserMixin())
 
     return app
