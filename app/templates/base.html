@@ -35,7 +35,7 @@
 
       <ul class="nav navbar-nav navbar-right">
       {% if current_user.is_authenticated %}
-        <li><a href="{{url_for('oauth2.logout')}}">logout</a></li>
+        <li><a href="{{url_for('oauth_client.logout')}}">logout</a></li>
       {% endif %}
       </ul>
     </div>

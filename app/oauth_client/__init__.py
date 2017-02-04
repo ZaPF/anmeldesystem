@@ -2,7 +2,7 @@ from flask import Blueprint, session, redirect, url_for
 from flask_oauthlib.client import OAuth
 from functools import wraps
 
-oauth2_blueprint = Blueprint('oauth2', __name__, template_folder = 'templates/')
+oauth_client_blueprint = Blueprint('oauth_client', __name__, template_folder = 'templates/')
 oauth = OAuth()
 
 oauth_remoteapp = oauth.remote_app(
@@ -26,7 +26,7 @@ def oauth_login_required(f):
     def wrapped(*args, **kwargs):
         if 'zapfauth_token' in session:
             return f(*args, **kwargs)
-        return redirect(url_for('oauth2.login'))
+        return redirect(url_for('oauth_client.login'))
     return wrapped
 
 from . import views
