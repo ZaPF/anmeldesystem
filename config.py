@@ -5,7 +5,7 @@ class Config:
     FLASK_COVERAGE = 0
     PREFERRED_URL_SCHEME = 'https'
 
-    ZAPFAUTH_BASE_URL = 'https://auth.zapf.in/api'
+    ZAPFAUTH_BASE_URL = 'https://auth.zapf.in/api/'
     ZAPFAUTH_AUTHORIZE_URL = 'https://auth.zapf.in/oauth/authorize'
     ZAPFAUTH_ACCESS_TOKEN_URL = 'https://auth.zapf.in/oauth/token'
     ZAPFAUTH_REQUEST_TOKEN_URL = None
