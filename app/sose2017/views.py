@@ -1,10 +1,11 @@
 from . import sommer17
-from flask import render_template, session
+from flask import render_template, session, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField
-from wtforms.ext.dateutil.fields import DateField
+from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 from app.oauth_client import oauth_remoteapp
+import json
 
 class Sommer17Registration(FlaskForm):
     @classmethod
@@ -12,7 +13,7 @@ class Sommer17Registration(FlaskForm):
         setattr(cls, name, field)
         return cls
 
-    uni = SelectField('Uni', choices=[], coerce=int)
+    uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
     essen = SelectField(u'Essen', choices=[
         ('vegetarisch', 'Vegetarisch'),
@@ -71,7 +72,7 @@ class Sommer17Registration(FlaskForm):
     exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
     exkursion4 = SelectField('Viertwunsch', choices=exkursionen)
 
-    geburtsdatum = DateField('Geburtsdatum', display_format='%d.%m.%Y')
+    geburtsdatum = DateField('Geburtsdatum')
 
     alkoholfrei = BooleanField('Ich möchte statt an einer Kneipentour lieber an '
                                'einem alkoholfreien Alternativprogramm in Berlin '
@@ -83,7 +84,7 @@ class Sommer17Registration(FlaskForm):
 
     submit = SubmitField()
 
-@sommer17.route('/')
+@sommer17.route('/', methods=['GET', 'POST'])
 def index():
     if 'me' not in session:
         return render_template('index.html')
@@ -97,9 +98,31 @@ def index():
         Form = Form.append_field('wach', StringField('Warum bist Du grade wach?',
                 widget = TextArea()))
 
-    form = Form()
+    defaults = {}
+    confirmed = None
+    req = oauth_remoteapp.get('registration')
+    if req._resp.code == 200:
+        defaults = json.loads(req.data['data'])
+        if 'geburtsdatum' in defaults:
+            defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%a, %d %b %Y %H:%M:%S %Z")
+        confirmed = req.data['confirmed']
 
-    choices = oauth_remoteapp.get('unis').data.items()
-    form.uni.choices = choices
+        print(req.data)
 
-    return render_template('index.html', form=form)
+    # Formular erstellen
+    form = Form(**defaults)
+
+    # Die Liste der Unis holen
+    unis = oauth_remoteapp.get('unis')
+    if unis._resp.code != 200:
+        return redirect(url_for('oauth_client.login'))
+    form.uni.choices = unis.data.items()
+
+    # Daten speichern
+    if form.validate_on_submit():
+        req = oauth_remoteapp.post('registration', format='json', data=dict(
+            uni_id = form.uni.data, data=form.data
+            ))
+        # FIXME: hier req._resp.code == 200 und req.data == "OK" checken
+
+    return render_template('index.html', form=form, confirmed=confirmed)
