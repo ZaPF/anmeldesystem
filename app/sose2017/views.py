@@ -1,9 +1,10 @@
 from . import sommer17
-from flask import render_template
+from flask import render_template, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField
 from wtforms.ext.dateutil.fields import DateField
 from wtforms.widgets import TextArea
+from app.oauth_client import oauth_remoteapp
 
 class Sommer17Registration(FlaskForm):
     @classmethod
@@ -11,6 +12,7 @@ class Sommer17Registration(FlaskForm):
         setattr(cls, name, field)
         return cls
 
+    uni = SelectField('Uni', choices=[], coerce=int)
     spitzname = StringField('Spitzname')
     essen = SelectField(u'Essen', choices=[
         ('vegetarisch', 'Vegetarisch'),
@@ -83,6 +85,9 @@ class Sommer17Registration(FlaskForm):
 
 @sommer17.route('/')
 def index():
+    if 'me' not in session:
+        return render_template('index.html')
+
     Form = Sommer17Registration
 
     # Zwischen 6:00 und 7:00
@@ -93,4 +98,8 @@ def index():
                 widget = TextArea()))
 
     form = Form()
+
+    choices = oauth_remoteapp.get('unis').data.items()
+    form.uni.choices = choices
+
     return render_template('index.html', form=form)
