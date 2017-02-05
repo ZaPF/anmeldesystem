@@ -107,8 +107,6 @@ def index():
             defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
 
-        print(req.data)
-
     # Formular erstellen
     form = Form(**defaults)
 
