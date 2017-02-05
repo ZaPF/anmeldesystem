@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
-from app.oauth_client import oauth_remoteapp
+from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
 
 class Sommer17Registration(FlaskForm):
@@ -95,6 +95,9 @@ class Sommer17Registration(FlaskForm):
 def index():
     if 'me' not in session:
         return render_template('index.html')
+
+    if not getOAuthToken():
+        return redirect(url_for('oauth_client.login'))
 
     Form = Sommer17Registration
 
