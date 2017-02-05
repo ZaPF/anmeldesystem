@@ -15,12 +15,18 @@ def authorized():
             resp
         ), 'error')
         return redirect('/')
-    saveOAuthToken(resp['access_token'], '')
-    session['me'] = oauth_remoteapp.get('me').data
-    return redirect('/')
+    if 'me' not in session:
+        next = redirect(url_for('oauth_client.loadMe'))
+    else:
+        next = redirect('/')
+    return saveOAuthToken(next, resp['access_token'], '')
 
 @oauth_client_blueprint.route('/oauth/logout')
 def logout():
-    deleteOAuthToken()
     session.clear()
+    return deleteOAuthToken(redirect('/'))
+
+@oauth_client_blueprint.route('/oauth/loadme')
+def loadMe():
+    session['me'] = oauth_remoteapp.get('me').data
     return redirect('/')
