@@ -15,5 +15,5 @@ for stuff like SSL encryption.
 
 Variable                        | Description
 --------------------------------|-----------------------------------------------------------
-`AUTH_SETTINGS`                 | A path to a config file that overrides the defaults
+`ANMELDUNG_SETTINGS`            | A path to a config file that overrides the defaults
 `OAUTHLIB_INSECURE_TRANSPORT=1` | If necessary (it really shouldn't), allow OAuth2 via HTTP.
