@@ -1,5 +1,5 @@
 from . import sommer17
-from flask import render_template, session, redirect, url_for
+from flask import render_template, session, redirect, url_for, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField
 from wtforms.fields.html5 import DateField
@@ -128,6 +128,10 @@ def index():
         req = oauth_remoteapp.post('registration', format='json', data=dict(
             uni_id = form.uni.data, data={k:v for k,v in form.data.items() if k not in ['csrf_token', 'submit']}
             ))
-        # FIXME: hier req._resp.code == 200 und req.data == "OK" checken
+        if req._resp.code == 200 and req.data.decode('utf-8') == "OK":
+            flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
+        else:
+            flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
+        return redirect('/')
 
     return render_template('index.html', form=form, confirmed=confirmed)
