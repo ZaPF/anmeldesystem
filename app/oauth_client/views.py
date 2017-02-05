@@ -9,11 +9,11 @@ def login():
 def authorized():
     resp = oauth_remoteapp.authorized_response()
     if resp is None or resp.get('access_token') is None:
-        print('Access denied: reason=%s error=%s resp=%s' % (
+        flash('Access denied: reason=%s error=%s resp=%s' % (
             request.args['error'],
             request.args['error_description'],
             resp
-        ))
+        ), 'error')
         return redirect('/')
     saveOAuthToken(resp['access_token'], '')
     session['me'] = oauth_remoteapp.get('me').data
