@@ -7,7 +7,7 @@ oauth = OAuth()
 
 oauth_remoteapp = oauth.remote_app(
     'zapfauth',
-    request_token_params={'scope': 'ownUserData'},
+    request_token_params={'scope': 'ownUserData uni_list registration'},
     app_key='ZAPFAUTH'
 )
 
