@@ -6,7 +6,7 @@ After=syslog.target network.target
 PIDFile=/var/run/zapf-anmeldung-gunicorn.pid
 WorkingDirectory=/srv/zapf-anmeldung
 Environment=ANMELDUNG_SETTINGS=/etc/zapf-anmeldung.conf
-ExecStart=/usr/bin/gunicorn3 -c gunicorn.conf manage:app
+ExecStart=/usr/bin/gunicorn3 -c gunicorn.conf wsgi:app
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s QUIT $MAINPID
 User=www-data
