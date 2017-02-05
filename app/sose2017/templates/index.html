@@ -4,11 +4,18 @@
 {% block title %}Index{% endblock %}
 
 {% macro form_group(field, help_text=None) %}
-          <div class="form-group">
+          <div class="form-group{% if field.errors %} has-error{% endif %}">
             {{ field.label }}
             {{ field(class="form-control") }}
             {% if help_text %}
             <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error | safe }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
               {{ help_text }}
             </span>
             {% endif %}
@@ -20,7 +27,16 @@
   <div class="jumbotron">
     {% if current_user.is_authenticated %}
     <h1>Hallo {{current_user.firstName | safe}}!</h1>
-    <p>Du möchtest zur ZaPF kommen?</p>
+    {% if confirmed == None %}
+      <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
+      Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
+      und ihre Prioritätenreihenfolge festlegen.</p>
+    {% elif confirmed %}
+      <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
+    {% else %}
+      <p>Du bist schon registriert, allerdings muss Deine Fachschaft Dich
+      noch bestätigen.</p>
+    {% endif %}
     {% else %}
     <h1>Anmeldung zur ZaPF</h1>
     <p>Um Dich für die ZaPF anzumelden brauchst du einen <a href="https://auth.zapf.in/">ZaPF-Account</a>. Lege Dir dort am besten einen an, und click dann auf den Link:</p>
@@ -30,6 +46,8 @@
 
   {% if current_user.is_authenticated %}
     <form method="POST">
+      {{ form.csrf_token }}
+      {{ wtf.form_errors(form) }}
       <div class="panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-title">Allgemein</h3>
@@ -78,12 +96,15 @@
           <h2 class="panel-title">Sonstiges</h3>
         </div>
         <div class="panel-body">
+          {{ form_group(form.tshirt) }}
+          {{ form_group(form.zelten) }}
           {{ form_group(form.kommentar) }}
           {% if form.wach %}
             {{ form_group(form.wach) }}
           {% endif %}
         </div>
       </div>
+      {{ form.submit(class="btn-submit btn-default btn") }}
     </form>
   {% endif %}
 </div>
