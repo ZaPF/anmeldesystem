@@ -3,8 +3,8 @@
 
 {% block title %}Index{% endblock %}
 
-{% macro form_group(field, help_text=None) %}
-          <div class="form-group{% if field.errors %} has-error{% endif %}">
+{% macro form_group(field, help_text=None, id=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
             {{ field.label }}
             {{ field(class="form-control") }}
             {% if help_text %}
@@ -95,7 +95,7 @@
           {{ form_group(form.exkursion2) }}
           {{ form_group(form.exkursion3) }}
           {{ form_group(form.exkursion4) }}
-          {{ form_group(form.geburtsdatum, "Wird nur bei der Stadtführung mit Besuch im Bundestag benötigt") }}
+          {{ form_group(form.geburtsdatum, "Wird nur bei der Stadtführung mit Besuch im Bundestag benötigt", "birthday") }}
 
           <div class="checkbox form-group">
             <label>
@@ -129,3 +129,9 @@
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('static', filename='sose17/registration.js')}}"></script>
+{% endblock %}
+      
