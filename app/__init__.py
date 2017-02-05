@@ -29,8 +29,9 @@ def create_app(profile="default"):
     app.register_blueprint(oauth_client_blueprint)
     init_oauth_client(app)
 
-    from app.sose2017 import sommer17
+    from app.sose2017 import sommer17, init_app as init_sommer17
     app.register_blueprint(sommer17)
+    init_sommer17(app)
 
     @app.context_processor
     def inject_current_user():

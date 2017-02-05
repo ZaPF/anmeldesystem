@@ -104,7 +104,7 @@ def index():
     if req._resp.code == 200:
         defaults = json.loads(req.data['data'])
         if 'geburtsdatum' in defaults:
-            defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%a, %d %b %Y %H:%M:%S %Z")
+            defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
 
         print(req.data)
@@ -121,7 +121,7 @@ def index():
     # Daten speichern
     if form.validate_on_submit():
         req = oauth_remoteapp.post('registration', format='json', data=dict(
-            uni_id = form.uni.data, data=form.data
+            uni_id = form.uni.data, data={k:v for k,v in form.data.items() if k not in ['csrf_token', 'submit']}
             ))
         # FIXME: hier req._resp.code == 200 und req.data == "OK" checken
 
