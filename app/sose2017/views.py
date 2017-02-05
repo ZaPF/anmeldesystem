@@ -121,7 +121,7 @@ def index():
     unis = oauth_remoteapp.get('unis')
     if unis._resp.code != 200:
         return redirect(url_for('oauth_client.login'))
-    form.uni.choices = unis.data.items()
+    form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
 
     # Daten speichern
     if form.validate_on_submit():
