@@ -1,7 +1,7 @@
 from . import sommer17
 from flask import render_template, session, redirect, url_for, flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField, BooleanField
+from wtforms import StringField, SelectField, SubmitField, BooleanField, validators
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 from app.oauth_client import oauth_remoteapp, getOAuthToken
@@ -72,7 +72,7 @@ class Sommer17Registration(FlaskForm):
     exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
     exkursion4 = SelectField('Viertwunsch', choices=exkursionen)
 
-    geburtsdatum = DateField('Geburtsdatum')
+    geburtsdatum = DateField('Geburtsdatum', validators=[validators.Optional()])
 
     alkoholfrei = BooleanField('Ich möchte statt an einer Kneipentour lieber an '
                                'einem alkoholfreien Alternativprogramm in Berlin '
@@ -113,7 +113,7 @@ def index():
     req = oauth_remoteapp.get('registration')
     if req._resp.code == 200:
         defaults = json.loads(req.data['data'])
-        if 'geburtsdatum' in defaults:
+        if 'geburtsdatum' in defaults and defaults['geburtsdatum']:
             defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
 
