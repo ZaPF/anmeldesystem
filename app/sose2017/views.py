@@ -82,6 +82,13 @@ class Sommer17Registration(FlaskForm):
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
             widget = TextArea())
 
+    herzenswunsch = StringField('Willst du uns deine tiefsten Herzenwünsche noch mitteilen?',
+            widget = TextArea())
+
+    orgaprobleme = StringField("Beim ersten Versenden der Einladungen ging leider was schief. " \
+            "Deshalb mussten wir sie ein zweites Mal drucken. Was glaubst du, ist passiert?",
+            widget = TextArea())
+
     submit = SubmitField()
 
 @sommer17.route('/', methods=['GET', 'POST'])
