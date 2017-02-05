@@ -1,4 +1,5 @@
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/utils.html" as utils %}
 
 {% block styles %}
 {{super()}}
@@ -33,4 +34,5 @@
     </div>
   </div>
 </nav>
+{{utils.flashed_messages(container=True)}}
 {% endblock %}
