@@ -108,7 +108,7 @@ def index():
         return render_template('index.html')
 
     if not getOAuthToken():
-        flash("Die Sitzung war abgelaufen, bitte gebe deine Daten nochmal ein.", 'warning')
+        flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
     Form = Sommer17Registration
