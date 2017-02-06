@@ -7,6 +7,17 @@ from wtforms.widgets import TextArea
 from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
 
+
+class BirthdayValidator(object):
+    def __call__(self, form, field):
+        if(form.exkursion1.data == "stad" or form.exkursion2.data == "stad" or
+           form.exkursion3.data == "stad" or form.exkursion4.data == "stad"):
+            requiredValidator = validators.InputRequired()
+            requiredValidator(form, field)
+        else:
+            optionalValidator = validators.Optional()
+            optionalValidator(form, field)
+
 class Sommer17Registration(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
@@ -72,7 +83,7 @@ class Sommer17Registration(FlaskForm):
     exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
     exkursion4 = SelectField('Viertwunsch', choices=exkursionen)
 
-    geburtsdatum = DateField('Geburtsdatum', validators=[validators.Optional()])
+    geburtsdatum = DateField('Geburtsdatum', validators=[BirthdayValidator()])
 
     alkoholfrei = BooleanField('Ich möchte statt an einer Kneipentour lieber an '
                                'einem alkoholfreien Alternativprogramm in Berlin '
