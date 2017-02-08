@@ -13,7 +13,7 @@ oauth_remoteapp = oauth.remote_app(
     app_key='ZAPFAUTH'
 )
 
-def saveOAuthToken(next, token, secret, max_age = 300):
+def saveOAuthToken(next, token, secret, max_age = 3000):
     secretKey = current_app.config['SECRET_KEY'].encode('utf-8')
     data = SecureCookie({"token": token, "secret": secret}, secretKey)
     expires = datetime.utcnow() + timedelta(seconds = max_age)
