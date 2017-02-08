@@ -6,8 +6,7 @@
 {% macro form_group(field, help_text=None, id=None) %}
           <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
             {{ field.label }}
-            {{ field(class="form-control") }}
-            {% if help_text %}
+            {% if help_text or field.errors %}
             <span class="help-block">
               {% if field.errors %}
               <ul>
@@ -19,6 +18,7 @@
               {{ help_text }}
             </span>
             {% endif %}
+            {{ field(class="form-control") }}
           </div>
 {% endmacro %}
 
