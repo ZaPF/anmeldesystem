@@ -70,6 +70,7 @@ class Sommer17Registration(FlaskForm):
         ('awi', 'Alfred-Wegener-Institut für Polar- und Meeresforschung'),
         ('spektrum', 'Technikmuseum und Science Center Spectrum'),
         ('naturkunde', 'Naturkundemuseum'),
+        ('bessy', 'Helmholtz-Zentrum Berlin mit BESSY II'),
         ('fub', 'Uni-Tour: Freie Universität Berlin'),
         ('tub', 'Uni-Tour: Technische Universität Berlin'),
         ('golm', 'Uni-Tour: Uni Golm (+ neues Palais)'),
