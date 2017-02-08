@@ -29,6 +29,10 @@ class ExkursionenValidator(object):
                     raise validators.ValidationError('Die folgenden Exkursionen sollten auch auf '
                                                      '"Keine Exkursion" stehen, alles anderes ist '
                                                      'nicht sinnvoll ;).')
+        elif field.data != "egal":
+            for follower in self.following:
+                if follower.data == field.data:
+                    raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
 
 class Sommer17Registration(FlaskForm):
     @classmethod
