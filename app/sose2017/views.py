@@ -1,5 +1,5 @@
 from . import sommer17
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash, current_app
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField, validators
 from wtforms.fields.html5 import DateField
@@ -33,6 +33,9 @@ class ExkursionenValidator(object):
             for follower in self.following:
                 if follower.data == field.data:
                     raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
+
+class RegistrationPasswordForm(FlaskForm):
+    passwort = StringField("Zugangspasswort", [validators.Required()])
 
 class Sommer17Registration(FlaskForm):
     @classmethod
@@ -123,10 +126,29 @@ class Sommer17Registration(FlaskForm):
 
     submit = SubmitField()
 
+def handle_zugangspasswort():
+    if 'REGISTRATION_PASSWORD' not in current_app.config:
+        return None
+
+    if 'zugangspasswort' not in session:
+        form = RegistrationPasswordForm()
+        if form.validate_on_submit():
+            if form.passwort.data.lower() == current_app.config['REGISTRATION_PASSWORD'].lower():
+                session['zugangspasswort'] = True
+                return None
+            else:
+                form.passwort.data = ""
+                form.passwort.errors.append("Das Zugangspasswort sollte Dir in der Einladung zugeschickt worden sein.")
+        return form
+
 @sommer17.route('/', methods=['GET', 'POST'])
 def index():
     if 'me' not in session:
         return render_template('index.html')
+
+    form = handle_zugangspasswort()
+    if form:
+        return render_template('zugangspasswort.html', form=form)
 
     if not getOAuthToken():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
