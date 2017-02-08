@@ -144,7 +144,7 @@ def handle_zugangspasswort():
 @sommer17.route('/', methods=['GET', 'POST'])
 def index():
     if 'me' not in session:
-        return render_template('index.html')
+        return render_template('landing.html')
 
     form = handle_zugangspasswort()
     if form:

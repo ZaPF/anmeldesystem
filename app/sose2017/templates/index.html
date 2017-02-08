@@ -41,27 +41,21 @@
 
 {% block content %}
 <div class="container">
-  <div class="jumbotron">
-    {% if current_user.is_authenticated %}
-    <h1>Hallo {{current_user.firstName | safe}}!</h1>
-    {% if confirmed == None %}
-      <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
-      Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
-      und ihre Prioritätenreihenfolge festlegen.</p>
-    {% elif confirmed %}
-      <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
-    {% else %}
-      <p>Du bist schon registriert, allerdings muss Deine Fachschaft Dich
-      noch bestätigen.</p>
-    {% endif %}
-    {% else %}
-    <h1>Anmeldung zur ZaPF</h1>
-    <p>Um Dich für die ZaPF anzumelden brauchst du einen <a href="https://auth.zapf.in/">ZaPF-Account</a>. Lege Dir dort am besten einen an, und click dann auf den Link:</p>
-    <p><a class="btn btn-primary btn-lg" href="{{url_for('oauth_client.login')}}" role="button">Hier gehts zur Anmeldung</a></p>
-    {% endif %}
-  </div>
-
   {% if current_user.is_authenticated %}
+    <div class="jumbotron">
+      <h1>Hallo {{current_user.firstName | safe}}!</h1>
+      {% if confirmed == None %}
+        <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
+        Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
+        und ihre Prioritätenreihenfolge festlegen.</p>
+      {% elif confirmed %}
+        <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
+      {% else %}
+        <p>Du bist schon registriert, allerdings muss Deine Fachschaft Dich
+        noch bestätigen.</p>
+      {% endif %}
+    </div>
+
     <form method="POST">
       {{ form.csrf_token }}
       {{ show_form_errors(form) }}
@@ -140,4 +134,3 @@
 {{super()}}
 <script src="{{url_for('static', filename='sose17/registration.js')}}"></script>
 {% endblock %}
-      
