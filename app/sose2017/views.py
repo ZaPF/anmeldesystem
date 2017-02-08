@@ -93,7 +93,7 @@ class Sommer17Registration(FlaskForm):
         ('egal', 'ist mir egal'),
         ('keine', 'keine exkursion'),
         ('mpi', 'Max-Planck-Institut für Kolloid- und Grenzflächenforschung'),
-        ('spektrum', 'Technikmuseum und Science Center Spectrum'),
+        ('spectrum', 'Technikmuseum und Science Center Spectrum'),
         ('naturkunde', 'Naturkundemuseum'),
         ('bessy', 'Helmholtz-Zentrum Berlin mit BESSY II'),
         ('fub', 'Uni-Tour: Freie Universität Berlin'),
