@@ -63,7 +63,7 @@ def authorized():
 
 @oauth_client_blueprint.route('/oauth/logout')
 def logout():
-    oauth_remoteapp.post(current_app.config["ZAPFAUTH_REVOKE_URL"])
+    oauth_remoteapp.post(current_app.config["ZAPFAUTH_REVOKE_URL"], data={"action": "logout"})
     session.clear()
     return deleteOAuthToken(redirect(add_url_params(current_app.config["ZAPFAUTH_LOGOUT_URL"],
              {"next": url_for('oauth_client.loggedout', _external=True)})))
