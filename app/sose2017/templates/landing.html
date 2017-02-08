@@ -5,9 +5,15 @@
 {% block content %}
 <div class="container">
   <div class="jumbotron">
-    <h1>Anmeldung zur ZaPF</h1>
+    <h1>Anmeldung zur ZaPF in Berlin </h1>
+    <p>Die Anmeldung schließt am 24.04.2017 23:59:59 CET. Danach könnt Ihr noch bis zum 27.04.2017 23:42:23 CET die Reihenfolge Eurer Teilnehmika ändern.</p>
     <p>Um Dich für die ZaPF anzumelden brauchst du einen <a href="https://auth.zapf.in/">ZaPF-Account</a>. Lege Dir dort am besten einen an, und click dann auf den Link:</p>
-    <p><a class="btn btn-primary btn-lg" href="{{url_for('oauth_client.login')}}" role="button">Hier gehts zur Anmeldung</a></p>
+    <p>
+    <div class="center-block" style="max-width: 300px">
+      <a class="btn btn-primary btn-lg btn-block" href="{{url_for('oauth_client.login')}}" role="button">Hier geht's zur Anmeldung</a>
+      <a class="btn btn-default btn-lg btn-block disabled" href="#" role="button">Reihenfolge festlegen</a>
+    </div>
+    </p>
   </div>
 </div>
 {% endblock %}
