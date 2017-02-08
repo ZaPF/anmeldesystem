@@ -18,11 +18,29 @@ class BirthdayValidator(object):
             optionalValidator = validators.Optional()
             optionalValidator(form, field)
 
+class ExkursionenValidator(object):
+    def __init__(self, following=None):
+        self.following = following
+
+    def __call__(self, form, field):
+        if field.data == "keine":
+            for follower in self.following:
+                if follower.data != "keine":
+                    raise validators.ValidationError('Die folgenden Exkursionen sollten auch auf '
+                                                     '"Keine Exkursion" stehen, alles anderes ist '
+                                                     'nicht sinnvoll ;).')
+
 class Sommer17Registration(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
         setattr(cls, name, field)
         return cls
+
+    def __init__(self, **kwargs):
+        super(Sommer17Registration, self).__init__(**kwargs)
+        self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
+        self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
+        self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
@@ -79,6 +97,7 @@ class Sommer17Registration(FlaskForm):
         ('potsdam', 'Schlösser und Gärten Tour Potsdam'),
         ]
 
+    # Reverse order so the next field can use the variable
     exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
     exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
     exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
