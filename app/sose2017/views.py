@@ -182,7 +182,7 @@ def index():
     form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
 
     # Daten speichern
-    if form.validate_on_submit():
+    if form.submit.data and form.validate_on_submit():
         req = oauth_remoteapp.post('registration', format='json', data=dict(
             uni_id = form.uni.data, data={k:v for k,v in form.data.items() if k not in ['csrf_token', 'submit']}
             ))
