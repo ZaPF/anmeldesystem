@@ -80,4 +80,5 @@ $('#exkursion3').change(selectChangeFunc);
 $('#exkursion4').change(selectChangeFunc);
 
 handleBirthday();
+handleKeine();
 });
