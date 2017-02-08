@@ -15,7 +15,7 @@
               {% endfor %}
               </ul>
               {% endif %}
-              {{ help_text }}
+              {% if help_text %}{{ help_text }}{% endif %}
             </span>
             {% endif %}
             {{ field(class="form-control") }}
