@@ -97,11 +97,14 @@
           {{ form_group(form.exkursion4) }}
           {{ form_group(form.geburtsdatum, "Wird nur bei der Stadtführung mit Besuch im Bundestag benötigt", "birthday") }}
 
-          <div class="checkbox form-group">
-            <label>
-              {{ form.alkoholfrei() }}
-              {{ form.alkoholfrei.label }}
-            </label>
+          <div class="form-group">
+            <label>Freitagabend</label>
+            <div class="checkbox">
+              <label>
+                {{ form.alkoholfrei() }}
+                {{ form.alkoholfrei.label }}
+              </label>
+            </div>
           </div>
 
           {{ form_group(form.musikwunsch) }}
