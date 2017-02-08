@@ -67,7 +67,6 @@ class Sommer17Registration(FlaskForm):
         ('egal', 'ist mir egal'),
         ('keine', 'keine exkursion'),
         ('mpi', 'Max-Planck-Institut für Kolloid- und Grenzflächenforschung'),
-        ('awi', 'Alfred-Wegener-Institut für Polar- und Meeresforschung'),
         ('spektrum', 'Technikmuseum und Science Center Spectrum'),
         ('naturkunde', 'Naturkundemuseum'),
         ('bessy', 'Helmholtz-Zentrum Berlin mit BESSY II'),
