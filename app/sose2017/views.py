@@ -62,6 +62,7 @@ class Sommer17Registration(FlaskForm):
         ('kaffee', 'Kaffee'),
         ('tee', 'Tee'),
         ])
+    getraenk = StringField('Getränkewunsch')
     tshirt = SelectField('T-Shirt', choices=[
         ('keins', 'Nein, ich möchte keins'),
         ('fitted_5xl', 'fitted 5XL'),

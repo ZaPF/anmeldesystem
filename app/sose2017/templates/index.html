@@ -3,7 +3,7 @@
 
 {% block title %}Index{% endblock %}
 
-{% macro form_group(field, help_text=None, id=None) %}
+{% macro form_group(field, help_text=None, id=None, list=None) %}
           <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
             {{ field.label }}
             {% if help_text or field.errors %}
@@ -18,8 +18,16 @@
               {% if help_text %}{{ help_text }}{% endif %}
             </span>
             {% endif %}
-            {{ field(class="form-control") }}
+            {{ field(class="form-control", list=list) }}
           </div>
+{% endmacro %}
+
+{% macro datalist(list_id, options) %}
+  <datalist id="{{list_id}}">
+  {% for option in options %}
+    <option value="{{option}}"/>
+  {% endfor %}
+  </datalist>
 {% endmacro %}
 
 {% macro show_form_errors(form, container = True) %}
@@ -77,6 +85,24 @@
           {{ form_group(form.essen) }}
           {{ form_group(form.allergien) }}
           {{ form_group(form.heissgetraenk) }}
+          {{ datalist("getraenke", [
+            'Berliner Luft',
+            'Bier',
+            'Eistee',
+            'Entenpipi',
+            'Fassbrause',
+            'Heisse Schokolade',
+            'Limo',
+            'Mate',
+            'Milch',
+            'Saft',
+            'Saftschorle',
+            'Sterni',
+            'Wasser laut',
+            'Wasser still',
+            'Kakao',
+            ]) }}
+          {{ form_group(form.getraenk, list="getraenke") }}
         </div>
       </div>
 
