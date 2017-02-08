@@ -1,0 +1,12 @@
+form {
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+.vertical-center {
+  min-height: 80%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 80vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
