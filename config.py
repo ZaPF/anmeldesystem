@@ -12,6 +12,8 @@ class Config:
     ZAPFAUTH_ACCESS_TOKEN_METHOD = 'POST'
     ZAPFAUTH_CONSUMER_KEY = 'a random string key'
     ZAPFAUTH_CONSUMER_SECRET = 'a random string secret'
+    ZAPFAUTH_REVOKE_URL = 'https://auth.zapf.in/oauth/revoke'
+    ZAPFAUTH_LOGOUT_URL = 'https://auth.zapf.in/logout'
 
     @staticmethod
     def init_app(app):
