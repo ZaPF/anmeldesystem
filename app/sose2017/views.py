@@ -6,6 +6,7 @@ from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
+from datetime import datetime, time
 
 
 class BirthdayValidator(object):
@@ -168,7 +169,6 @@ def index():
         confirmed = req.data['confirmed']
 
     # Zwischen 6:00 und 7:00
-    from datetime import datetime, time
     now = datetime.now().time()
     if time(6,00) <= now <= time(7,00):
         Form = Form.append_field('wach', StringField('Warum bist Du grade wach?',
