@@ -138,11 +138,11 @@ def handle_zugangspasswort():
         if form.validate_on_submit():
             if form.passwort.data.lower() == current_app.config['REGISTRATION_PASSWORD'].lower():
                 session['zugangspasswort'] = True
-                return None
+                return redirect(url_for('sommer17.index'))
             else:
                 form.passwort.data = ""
                 form.passwort.errors.append("Das Zugangspasswort sollte Dir in der Einladung zugeschickt worden sein.")
-        return form
+        return render_template('zugangspasswort.html', form=form)
 
 @sommer17.route('/', methods=['GET', 'POST'])
 def index():
@@ -151,7 +151,7 @@ def index():
 
     form = handle_zugangspasswort()
     if form:
-        return render_template('zugangspasswort.html', form=form)
+        return form
 
     if not getOAuthToken():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
