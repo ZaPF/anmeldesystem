@@ -157,13 +157,6 @@ def index():
 
     Form = Sommer17Registration
 
-    # Zwischen 6:00 und 7:00
-    from datetime import datetime, time
-    now = datetime.now().time()
-    if time(6,00) <= now <= time(7,00):
-        Form = Form.append_field('wach', StringField('Warum bist Du grade wach?',
-                widget = TextArea()))
-
     defaults = {}
     confirmed = None
     req = oauth_remoteapp.get('registration')
@@ -172,6 +165,15 @@ def index():
         if 'geburtsdatum' in defaults and defaults['geburtsdatum']:
             defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
+
+    # Zwischen 6:00 und 7:00
+    from datetime import datetime, time
+    now = datetime.now().time()
+    if time(6,00) <= now <= time(7,00):
+        Form = Form.append_field('wach', StringField('Warum bist Du grade wach?',
+                widget = TextArea()))
+    else:
+        defaults.pop('wach', None)
 
     # Formular erstellen
     form = Form(**defaults)
