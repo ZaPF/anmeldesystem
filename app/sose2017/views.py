@@ -129,29 +129,18 @@ class Sommer17Registration(FlaskForm):
 
     submit = SubmitField()
 
-def handle_zugangspasswort():
-    if 'REGISTRATION_PASSWORD' not in current_app.config:
-        return None
-
-    if 'zugangspasswort' not in session:
-        form = RegistrationPasswordForm()
-        if form.validate_on_submit():
-            if form.passwort.data.lower() == current_app.config['REGISTRATION_PASSWORD'].lower():
-                session['zugangspasswort'] = True
-                return None
-            else:
-                form.passwort.data = ""
-                form.passwort.errors.append("Das Zugangspasswort sollte Dir in der Einladung zugeschickt worden sein.")
-        return form
+def zugangspasswort_needed():
+    if 'REGISTRATION_PASSWORD' in current_app.config and 'zugangspasswort' not in session:
+        return True
+    return False
 
 @sommer17.route('/', methods=['GET', 'POST'])
 def index():
     if 'me' not in session:
         return render_template('landing.html')
 
-    form = handle_zugangspasswort()
-    if form:
-        return render_template('zugangspasswort.html', form=form)
+    if zugangspasswort_needed():
+        return redirect(url_for('sose17.zugangspasswort'))
 
     if not getOAuthToken():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
@@ -197,3 +186,15 @@ def index():
         return redirect('/')
 
     return render_template('index.html', form=form, confirmed=confirmed)
+
+@sommer17.route('/zugangspasswort', methods=['GET', 'POST'])
+def zugangspasswort():
+    form = RegistrationPasswordForm()
+    if form.validate_on_submit():
+        if form.passwort.data.lower() == current_app.config['REGISTRATION_PASSWORD'].lower():
+            session['zugangspasswort'] = True
+            return redirect('/')
+        else:
+            form.passwort.data = ""
+            form.passwort.errors.append("Das Zugangspasswort sollte Dir in der Einladung zugeschickt worden sein.")
+    return render_template('zugangspasswort.html', form=form)
