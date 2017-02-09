@@ -72,9 +72,10 @@ class Sommer17Registration(FlaskForm):
         ('bessy', 'Helmholtz-Zentrum Berlin mit BESSY II'),
         ('fub', 'Uni-Tour: Freie Universität Berlin'),
         ('tub', 'Uni-Tour: Technische Universität Berlin'),
-        ('golm', 'Uni-Tour: Uni Golm (+ neues Palais)'),
+        ('golm', 'Uni-Tour: Uni Potsdam in Golm (+ neues Palais)'),
+        ('adlershof', 'Wissenschaftscampus Adlershof'),
         ('stad', 'Klassische Stadtführung mit Reichstagsbesichtigung'),
-        ('hipster', 'Alternative Hipster-Stadtführung mit Streetart'),
+        ('hipster', 'Alternative Stadtführung'),
         ('unterwelten', 'Berliner Unterwelten'),
         ('potsdam', 'Schlösser und Gärten Tour Potsdam'),
         ]
