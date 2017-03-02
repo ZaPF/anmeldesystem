@@ -4,7 +4,9 @@ $(document).ready(function() {
  * The HTML5 date field is so far only supported by Chrome and Opera.
  * Use WebShims to support it.
  */
-webshim.setOptions('basePath', 'sose17/webshim-1.16.0/js-webshim/minified/shims/');
+// Ideally this should be templated using url_for('static', 'sose17/...'),
+// but as a quick fix, just put the static path here.
+webshim.setOptions('basePath', 'static/sose17/webshim-1.16.0/js-webshim/minified/shims/');
 webshim.setOptions('forms-ext', {types: 'date'});
 webshim.polyfill('forms forms-ext');
 
