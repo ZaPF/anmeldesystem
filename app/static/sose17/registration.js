@@ -4,8 +4,9 @@ $(document).ready(function() {
  * The HTML5 date field is so far only supported by Chrome and Opera.
  * Use WebShims to support it.
  */
-webshims.setOptions('forms-ext', {types: 'date'});
-webshims.polyfill('forms forms-ext');
+webshim.setOptions('basePath', 'sose17/webshim-1.16.0/js-webshim/minified/shims/');
+webshim.setOptions('forms-ext', {types: 'date'});
+webshim.polyfill('forms forms-ext');
 
 var fullSelects = [
     ['#exkursion1', $('#exkursion1').clone(), '#formgroup-exkursion1'],
