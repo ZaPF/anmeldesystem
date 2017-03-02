@@ -158,5 +158,6 @@
 
 {% block scripts %}
 {{super()}}
+<script src="{{url_for('static', filename='sose17/polyfiller.js')}}"></script>
 <script src="{{url_for('static', filename='sose17/registration.js')}}"></script>
 {% endblock %}
