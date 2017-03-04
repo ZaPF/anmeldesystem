@@ -1,2 +1,30 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 18
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+    config:
+      python_version: 3
+      threshold: "C"
+  pep8:
+    enabled: true
+  csslint:
+    enabled: true
+
+ratings: # customize
+  paths:
+  - "**.py"
+  - "**.html"
+  - "**.js"
+  - "**.css"
+
 exclude_paths:
 - "app/static/sose17/webshim-1.16.0/"
