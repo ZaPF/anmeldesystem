@@ -12,7 +12,9 @@ from datetime import datetime, time
 class BirthdayValidator(object):
     def __call__(self, form, field):
         if(form.exkursion1.data == "stad" or form.exkursion2.data == "stad" or
-           form.exkursion3.data == "stad" or form.exkursion4.data == "stad"):
+           form.exkursion3.data == "stad" or form.exkursion4.data == "stad" or
+           form.exkursion1.data == "bessy" or form.exkursion2.data == "bessy" or
+           form.exkursion3.data == "bessy" or form.exkursion4.data == "bessy"):
             requiredValidator = validators.InputRequired()
             requiredValidator(form, field)
         else:
