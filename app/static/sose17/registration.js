@@ -44,7 +44,7 @@ var handleBirthday = function() {
     var needBirthday = false;
     $.each(fullSelects, function(index, value) {
         var val = $(value[0]).val();
-        if(val == 'stad') {
+        if(val == 'stad' || val == 'bessy') {
             needBirthday = true;
         }
     });
