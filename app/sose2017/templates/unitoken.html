@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Uni-Token{% endblock %}
+
+{% block styles %}
+  {{super()}}
+  <link rel="stylesheet"
+              href="{{url_for('static', filename='sose17/passwort.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<form method="POST">
+  {{ form.csrf_token }}
+  <div class="input-group input-group-lg{% if form.passwort.errors %} has-error{% endif %}">
+    {{ form.passwort(class="form-control input-lg", placeholder="Uni-Token") }}
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+      </button>
+    </span>
+  </div>
+  <span class="help-block">
+    {% if form.passwort.errors %}
+    <ul>
+    {% for error in form.passwort.errors %}
+      <li>{{ error  }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+  </span>
+</form>
+
+</div>
+{% endblock %}

@@ -1,13 +1,12 @@
 from . import sommer17
-from flask import render_template, session, redirect, url_for, flash, current_app
+from flask import render_template, session, redirect, url_for, flash, current_app, jsonify
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField, validators
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
-from app.oauth_client import oauth_remoteapp, getOAuthToken
+from app.oauth_client import oauth_remoteapp, getOAuthToken, oauth_login_required
 import json
 from datetime import datetime, time
-
 
 class BirthdayValidator(object):
     def __call__(self, form, field):
@@ -39,6 +38,9 @@ class ExkursionenValidator(object):
 
 class RegistrationPasswordForm(FlaskForm):
     passwort = StringField("Zugangspasswort", [validators.Required()])
+
+class UniTokenForm(FlaskForm):
+    passwort = StringField("Token", [validators.Required()])
 
 class Sommer17Registration(FlaskForm):
     @classmethod
@@ -131,6 +133,9 @@ class Sommer17Registration(FlaskForm):
 
     submit = SubmitField()
 
+def common_error_msg():
+    flash("Es ist ein Fehler bei der Abfrage der Daten aufgetreten. Wenn dieser Fehler länger besteht, kontaktiere bitte it@zapf.in-berlin.de", "error")
+
 def handle_zugangspasswort():
     if 'REGISTRATION_PASSWORD' not in current_app.config:
         return None
@@ -157,7 +162,7 @@ def index():
 
     if not getOAuthToken():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
-        return redirect(url_for('oauth_client.login'))
+        return redirect(url_for('oauth_client.login', next = 'index'))
 
     Form = Sommer17Registration
 
@@ -184,7 +189,7 @@ def index():
     # Die Liste der Unis holen
     unis = oauth_remoteapp.get('unis')
     if unis._resp.code != 200:
-        return redirect(url_for('oauth_client.login'))
+        return redirect(url_for('oauth_client.login', next = 'index'))
     form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
 
     # Daten speichern
@@ -199,3 +204,35 @@ def index():
         return redirect('/')
 
     return render_template('index.html', form=form, confirmed=confirmed)
+
+@sommer17.route('/priorities', methods=['GET', 'POST'])
+@oauth_login_required
+def priorities():
+    if 'me' not in session:
+        return redirect('/')
+
+    if not getOAuthToken():
+        flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
+        return redirect(url_for('oauth_client.login', next = 'priorities'))
+
+    if 'uni_token' not in session:
+        token_form = UniTokenForm()
+        if token_form.validate_on_submit():
+            token = token_form.passwort.data
+            req = oauth_remoteapp.get('priorities', headers = {'{}'.format(current_app.config['ZAPFAUTH_TOKEN_HEADER']): '{}'.format(token)})
+            if req._resp.code == 200:
+                session['uni_token'] = token
+                return redirect(url_for('sommer17.priorities'))
+            else:
+                token_form.passwort.data = ""
+                token_form.passwort.errors.append("Token scheint nicht korrekt zu sein! Eurer Uni-Token sollte Dir in der Einladung zugeschickt worden sein.")
+        return render_template('unitoken.html', form=token_form)
+
+    req = oauth_remoteapp.get('priorities', headers = {'{}'.format(current_app.config['ZAPFAUTH_TOKEN_HEADER']): '{}'.format(session['uni_token'])})
+    if req._resp.code != 200:
+        common_error_msg()
+        return redirect('/')
+
+    registrations = req.data
+
+    return jsonify(registrations)
