@@ -41,12 +41,16 @@ def add_url_params(url, params):
 
     return new_url
 
-@oauth_client_blueprint.route('/oauth/login')
-def login():
-    return oauth_remoteapp.authorize(callback=url_for('oauth_client.authorized', _external=True))
+@oauth_client_blueprint.route('/oauth/login/<next>')
+def login(next):
+    if next == "priorities":
+        callback = url_for('oauth_client.authorized', next = "priorities", _external=True)
+    else:
+        callback = url_for('oauth_client.authorized', next = "index", _external=True)
+    return oauth_remoteapp.authorize(callback = callback)
 
-@oauth_client_blueprint.route('/oauth/authorized')
-def authorized():
+@oauth_client_blueprint.route('/oauth/authorized/<next>')
+def authorized(next):
     resp = oauth_remoteapp.authorized_response()
     if resp is None or resp.get('access_token') is None:
         flash('Access denied: reason=%s error=%s resp=%s' % (
@@ -56,7 +60,9 @@ def authorized():
         ), 'error')
         return redirect('/')
     if 'me' not in session:
-        next = redirect(url_for('oauth_client.loadMe'))
+        next = redirect(url_for('oauth_client.loadMe', next = next))
+    elif next == "priorities":
+        next = redirect('/priorities')
     else:
         next = redirect('/')
     return saveOAuthToken(next, resp['access_token'], '')
@@ -69,10 +75,13 @@ def logout():
     return deleteOAuthToken(redirect(add_url_params(current_app.config["ZAPFAUTH_LOGOUT_URL"],
              {"next": url_for('oauth_client.loggedout', _external=True)})))
 
-@oauth_client_blueprint.route('/oauth/loadme')
-def loadMe():
+@oauth_client_blueprint.route('/oauth/loadme/<next>')
+def loadMe(next):
     session['me'] = oauth_remoteapp.get('me').data
-    return redirect('/')
+    if next == "priorities":
+        return redirect('/priorities')
+    else:
+        return redirect('/')
 
 @oauth_client_blueprint.route('/oauth/loggedout')
 def loggedout():
