@@ -24,9 +24,11 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
+      {% block navbar_right %}
       {% if current_user.is_authenticated %}
         <li><a href="{{url_for('oauth_client.logout')}}">logout {{current_user.full_name}}</a></li>
       {% endif %}
+      {% endblock %}
       </ul>
     </div>
   </div>
