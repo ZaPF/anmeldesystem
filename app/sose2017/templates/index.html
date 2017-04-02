@@ -11,7 +11,7 @@
               {% if field.errors %}
               <ul>
               {% for error in field.errors %}
-                <li>{{ error | safe }}</li>
+                <li>{{ error }}</li>
               {% endfor %}
               </ul>
               {% endif %}
@@ -51,7 +51,7 @@
 <div class="container">
   {% if current_user.is_authenticated %}
     <div class="jumbotron">
-      <h1>Hallo {{current_user.firstName | safe}}!</h1>
+      <h1>Hallo {{current_user.firstName}}!</h1>
       {% if confirmed == None %}
         <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
         Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen

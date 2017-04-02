@@ -25,7 +25,7 @@
     {% if form.passwort.errors %}
     <ul>
     {% for error in form.passwort.errors %}
-      <li>{{ error | safe }}</li>
+      <li>{{ error }}</li>
     {% endfor %}
     </ul>
     {% endif %}
