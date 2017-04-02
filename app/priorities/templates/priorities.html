@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Prioritätenliste{% endblock %}
+
+{% block styles %}
+  {{super()}}
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+  <script type="text/javascript">
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+  </script>
+{% endblock %}
+
+{% block navbar_right %}
+{% if 'zapf_token' in session %}
+  <li><a href="{{url_for('priorities.logout')}}">logout {{ uni }}</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Hallo {{ uni }}</h1>
+    <p>Schön, dass Ihr uns zu unserer ZaPF besuchen wollt.</p>
+    <p>Natürlich ist auch unser Platz nicht unbegrenzt, jede Fachschaft kann aber mit mindestens 3 ZaPFika anreisen. Je nach Andrang werden wir nach Schließung der Anmeldung wie gewohnt Fachschaften mit mehr Anmeldungen auffüllen.</p>
+    <p>Zudem sichern wir auch wieder Mitgliedern von Gremien der ZaPF (StAPF, TOPF, KommGrem, ZaPF e.V. Vorstand und Kassenprüfer) einen festen Platz zu, die nicht zum Kontingent der Fachschaft zählen.</p>
+  </div>
+
+  <h2>Eure Prioritätenliste:</h2>
+  <div class="list-group">
+    {% for registration in confirmed if registration.priority == -1 %}
+    <div class="list-group-item list-group-item-info">
+      <h4 class="list-group-heading">{{ registration.name }}</h4>
+      <span class="badge">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Gremienplatz
+      </span>
+      <td>{{ registration.mail }}</td>
+    </div>
+    {% endfor %}
+    {% for registration in confirmed | sort(attribute='priority') if registration.priority != -1 %}
+    <div class="list-group-item{% if loop.index <= 3 %} list-group-item-success{% endif %} clearfix">
+      <div class="btn-group pull-right">
+        <a href="{{ url_for('priorities.unconfirm', id=registration.reg_id) }}"
+           class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Bestätigung zurückziehen">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </a>
+        <a href="{% if loop.first %}#{% else %}{{ url_for('priorities.increase', id=registration.reg_id) }}{% endif %}"
+           class="btn btn-default{% if loop.first %} disabled{% endif %}"
+           data-toggle="tooltip" data-placement="right" title="Höhere Priorität">
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        </a>
+        <a href="{% if loop.last %}#{% else %}{{ url_for('priorities.decrease', id=registration.reg_id) }}{% endif %}"
+           class="btn btn-default{% if loop.last %} disabled{% endif %}"
+           data-toggle="tooltip" data-placement="right" title="Niedrigere Priorität">
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        </a>
+      </div>
+      <h4 class="list-group-heading">{{ registration.name }}</h4>
+      <!-- {{ registration.priority }} -->
+      <span class="badge">
+        {% if loop.index <= 3 %}
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        {% else %}
+          ?
+        {% endif %}
+      </span>
+      <span>{{ registration.mail }}</span>
+    </div>
+    {% else %}
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-heading">Eure Prioritätenliste ist noch leer :(</h4>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h2>Noch nicht in Eurer Prioritätenliste:</h2>
+  <div class="list-group">
+    {% for registration in unconfirmed if registration.priority == None %}
+    <div class="list-group-item list-group-item-warning">
+      <div class="pull-right">
+        <a href="{{ url_for('priorities.confirm', id=registration.reg_id) }}" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Bestätigen"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+      </div>
+      <h4 class="list-group-heading">{{ registration.name }}</h4>
+      <span>{{ registration.mail }}</span>
+    </div>
+    {% else %}
+      {% if confirmed == [] %}
+      <div class="list-group-item list-group-item-danger">
+        <h4 class="list-group-heading">Leider hat sich noch niemand für {{ uni }} angemeldet.</h4>
+      </div>
+      {% else %}
+      <div class="list-group-item list-group-item-success">
+        <h4 class="list-group-heading">Ihr habt alle Eure Anmeldungen bestätigt und ihnen eine Priorität zugewiesen. Herzlichen Glückwunsch!</h4>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
