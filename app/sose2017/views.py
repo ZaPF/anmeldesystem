@@ -108,6 +108,7 @@ class Sommer17Registration(FlaskForm):
         ('hipster', 'Alternative Stadtführung'),
         ('unterwelten', 'Berliner Unterwelten'),
         ('potsdam', 'Schlösser und Gärten Tour Potsdam'),
+        ('workshop', 'Workshop "Aufstehen gegen Rassismus"'),
         ]
 
     # Reverse order so the next field can use the variable
