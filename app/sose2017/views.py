@@ -6,8 +6,11 @@ from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
-from datetime import datetime, time
+from datetime import datetime, time, timezone
+import pytz
 
+REGISTRATION_SOFT_CLOSE = datetime(2017, 4, 24, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2017, 4, 27, 21, 42, 23, tzinfo=pytz.utc)
 
 class BirthdayValidator(object):
     def __call__(self, form, field):
@@ -150,8 +153,14 @@ def handle_zugangspasswort():
 
 @sommer17.route('/', methods=['GET', 'POST'])
 def index():
+    registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
+    priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
+
+    if not priorities_open:
+        return render_template('registration_closed.html')
+
     if 'me' not in session:
-        return render_template('landing.html')
+        return render_template('landing.html', registration_open = registration_open, priorities_open = priorities_open)
 
     form = handle_zugangspasswort()
     if form:
@@ -171,6 +180,9 @@ def index():
         if 'geburtsdatum' in defaults and defaults['geburtsdatum']:
             defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
+    else:
+        if not registration_open:
+            return render_template('registration_closed.html')
 
     # Zwischen 6:00 und 7:00
     now = datetime.now().time()
