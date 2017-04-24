@@ -75,6 +75,7 @@ def priorities_index():
     unconfirmed = [registration for registration in registrations['registrations'] if registration['priority'] is None]
     return render_template("priorities.html",
             uni=registrations['uni'],
+            slots=registrations['slots'],
             confirmed=confirmed,
             unconfirmed=unconfirmed)
 

@@ -44,7 +44,7 @@
     </div>
     {% endfor %}
     {% for registration in confirmed | sort(attribute='priority') if registration.priority != -1 %}
-    <div class="list-group-item{% if loop.index <= 3 %} list-group-item-success{% endif %} clearfix">
+    <div class="list-group-item{% if loop.index <= slots %} list-group-item-success{% endif %} clearfix">
       <div class="btn-group pull-right">
         <a href="{{ url_for('priorities.unconfirm', id=registration.reg_id) }}"
            class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Bestätigung zurückziehen">
@@ -64,7 +64,7 @@
       <h4 class="list-group-heading">{{ registration.name }}</h4>
       <!-- {{ registration.priority }} -->
       <span class="badge">
-        {% if loop.index <= 3 %}
+        {% if loop.index <= slots %}
           <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
         {% else %}
           ?
