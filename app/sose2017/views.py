@@ -11,6 +11,7 @@ import pytz
 
 REGISTRATION_SOFT_CLOSE = datetime(2017, 4, 24, 21, 59, 59, tzinfo=pytz.utc)
 REGISTRATION_HARD_CLOSE = datetime(2017, 4, 27, 21, 42, 23, tzinfo=pytz.utc)
+ADMIN_USER = ['fabs', 'jan', 'Vale', 'Mascha']
 
 class BirthdayValidator(object):
     def __call__(self, form, field):
@@ -155,8 +156,9 @@ def handle_zugangspasswort():
 def index():
     registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
     priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
+    is_admin = 'me' in session and session['me']['username'] in ADMIN_USER
 
-    if not priorities_open:
+    if not is_admin and not priorities_open:
         return render_template('registration_closed.html')
 
     if 'me' not in session:
@@ -181,7 +183,7 @@ def index():
             defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
     else:
-        if not registration_open:
+        if not is_admin and not registration_open:
             return render_template('registration_closed.html')
 
     # Zwischen 6:00 und 7:00
@@ -211,5 +213,54 @@ def index():
         else:
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
         return redirect('/')
+
+    return render_template('index.html', form=form, confirmed=confirmed)
+
+@sommer17.route('/admin/sose17/<string:username>', methods=['GET', 'POST'])
+def adminEdit(username):
+    if 'me' not in session:
+        return redirect('/')
+
+    is_admin = 'me' in session and session['me']['username'] in ADMIN_USER
+    if not is_admin:
+        abort(403)
+
+    if not getOAuthToken():
+        flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
+        return redirect(url_for('oauth_client.login'))
+
+    Form = Sommer17Registration
+
+    defaults = {}
+    confirmed = None
+    req = oauth_remoteapp.get('registration', data={'username': username})
+    if req._resp.code == 200:
+        defaults = json.loads(req.data['data'])
+        if 'geburtsdatum' in defaults and defaults['geburtsdatum']:
+            defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
+        confirmed = req.data['confirmed']
+    elif req._resp.code == 409:
+        flash('Username is unknown')
+        return redirect('/')
+
+    # Formular erstellen
+    form = Form(**defaults)
+
+    # Die Liste der Unis holen
+    unis = oauth_remoteapp.get('unis')
+    if unis._resp.code != 200:
+        return redirect(url_for('oauth_client.login'))
+    form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
+
+    # Daten speichern
+    if form.submit.data and form.validate_on_submit():
+        req = oauth_remoteapp.post('registration', format='json', data=dict(username = username,
+            uni_id = form.uni.data, data={k:v for k,v in form.data.items() if k not in ['csrf_token', 'submit']}
+            ))
+        if req._resp.code == 200 and req.data.decode('utf-8') == "OK":
+            flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
+        else:
+            flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
+        return redirect(url_for('sommer17.adminEdit', username=username))
 
     return render_template('index.html', form=form, confirmed=confirmed)
