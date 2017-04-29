@@ -4,6 +4,8 @@ import requests
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators
 from functools import wraps
+from datetime import datetime
+import pytz
 
 class TokenForm(FlaskForm):
     password = StringField("Token", [validators.Required()])
@@ -66,8 +68,17 @@ def token_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def check_if_closed(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        REGISTRATION_HARD_CLOSE = datetime(2017, 4, 27, 21, 42, 23, tzinfo=pytz.utc)
+        if datetime.now(pytz.utc) > REGISTRATION_HARD_CLOSE:
+            return render_template("priorities_closed.html")
+        return f(*args, **kwargs)
+    return decorated_function
 
 @priorities.route('/', methods=['GET', 'POST'])
+@check_if_closed
 @token_required
 def priorities_index():
     registrations = get_registrations(session['zapf_token'])
@@ -108,6 +119,7 @@ def priority_modifier(f):
 
 
 @priorities.route('/confirm/<int:id>')
+@check_if_closed
 @token_required
 @priority_modifier
 def confirm(id, priorities={}):
@@ -121,6 +133,7 @@ def confirm(id, priorities={}):
 
 
 @priorities.route('/unconfirm/<int:id>')
+@check_if_closed
 @token_required
 @priority_modifier
 def unconfirm(id, priorities={}):
@@ -133,6 +146,7 @@ def unconfirm(id, priorities={}):
 
 
 @priorities.route('/increase/<int:id>')
+@check_if_closed
 @token_required
 @priority_modifier
 def increase(id, priorities={}):
@@ -150,6 +164,7 @@ def increase(id, priorities={}):
     return priorities
 
 @priorities.route('/decrease/<int:id>')
+@check_if_closed
 @token_required
 @priority_modifier
 def decrease(id, priorities={}):
