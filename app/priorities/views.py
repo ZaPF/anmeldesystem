@@ -7,6 +7,9 @@ from functools import wraps
 from datetime import datetime
 import pytz
 
+class TokenException(Exception):
+    pass
+
 class TokenForm(FlaskForm):
     password = StringField("Token", [validators.Required()])
 
@@ -36,12 +39,7 @@ def post_registrations(token, priorities):
     elif r.status_code != 200:
         raise Exception()
 
-    print(r.text)
-
 def get_token():
-    class TokenException(Exception):
-        pass
-
     form = TokenForm();
     if form.validate_on_submit():
         token = form.password.data.upper() # FIXME: escape
