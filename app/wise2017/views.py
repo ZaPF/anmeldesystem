@@ -76,7 +76,21 @@ class Winter17Registration(FlaskForm):
         ('vegan', 'Vegan'),
         ('omnivor', 'Omnivor'),
         ])
-    muetze = BooleanField('Ich möchte gerne eine Mütze haben')
+    mittag1 = SelectionField('Mittagessen Sonntag', choices=[
+        ('normal','Schnitzel mit Rahmsosse'),
+        ('vegan','Gemueseschnitzel mit Kraeutersosse'),
+        ])
+    mittag2 = SelectionField('Mittagessen Montag', choices=[
+        ('normal','Haehnchen mit Nudeln'),
+        ('vegan','Sojaschnitzel mit Nudeln'),
+        ])
+
+    mittag3 = SelectionField('Mittagessen Dienstag', choices=[
+        ('normal','Currywurst'),
+        ('vegan','veg. Currywurst'),
+        ])
+
+
     allergien = StringField('Allergien')
     heissgetraenk = SelectField('Kaffee oder Tee?', choices=[
         ('egal', 'Egal'),
@@ -85,7 +99,10 @@ class Winter17Registration(FlaskForm):
         ])
     getraenk = StringField('Getränkewunsch')
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
+    muetze = BooleanField('Ich möchte gerne eine Mütze haben')
+    #Erklaertext: Kosten unter 7 EUR. Verbindliche Kaufzusage.
     hoodie = SelectField('Hoodie', choices = T_SHIRT_CHOICES)
+    #Erklaertext: Kosten ca. 20 EUR. Verbindliche Kaunzusage.
     anreise = SelectField('Anreise vorraussichtlich mit:', choices=[
         ('bus', 'Fernbus'),
         ('bahn', 'Zug'),
@@ -95,7 +112,8 @@ class Winter17Registration(FlaskForm):
         ('einhorn', 'Einhorn'),
         ('uboot', 'U-Boot'),
         ])
-    workshop = BooleanField('Ich möchte am Mittwoch einen Workshop anbieten oder besuchen')
+    gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich ueber das Gremienkontingent anmelden.')
+    workshop = BooleanField('Ich plane, bereits mittwochs vormittags abzureisen')
     exkursionen = [
         ('egal', 'ist mir egal'),
         ('keine', 'keine exkursion'),
@@ -106,7 +124,7 @@ class Winter17Registration(FlaskForm):
         ('lennestadt', 'Sauerland-Pyramiden'),
         ('vbsi', 'Versorgungsbetriebe Siegen'),
         ('fokos', 'FoKoS'),
-        ('staudamm', 'Staudamm'),
+#        ('staudamm', 'Staudamm'),
         ('bwf', 'Bergwerksfuehrung'),
         ('stf', 'Stadtführung'),
         ('wandern', 'Wandern'),
