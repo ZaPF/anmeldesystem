@@ -76,16 +76,16 @@ class Winter17Registration(FlaskForm):
         ('vegan', 'Vegan'),
         ('omnivor', 'Omnivor'),
         ])
-    mittag1 = SelectionField('Mittagessen Sonntag', choices=[
+    mittag1 = SelectField('Mittagessen Sonntag', choices=[
         ('normal','Schnitzel mit Rahmsoße'),
         ('vegan','Gemüseschnitzel mit Kräutersoße'),
         ])
-    mittag2 = SelectionField('Mittagessen Montag', choices=[
+    mittag2 = SelectField('Mittagessen Montag', choices=[
         ('normal','Hähnchen mit Nudeln'),
         ('vegan','Sojaschnitzel mit Nudeln'),
         ])
 
-    mittag3 = SelectionField('Mittagessen Dienstag', choices=[
+    mittag3 = SelectField('Mittagessen Dienstag', choices=[
         ('normal','Currywurst'),
         ('vegan','veg. Currywurst'),
         ])
@@ -112,7 +112,7 @@ class Winter17Registration(FlaskForm):
         ('einhorn', 'Einhorn'),
         ('uboot', 'U-Boot'),
         ])
-    gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
+#    gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
     workshop = BooleanField('Ich plane, bereits mittwochs vormittags abzureisen')
     exkursionen = [
         ('egal', 'ist mir egal'),

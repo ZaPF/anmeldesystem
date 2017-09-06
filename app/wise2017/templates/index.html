@@ -107,6 +107,9 @@
         </div>
         <div class="panel-body">
           {{ form_group(form.essen) }}
+          {{ form_group(form.mittag1) }}
+          {{ form_group(form.mittag2) }}
+          {{ form_group(form.mittag3) }}
           {{ form_group(form.allergien) }}
           {{ form_group(form.heissgetraenk) }}
           {{ datalist("getraenke", [
@@ -156,8 +159,8 @@
           {{ form_group(form.anreise) }}
           {{ form_group(form.schlafen) }}
           {{ form_group(form.tshirt) }}
-          {{ form_group(form.hoodie) }}
-          {{ checkbox(form.muetze, 'Mütze') }}
+          {{ form_group(form.hoodie, 'Kosten ca. 20 EUR. Verbindliche Kaufzusage.') }}
+          {{ checkbox(form.muetze, 'Mütze', 'Kosten unter 7 EUR. Verbindliche Kaufzusage.') }}
           {{ checkbox(form.addx, 'Sonstiges') }}
           {{ form_group(form.kommentar) }}
         </div>
