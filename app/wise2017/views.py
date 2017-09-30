@@ -9,7 +9,7 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2017, 9, 30, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_SOFT_CLOSE = datetime(2017, 10, 3, 21, 59, 59, tzinfo=pytz.utc)
 REGISTRATION_HARD_CLOSE = datetime(2017, 10, 3, 21, 59, 59, tzinfo=pytz.utc)
 ADMIN_USER = ['pjaeger', 'Helena', 'Benedikt', 'EnteEnte', 'Lina', 'benni']
 
