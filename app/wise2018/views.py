@@ -15,24 +15,17 @@ ADMIN_USER = ['Loctus','Tobi', 'Andy', 'Wolle']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
-        ('fitted_5xl', '5XL fitted'),
-        ('fitted_4xl', '4XL fitted'),
-        ('fitted_3xl', '3XL fitted'),
-        ('fitted_xxl', 'XXL fitted'),
         ('fitted_xl', 'XL fitted'),
         ('fitted_l', 'L fitted'),
         ('fitted_m', 'M fitted'),
         ('fitted_s', 'S fitted'),
         ('fitted_xs', 'XS fitted'),
-        ('5xl', '5XL'),
-        ('4xl', '4XL'),
         ('3xl', '3XL'),
         ('xxl', 'XXL'),
         ('xl', 'XL'),
         ('l', 'L'),
         ('m', 'M'),
         ('s', 'S'),
-        ('xs', 'XS'),
         ]
 
 class ExkursionenValidator(object):
@@ -80,12 +73,19 @@ class Winter18Registration(FlaskForm):
 
 
     exkursionen = [
+        ('schwab', 'Weingut Schwab mit Wienprobe und Brotzeit (10€ Selbstbeteiligung)'),
+        ('vaqtec', 'va-Q-tec'),
+        ('zae', 'Zentrum für angewandte Energieforschung Bayern & Fraunhofer EZRT'),
+        ('noell', 'Bilfinger Noell'),
+        ('isc', 'Fraunhofer ISC'),
+        ('mind','M!ND-Center'),
+        ('stfr', 'Stadtführung mit Residenz'),
+        ('stff', 'Stadtführung mit Festung Marienberg'),
+        ('mft', 'Mainfranken-Theater'),
+        ('xray', 'Röntgen-Gedächtnisstätte'),
         ('egal', 'ist mir egal'),
         ('keine', 'keine exkursion'),
-        ('stf', 'Stadtführung'),
-        ('test1', 'Ziellos in der Gegend rumstarren'),
-        ('test2', 'Dumme Exkursionen erfinden'),
-        ]
+       ]
     exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
     exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
     exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
