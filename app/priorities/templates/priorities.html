@@ -101,5 +101,39 @@
       {% endif %}
     {% endfor %}
   </div>
+
+  <h2>Eure Maskottchen:</h2>
+  <div class="list-group">
+    {% if mascots == [] %}
+    <div class="list-group-item list-group-item-danger">
+        <h4 class="list-group-heading">Ihr habt noch kein Maskottchen festgelegt.</h4>
+      </div>
+    {% else %}
+    <table class='table'>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    <tbody id="users">
+      {% for mascot in mascots %}
+      <tr>
+        <td>{{ mascot.name }}</td>
+        <td>
+          <div class="btn-group" role="group">
+            <a class="btn-danger btn" href="{{url_for('priorities.del_mascot', id=mascot.id)}}">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;Delete
+            </a>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table> 
+    {% endif%}
+  <a class="btn btn-default" href="{{url_for('priorities.add_mascot')}}">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neues Maskottchen
+  </a>
+  </div>
+
 </div>
 {% endblock %}
