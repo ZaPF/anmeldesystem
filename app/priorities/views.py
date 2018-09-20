@@ -2,7 +2,7 @@ from . import priorities
 from flask import render_template, session, redirect, url_for, flash, current_app
 import requests
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators
+from wtforms import StringField, SubmitField, validators
 from functools import wraps
 from datetime import datetime
 import pytz
@@ -12,6 +12,10 @@ class TokenException(Exception):
 
 class TokenForm(FlaskForm):
     password = StringField("Token", [validators.Required()])
+
+class MascotForm(FlaskForm):
+    name = StringField('Name des Maskottchens')
+    submit = SubmitField()
 
 def get_registrations(token):
     s = requests.Session()
@@ -32,6 +36,30 @@ def post_registrations(token, priorities):
     s.headers.update({'Authorization': 'ZaPF-Token %s' % token})
 
     r = s.post(current_app.config['ZAPFAUTH_BASE_URL'] + 'priorities', json={'confirmed': priorities})
+
+    if r.status_code == 401:
+        raise TokenException()
+    elif r.status_code != 200:
+        raise Exception()
+
+def get_mascots(token):
+    s = requests.Session()
+    s.headers.update({'Authorization': 'ZaPF-Token %s' % token})
+
+    r = s.get(current_app.config['ZAPFAUTH_BASE_URL'] + 'mascots')
+
+    if r.status_code == 401:
+        raise TokenException()
+    elif r.status_code != 200:
+        raise Exception()
+
+    return r.json()
+
+def post_mascot(token, name):
+    s = requests.Session()
+    s.headers.update({'Authorization': 'ZaPF-Token %s' % token})
+
+    r = s.post(current_app.config['ZAPFAUTH_BASE_URL'] + 'mascots', json={'name': name})
 
     if r.status_code == 401:
         raise TokenException()
@@ -68,7 +96,7 @@ def token_required(f):
 def check_if_closed(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        REGISTRATION_HARD_CLOSE = datetime(2017, 10, 3, 23, 59, 59, tzinfo=pytz.utc)
+        REGISTRATION_HARD_CLOSE = datetime(2018, 10, 3, 23, 59, 59, tzinfo=pytz.utc)
         if datetime.now(pytz.utc) > REGISTRATION_HARD_CLOSE:
             return render_template("priorities_closed.html")
         return f(*args, **kwargs)
@@ -81,11 +109,41 @@ def priorities_index():
     registrations = get_registrations(session['zapf_token'])
     confirmed = [registration for registration in registrations['registrations'] if registration['priority'] is not None]
     unconfirmed = [registration for registration in registrations['registrations'] if registration['priority'] is None]
+    mascots = get_mascots(session['zapf_token'])
     return render_template("priorities.html",
             uni=registrations['uni'],
             slots=registrations['slots'],
             confirmed=confirmed,
-            unconfirmed=unconfirmed)
+            unconfirmed=unconfirmed,
+            mascots=mascots['mascots'])
+
+@priorities.route('/mascot/new', methods=['GET', 'POST'])
+@check_if_closed
+@token_required
+def add_mascot():
+    form = MascotForm()
+
+    if form.validate_on_submit():
+        post_mascot(session['zapf_token'],form.name.data)
+        return redirect(url_for('priorities.index'))
+    return render_template('newmascot.html', form = form)
+
+
+@priorities.route('/mascot/delete/<int:id>', methods=['GET', 'POST'])
+@check_if_closed
+@token_required
+def del_mascot(id):
+    s = requests.Session()
+    s.headers.update({'Authorization': 'ZaPF-Token %s' % session['zapf_token']})
+
+    r = s.post(current_app.config['ZAPFAUTH_BASE_URL'] + 'mascots/delete', json={'id': id})
+
+    if r.status_code == 401:
+        raise TokenException()
+    elif r.status_code != 200:
+        raise Exception()
+
+    return redirect(url_for('priorities.index'))
 
 def _generate_post_payload(priorities_dict):
     """
