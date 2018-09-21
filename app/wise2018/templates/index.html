@@ -120,14 +120,14 @@
         <div class="panel-body">
           <p>Hier könnt Ihr Eure Wunschexkursionen angeben.
           Informationen zu den Exkursionen könnt Ihr
-          <a href="https://wuerzburg18.de" target="_blank">hier</a>
+          <a href="https://wuerzburg18.de/fixme" target="_blank">hier</a>
           nachlesen.</p>
           {{ form_group(form.exkursion1, id="exkursion1") }}
           {{ form_group(form.exkursion2, id="exkursion2") }}
           {{ form_group(form.exkursion3, id="exkursion3") }}
           {{ form_group(form.exkursion4, id="exkursion4") }}
           {{ form_group(form.musikwunsch) }}
-          {{ form_group(form.alternativprogramm) }}
+          {{ checkbox(form.alternativprogramm) }}
         </div>
       </div>
 
@@ -136,12 +136,15 @@
           <h2 class="panel-title">Sonstiges</h3>
         </div>
         <div class="panel-body">
-          {{ form_group(form.anreise) }}
+          {{ form_group(form.anreise, id="anreise") }}
+          {{ form_group(form.anreisejahr, "Von wann kommt ihr denn?", "anreisejahr") }}
           {{ form_group(form.abreise) }}
-          {{ form_group(form.schlafen, 'Nähere Infos müssen da noch rein') }}
+          {{ form_group(form.schlafen, 'Wir werden zwei Untekünfte haben: Unterkunft A, groß, mit Duschen direkt im Haus, dafür weiterer Weg zur Uni. Unterkunft B für ca. 50 Personen nah an der Uni, dafür evtl. weiterer Weg zu den Duschen. Wir wollen euch die Möglichkeit geben eure Präferenz anzugeben, behalten uns aber vor im Zweifel umzuverteilen.') }}
           {{ form_group(form.tshirt) }}
-          {{ form_group(form.hoodie, 'Kosten ca. 20 EUR. Verbindliche Kaufzusage.') }}
-          {{ checkbox(form.handtuch, 'Handtuch', 'Kosten unter 7 EUR. Verbindliche Kaufzusage.') }}
+          {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben, Preis 12€/Stück. Verbindliche Kaufzusage.') }}
+          {{ form_group(form.hoodie, 'Motiv wie Teilnehmershirt, maximal 30€/Stück, wird rechtzeitig vor ZaPF genau bekannt gegeben. Verbindliche Kaufzusage.') }}
+          {{ checkbox(form.handtuch, 'Handtuch', 'Strandtuch 150x70cm, genaues Motiv wird eine Überraschung, maximal 23€/Stück, wird rechtzeitig vor ZaPF genau bekannt gegeben. Bei unter 25 Bestellungen insgesamt nicht möglich. Verbindliche Kaufzusage.') }}
+          {{ checkbox(form.roemer, 'Weinrömer', 'Fränkischer Weinrömer (Weinglas) mit ZaPF-Motiv, maximal 12€/Stück, wird schnell billiger bei mehr Bestellungen. Genauer Preis wird rechtzeitig vor ZaPF bekannt gegeben. Bei unter 25 Bestellungen insgesamt nicht möglich. Verbindliche Kaufzusage.') }}
           {{ checkbox(form.minderjaehrig, 'Einziger Alterscheck - Wir wollen nur auf Nummer sicher gehen.') }}
           {{ form_group(form.kommentar) }}
         </div>
@@ -155,5 +158,5 @@
 
 {% block scripts %}
 {{super()}}
-<script src="{{url_for('static', filename='wise17/registration.js')}}"></script>
+<script src="{{url_for('static', filename='wise18/registration.js')}}"></script>
 {% endblock %}
