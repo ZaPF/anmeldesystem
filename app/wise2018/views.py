@@ -1,7 +1,7 @@
 from . import winter18
 from flask import render_template, session, redirect, url_for, flash, current_app
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField, BooleanField, validators
+from wtforms import StringField, SelectField, SubmitField, BooleanField, validators, IntegerField
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 from app.oauth_client import oauth_remoteapp, getOAuthToken
@@ -26,6 +26,17 @@ T_SHIRT_CHOICES = [
         ('l', 'L'),
         ('m', 'M'),
         ('s', 'S'),
+        ]
+
+HOODIE_CHOICES = [
+        ('keins', 'Nein, ich möchte keins'),
+        ('3xl', '3XL'),
+        ('xxl', 'XXL'),
+        ('xl', 'XL'),
+        ('l', 'L'),
+        ('m', 'M'),
+        ('s', 'S'),
+        ('xs', 'XS'),
         ]
 
 class ExkursionenValidator(object):
@@ -73,7 +84,8 @@ class Winter18Registration(FlaskForm):
 
 
     exkursionen = [
-        ('schwab', 'Weingut Schwab mit Wienprobe und Brotzeit (10€ Selbstbeteiligung)'),
+        ('egal', 'Ist mir egal'),
+        ('schwab', 'Weingut Schwab mit Weinprobe und Brotzeit (10€ Selbstbeteiligung)'),
         ('vaqtec', 'va-Q-tec'),
         ('zae', 'Zentrum für angewandte Energieforschung Bayern & Fraunhofer EZRT'),
         ('noell', 'Bilfinger Noell'),
@@ -83,8 +95,7 @@ class Winter18Registration(FlaskForm):
         ('stff', 'Stadtführung mit Festung Marienberg'),
         ('mft', 'Mainfranken-Theater'),
         ('xray', 'Röntgen-Gedächtnisstätte'),
-        ('egal', 'ist mir egal'),
-        ('keine', 'keine exkursion'),
+        ('keine', 'Keine Exkursion'),
        ]
     exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
     exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
@@ -99,16 +110,21 @@ class Winter18Registration(FlaskForm):
         ('bahn', 'Zug'),
         ('auto', 'Auto'),
         ('flug', 'Flugzeug'),
+        ('boot', 'Boot'),
         ('fahrrad', 'Fahrrad'),
         ('zeitmaschine', 'Zeitmaschine'),
         ('badeente', 'Badeente'),
         ])
+    anreisejahr =  IntegerField('Anreise aus dem Jahr:')
     abreise = SelectField('Abreise vorraussichtlich:', choices=[
-        ('fr', 'Freitag'),
-        ('sa', 'Samstag'),
-        ('somo', 'Sonntag morgen'),
-        ('somi', 'Sonntag mittag'),
-        ('soab', 'Sonntag abend'),
+        ('ende', 'Nach dem Plenum'),
+        ('so810', 'Sonntag 8-10'),
+        ('so1012', 'Sonntag 10-12'),
+        ('so1214', 'Sonntag 12-14'),
+        ('so1416', 'Sonntag 14-16'),
+        ('so1618', 'Sonntag 16-18'),
+        ('so1820', 'Sonntag 18-20'),
+        ('vorso', 'Vor Sonntag'),
         ])
     schlafen = SelectField('Unterkunft', choices=[
         ('MZH','Unterkunft A'),
@@ -116,11 +132,11 @@ class Winter18Registration(FlaskForm):
         ('egal','Egal'),
         ])
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
-    hoodie = SelectField('Hoodie', choices = T_SHIRT_CHOICES)
-    #Erklaertext: Kosten ca. 20 EUR. Verbindliche Kaunzusage.
-    handtuch = BooleanField('Ich möchte gerne ein Handtuch haben')
-    #Erklaertext: Kosten unter 7 EUR. Verbindliche Kaufzusage.
-    minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF jünger als 18 Jahre.')
+    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts')
+    hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
+    handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
+    roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
+    minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
 
 
