@@ -11,7 +11,7 @@ import pytz
 
 REGISTRATION_SOFT_CLOSE = datetime(2018, 10, 19, 23, 59, 59, tzinfo=pytz.utc)
 REGISTRATION_HARD_CLOSE = datetime(2018, 10, 24, 23, 59, 59, tzinfo=pytz.utc)
-ADMIN_USER = ['Loctus','Tobi', 'Andy', 'Wolle']
+ADMIN_USER = ['Loctus','wb', 'andreas_wuerzburg']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
