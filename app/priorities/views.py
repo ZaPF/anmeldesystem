@@ -19,6 +19,7 @@ class MascotForm(FlaskForm):
 
 def get_registrations(token):
     s = requests.Session()
+
     s.headers.update({'Authorization': 'ZaPF-Token %s' % token})
 
     r = s.get(current_app.config['ZAPFAUTH_BASE_URL'] + 'priorities')
@@ -69,7 +70,7 @@ def post_mascot(token, name):
 def get_token():
     form = TokenForm();
     if form.validate_on_submit():
-        token = form.password.data.upper() # FIXME: escape
+        token = form.password.data # FIXME: escape
 
         try:
             _ = get_registrations(token)
