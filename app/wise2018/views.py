@@ -115,7 +115,7 @@ class Winter18Registration(FlaskForm):
         ('zeitmaschine', 'Zeitmaschine'),
         ('badeente', 'Badeente'),
         ])
-    anreisejahr =  IntegerField('Anreise aus dem Jahr:')
+    anreisejahr =  IntegerField('Anreise aus dem Jahr:', [validators.optional()])
     abreise = SelectField('Abreise vorraussichtlich:', choices=[
         ('ende', 'Nach dem Plenum'),
         ('so810', 'Sonntag 8-10'),
@@ -132,7 +132,7 @@ class Winter18Registration(FlaskForm):
         ('egal','Egal'),
         ])
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
-    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts')
+    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()])
     hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
     handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
     roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
