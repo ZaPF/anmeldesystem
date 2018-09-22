@@ -127,7 +127,7 @@
           {{ form_group(form.exkursion3, id="exkursion3") }}
           {{ form_group(form.exkursion4, id="exkursion4") }}
           {{ form_group(form.musikwunsch) }}
-          {{ checkbox(form.alternativprogramm) }}
+          {{ checkbox(form.alternativprogramm, 'Alternativprogramm') }}
         </div>
       </div>
 
@@ -137,10 +137,10 @@
         </div>
         <div class="panel-body">
           {{ form_group(form.anreise, id="anreise") }}
-          {{ form_group(form.anreisejahr, "Von wann kommt ihr denn?", "anreisejahr") }}
+          {{ form_group(form.anreisejahr, "Aus welchem Jahr kommt ihr?", "anreisejahr") }}
           {{ form_group(form.abreise) }}
-          {{ form_group(form.schlafen, 'Wir werden zwei Untekünfte haben: Unterkunft A, groß, mit Duschen direkt im Haus, dafür weiterer Weg zur Uni. Unterkunft B für ca. 50 Personen nah an der Uni, dafür evtl. weiterer Weg zu den Duschen. Wir wollen euch die Möglichkeit geben eure Präferenz anzugeben, behalten uns aber vor im Zweifel umzuverteilen.') }}
-          {{ form_group(form.tshirt) }}
+          {{ form_group(form.schlafen, 'Wir werden zwei Unterkünfte haben: Unterkunft A, groß, mit Duschen direkt im Haus, dafür weiterer Weg zur Uni. Unterkunft B für ca. 50 Personen nah an der Uni, dafür evtl. weiterer Weg zu den Duschen. Wir wollen euch die Möglichkeit geben eure Präferenz anzugeben, behalten uns aber vor im Zweifel umzuverteilen.') }}
+          {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
           {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben, Preis 12€/Stück. Verbindliche Kaufzusage.') }}
           {{ form_group(form.hoodie, 'Motiv wie Teilnehmershirt, maximal 30€/Stück, wird rechtzeitig vor ZaPF genau bekannt gegeben. Verbindliche Kaufzusage.') }}
           {{ checkbox(form.handtuch, 'Handtuch', 'Strandtuch 150x70cm, genaues Motiv wird eine Überraschung, maximal 23€/Stück, wird rechtzeitig vor ZaPF genau bekannt gegeben. Bei unter 25 Bestellungen insgesamt nicht möglich. Verbindliche Kaufzusage.') }}
