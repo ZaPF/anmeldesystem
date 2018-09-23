@@ -14,7 +14,7 @@ class TokenForm(FlaskForm):
     password = StringField("Token", [validators.Required()])
 
 class MascotForm(FlaskForm):
-    name = StringField('Name des Maskottchens')
+    name = StringField('Name des Maskottchens', [validators.Required()])
     submit = SubmitField()
 
 def get_registrations(token):
