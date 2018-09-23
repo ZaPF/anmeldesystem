@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField, validators, IntegerField
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
+from wtforms.widgets.html5 import NumberInput
 from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
 from datetime import datetime, time, timezone
@@ -115,7 +116,7 @@ class Winter18Registration(FlaskForm):
         ('zeitmaschine', 'Zeitmaschine'),
         ('badeente', 'Badeente'),
         ])
-    anreisejahr =  IntegerField('Anreise aus dem Jahr:', [validators.optional()])
+    anreisejahr =  IntegerField('Anreise aus dem Jahr:', [validators.optional()], widget=NumberInput())
     abreise = SelectField('Abreise vorraussichtlich:', choices=[
         ('ende', 'Nach dem Plenum'),
         ('so810', 'Sonntag 8-10'),
@@ -127,12 +128,12 @@ class Winter18Registration(FlaskForm):
         ('vorso', 'Vor Sonntag'),
         ])
     schlafen = SelectField('Unterkunft', choices=[
+        ('egal','Egal'),
         ('MZH','Unterkunft A'),
         ('FW','Unterkunft B'),
-        ('egal','Egal'),
         ])
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
-    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()])
+    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
     hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
     handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
     roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
