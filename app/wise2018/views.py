@@ -10,12 +10,13 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2018, 10, 19, 23, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2018, 10, 24, 23, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_SOFT_CLOSE = datetime(2018, 10, 19, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2018, 10, 24, 21, 59, 59, tzinfo=pytz.utc)
 ADMIN_USER = ['Loctus','wb', 'andreas_wuerzburg']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
+        ('fitted_xxl', 'XXL fitted'),
         ('fitted_xl', 'XL fitted'),
         ('fitted_l', 'L fitted'),
         ('fitted_m', 'M fitted'),
@@ -27,6 +28,7 @@ T_SHIRT_CHOICES = [
         ('l', 'L'),
         ('m', 'M'),
         ('s', 'S'),
+        ('xs', 'XS'),
         ]
 
 HOODIE_CHOICES = [
