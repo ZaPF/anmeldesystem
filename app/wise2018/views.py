@@ -12,7 +12,7 @@ import pytz
 
 REGISTRATION_SOFT_CLOSE = datetime(2018, 10, 19, 21, 59, 59, tzinfo=pytz.utc)
 REGISTRATION_HARD_CLOSE = datetime(2018, 10, 24, 21, 59, 59, tzinfo=pytz.utc)
-ADMIN_USER = ['Loctus','wb', 'andreas_wuerzburg']
+ADMIN_USER = ['Loctus','wb', 'andreas_wuerzburg','1']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
@@ -250,6 +250,6 @@ def adminEdit(username):
             flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
         else:
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
-        return redirect(url_for('sommer18.adminEdit', username=username))
+        return redirect(url_for('winter18.adminEdit', username=username))
 
     return render_template('index.html', form=form, confirmed=confirmed)
