@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+	  <center><h1>Anmeldung zur <br />Tagung am Rhein.Bonner ZaPF</h1></center>
+    <p>Die Anmeldung schließt am 21.04.2019 um 21:59:59. Danach könnt Ihr noch bis zum 28.04.2019 um 21:59:59 die Reihenfolge Eurer Teilnehmika ändern.</p>
+    <p>Um Dich für die ZaPF anzumelden brauchst du einen <a href="https://auth.zapf.in/">ZaPF-Account</a>. Lege Dir dort am besten einen an, und klick dann auf den Link:</p>
+    <p>
+    <div class="center-block" style="max-width: 300px">
+      {% if registration_open %}
+      <a class="btn btn-primary btn-lg btn-block" href="{{url_for('oauth_client.login')}}" role="button">Hier geht's zur Anmeldung</a>
+      {% elif priorities_open %}
+      <a class="btn btn-primary btn-lg btn-block" href="{{url_for('oauth_client.login')}}" role="button">Daten ändern (keine Neuregistrierungen)</a>
+      {% else %}
+      <a class="btn btn-primary btn-lg btn-block disabled" href="#" role="button">Anmeldung geschlossen</a>
+      {% endif %}
+      {% if priorities_open %}
+      <a class="btn btn-default btn-lg btn-block" href="{{url_for('priorities.index')}}" role="button">Reihenfolge festlegen</a>
+      {% else %}
+      <a class="btn btn-default btn-lg btn-block disabled" href="#" role="button">Reihenfolgeänderungen geschlossen</a>
+      {% endif %}
+    </div>
+    </p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Anmeldung Sommer-ZaPF Bonn 2019{% endblock %}
+
+{% macro form_group(field, help_text=None, id=None, list=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            {{ field.label }}
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            {{ field(class="form-control", list=list) }}
+          </div>
+{% endmacro %}
+
+{% macro checkbox(field, label, help_text=None, id=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            <label>{{ label }}</label>
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            <div class="checkbox">
+              <label>
+                {{ field }}
+                {{ field.label }}
+              </label>
+            </div>
+          </div>
+{% endmacro %}
+
+{% macro datalist(list_id, options) %}
+  <datalist id="{{list_id}}">
+  {% for option in options %}
+    <option value="{{option}}"/>
+  {% endfor %}
+  </datalist>
+{% endmacro %}
+
+{% macro show_form_errors(form, container = True) %}
+{% if form.errors -%} {# don't output anything if there are no errors #}
+{% if container -%}
+  <div class="row">
+    <div class="col-md-12">
+{% endif -%}
+      <div class="alert alert-danger" role="alert">
+        <p><strong>Errors when validating form data:</strong></p>
+        {{ wtf.form_errors(form) }}
+      </div>
+{% if container %}
+    </div>
+  </div>
+{% endif -%}
+{% endif -%}
+{% endmacro -%}
+
+{% block content %}
+<div class="container">
+  {% if current_user.is_authenticated %}
+    <div class="jumbotron">
+      <h1>Hallo {{current_user.firstName}}!</h1>
+      {% if confirmed == None %}
+        <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
+        Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
+        und ihre Prioritätenreihenfolge festlegen.</p>
+      {% elif confirmed %}
+        <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
+      {% else %}
+        <p>Du bist schon registriert, allerdings muss Deine Fachschaft Dich
+        noch bestätigen.</p>
+      {% endif %}
+    </div>
+
+    <form method="POST">
+      {{ form.csrf_token }}
+      {{ show_form_errors(form) }}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Allgemein</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.spitzname) }}
+          {{ form_group(form.uni, 'Wenn Du Alumnus bist, wähle bitte die Uni "Alumnika" aus.') }}
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Essen</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.essen) }}
+          {{ form_group(form.allergien) }}
+          {{ form_group(form.heissgetraenk) }}
+          {{ form_group(form.milch) }}
+	  {{ form_group(form.zucker) }}
+	  {{ checkbox(form.schuss) }}
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Rahmenprogramm</h3>
+        </div>
+        <div class="panel-body">
+          <p>Hier könnt Ihr Eure Wunschexkursionen angeben.
+          Informationen zu den Exkursionen könnt Ihr
+          <a href="https://wuerzburg18.de/programm/exkursionen/" target="_blank">hier</a>
+          nachlesen.</p>
+          {{ form_group(form.exkursion1, id="exkursion1") }}
+          {{ form_group(form.exkursion2, id="exkursion2") }}
+          {{ form_group(form.exkursion3, id="exkursion3") }}
+          {{ form_group(form.exkursion4, id="exkursion4") }}
+          {{ form_group(form.musikwunsch) }}
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Sonstiges</h2>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.anreise, id="anreise") }}
+	  {{ checkbox(form.excar) }}
+	  {{ form_group(form.parktickets) }}
+	  {{ form_group(form.nrwticket) }}
+          {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
+          {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben, Preis 10€/Stück. Verbindliche Kaufzusage.') }}
+	  {{ checkbox(form.bottle, 'Wasserflaschen mit Zapflogo. maximal 10€ (Mindestbestellmenge 50 Stück)') }}
+	  {{ checkbox(form.bottle, 'Bierkrüge, maximal 5€. (Mindestbestellmenge 100 Stück)') }}
+    {{ checkbox(form.bierak) }}
+	  {{ form_group(form.quant, 'Quanten-Aufkleder, 2€ pro Bogen.') }}
+	  {{ form_group(form.zaepfchen, 'Wenn du angibst einen Mentor zu wollen, erklärst du dich damit einverstanden, dass wir deine E-mail Adresse an deinen Mentor weitergegeben.') }}
+	  {{ checkbox(form.mentor) }}
+	  {{ checkbox(form.halle, 'Hast du die Hallenordnung gelesen?') }}
+          {{ checkbox(form.minderjaehrig, 'Einziger Alterscheck - Wir wollen nur auf Nummer sicher gehen.') }}
+          {{ form_group(form.kommentar) }}
+        </div>
+      </div>
+      {{ form.submit(class="btn-submit btn-default btn") }}
+    </form>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('static', filename='wise18/registration.js')}}"></script>
+{% endblock %}
