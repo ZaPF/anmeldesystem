@@ -77,10 +77,13 @@ class Sommer19Registration(FlaskForm):
         ])
     milch = SelectField('Wieviel Milch?', choices=[
         ('0','0%'),
+        ('5','5%'),
+        ('10','10%'),
         ('20','20%'),
         ('40','40%'),
         ('60','60%'),
         ('80','80%'),
+        ('95','95%'),
         ('100','100%'),
         ])
     zucker = SelectField('Wieviel Zucker?', choices=[
