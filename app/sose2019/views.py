@@ -132,7 +132,7 @@ class Sommer19Registration(FlaskForm):
 #        ('zeitmaschine', 'Zeitmaschine'),
         ('badeente', 'Badeente'),
         ])
-    excar = BooleanField('Ich reise mit dem Auto an, möchte zur Exkursion Astropeiler Stockert oder Radioteleskop Effelsberg und bin bereit, Teilnehmika mitzunehmen (garantierter Exkursionsplatz')
+    excar = BooleanField('Ich reise mit dem Auto an, möchte zur Exkursion Astropeiler Stockert oder Radioteleskop Effelsberg und bin bereit, Teilnehmika mitzunehmen (garantierter Exkursionsplatz)')
     parktickets = SelectField('Ich hätte gerne Partickets für die Nussallee(1,2€ipro Tag):', choices=[
         ('0','keins'),
         ('1','1'),
@@ -178,16 +178,8 @@ class Sommer19Registration(FlaskForm):
 #   formular sollte nur abegshcickt werdne können wenn oberes gechekct ist, wenn möglich.
     minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
-
-
-#    gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
-
-
-
-
-
-            widget = TextArea())
-
+#   gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
+    widget = TextArea())
     submit = SubmitField()
 
 @sommer19.route('/', methods=['GET', 'POST'])
