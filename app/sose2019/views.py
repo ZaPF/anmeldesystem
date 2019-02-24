@@ -97,8 +97,7 @@ class Sommer19Registration(FlaskForm):
         ('8','8TL'),
         ])
     schuss = BooleanField('Mit Schuss?')
-#    essenswunsch = StringField('Unverbindlicher Essenswunsch:')
-
+#   essenswunsch = StringField('Unverbindlicher Essenswunsch:')
 
     exkursionen = [
         ('egal', 'Ist mir egal'),
@@ -119,8 +118,7 @@ class Sommer19Registration(FlaskForm):
     exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
     exkursion4 = SelectField('Viertwunsch', choices=exkursionen)
     musikwunsch = StringField('Musikwunsch')
-#    alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
-
+#   alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
     anreise = SelectField('Anreise vorraussichtlich mit:', choices=[
         ('bus', 'Fernbus'),
@@ -129,7 +127,7 @@ class Sommer19Registration(FlaskForm):
         ('flug', 'Flugzeug'),
         ('boot', 'Boot'),
         ('fahrrad', 'Fahrrad'),
-#        ('zeitmaschine', 'Zeitmaschine'),
+#       ('zeitmaschine', 'Zeitmaschine'),
         ('badeente', 'Badeente'),
         ])
     excar = BooleanField('Ich reise mit dem Auto an, möchte zur Exkursion Astropeiler Stockert oder Radioteleskop Effelsberg und bin bereit, Teilnehmika mitzunehmen (garantierter Exkursionsplatz)')
@@ -146,7 +144,7 @@ class Sommer19Registration(FlaskForm):
         ('jaund','Ja und ich kann jemanden darauf mitnehmen.'),
         ('nein','Nein'),
         ])
-#    abreise = SelectField('Abreise vorraussichtlich:', choices=[
+#   abreise = SelectField('Abreise vorraussichtlich:', choices=[
 #        ('ende', 'Nach dem Plenum'),
 #        ('so810', 'Sonntag 8-10'),
 #        ('so1012', 'Sonntag 10-12'),
@@ -164,6 +162,7 @@ class Sommer19Registration(FlaskForm):
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
     addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
     bottle = BooleanField('Ich möchte eine Wasserflasche bestellen (ca 10€)')
+    quant = SelectField('Ich möchte Quanten-Aufkleber (verbindliche Bestellung 2€ pro 40er Bogen)')
 #   hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
 #   handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
 #   roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
