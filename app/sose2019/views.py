@@ -166,6 +166,7 @@ class Sommer19Registration(FlaskForm):
 #   hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
 #   handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
 #   roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
+    krug = BooleanField('Ich möchte einen Bierkrug bestellen')
     zaepfchen = SelectField('Bist du ein Zäpfchen?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
