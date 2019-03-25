@@ -87,6 +87,7 @@ class Sommer19Registration(FlaskForm):
         ('100','100%'),
         ])
     zucker = SelectField('Wieviel Zucker?', choices=[
+        ('0','0TL'),
         ('1','1TL'),
         ('2','2TL'),
         ('3','3TL'),
