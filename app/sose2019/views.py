@@ -131,7 +131,7 @@ class Sommer19Registration(FlaskForm):
         ('badeente', 'Badeente'),
         ])
     excar = BooleanField('Ich reise mit dem Auto an, möchte zur Exkursion Astropeiler Stockert oder Radioteleskop Effelsberg und bin bereit, Teilnehmika mitzunehmen (garantierter Exkursionsplatz)')
-    parktickets = SelectField('Ich hätte gerne Partickets für die Nussallee(1,2€ipro Tag):', choices=[
+    parktickets = SelectField('Ich hätte gerne Parktickets für die Nussallee(1,2€ pro Tag):', choices=[
         ('0','keins'),
         ('1','1'),
         ('2','2'),
@@ -161,12 +161,12 @@ class Sommer19Registration(FlaskForm):
 #       ])
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
     addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
-    bottle = BooleanField('Ich möchte eine Wasserflasche bestellen (ca 10€)')
-    quant = IntegerField('Ich möchte Quanten-Aufkleber (verbindliche Bestellung 2€ pro 40er Bogen)')
+    bottle = BooleanField('Ich möchte eine Wasserflasche bestellen (ca 10€, Verbindliche Kaufzusage)')
+    quant = IntegerField('Ich möchte Quanten-Aufkleber (2€ pro 40er Bogen, verbindlcihe Kaufzusage)')
 #   hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
 #   handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
 #   roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
-    krug = BooleanField('Ich möchte einen Bierkrug bestellen')
+    krug = BooleanField('Ich möchte einen Bierkrug bestellen (ca 5€ verbindliche Kaufzusage)')
     zaepfchen = SelectField('Bist du ein Zäpfchen?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
