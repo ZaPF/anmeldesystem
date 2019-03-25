@@ -162,7 +162,7 @@ class Sommer19Registration(FlaskForm):
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
     addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
     bottle = BooleanField('Ich möchte eine Wasserflasche bestellen (ca 10€)')
-    quant = SelectField('Ich möchte Quanten-Aufkleber (verbindliche Bestellung 2€ pro 40er Bogen)')
+    quant = IntegerField('Ich möchte Quanten-Aufkleber (verbindliche Bestellung 2€ pro 40er Bogen)')
 #   hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
 #   handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
 #   roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
@@ -217,6 +217,8 @@ def index():
 
     # Die Liste der Unis holen
     unis = oauth_remoteapp.get('unis')
+    if unis._resp.code == 500:
+        raise
     if unis._resp.code != 200:
         return redirect(url_for('oauth_client.login'))
     form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
