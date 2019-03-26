@@ -175,7 +175,7 @@ class Sommer19Registration(FlaskForm):
         ])
     mentor = BooleanField('Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird.')
     foto = BooleanField('Ich bin damit einverstanden, dass Fotos von mir gemacht werden.')
-    halle = BooleanField('Ich habe die Hallenordnung gelesen und verstanden und werde mich daran halten.')
+    halle = BooleanField('Ich habe die Hallenordnung gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
 #   formular sollte nur abegshcickt werdne können wenn oberes gechekct ist, wenn möglich.
     minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
