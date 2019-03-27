@@ -43,7 +43,8 @@ def add_url_params(url, params):
 
 @oauth_client_blueprint.route('/oauth/login')
 def login():
-    return oauth_remoteapp.authorize(callback=url_for('oauth_client.authorized', _external=True))
+    print(url_for('oauth_client.authorized', _external=True, _scheme='https'))
+    return oauth_remoteapp.authorize(callback=url_for('oauth_client.authorized', _scheme='https', _external=True))
 
 @oauth_client_blueprint.route('/oauth/authorized')
 def authorized():
