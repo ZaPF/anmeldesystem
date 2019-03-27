@@ -141,9 +141,9 @@ class Sommer19Registration(FlaskForm):
         ('5','5'),
         ])
     nrwticket = SelectField('Besitzt du ein NRW-Ticket?', choices=[
+        ('nein','Nein'),
         ('ja','Ja'),
         ('jaund','Ja und ich kann jemanden darauf mitnehmen.'),
-        ('nein','Nein'),
         ])
 #   abreise = SelectField('Abreise vorraussichtlich:', choices=[
 #        ('ende', 'Nach dem Plenum'),
