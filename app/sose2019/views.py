@@ -162,12 +162,12 @@ class Sommer19Registration(FlaskForm):
 #       ])
     tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
     addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
-    bottle = BooleanField('Ich möchte eine Wasserflasche bestellen (ca 10€, verbindliche Kaufzusage)')
+    bottle = BooleanField('Ich möchte eine Wasserflasche bestellen (ca 10€, verbindliche Kaufzusage) Wer mehr will, schreibt das in das Kommentarfeld')
     quant = IntegerField('Ich möchte Quanten-Aufkleber (2€ pro 40er Bogen, verbindliche Kaufzusage)', [validators.optional()], widget=NumberInput())
 #   hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
 #   handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
 #   roemer = BooleanField('Ich möchte gerne einen Weinrömer bestellen')
-    krug = BooleanField('Ich möchte einen Bierkrug bestellen (ca 5€, verbindliche Kaufzusage)')
+    krug = BooleanField('Ich möchte einen Bierkrug (0,4l) bestellen (ca 5€, verbindliche Kaufzusage) Wer mehr will, schreibt das in das Kommentarfeld')
     bierak = BooleanField('Ich möchte am Bieraustausch AK teilnehmen (5€ Teilnahmegebühr)(neuer Modus, Bier wird gestellt, siehe E-Mail)')
     zaepfchen = SelectField('Bist du ein Zäpfchen?', choices=[
         ('ja','Ja'),
