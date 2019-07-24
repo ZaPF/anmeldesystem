@@ -59,3 +59,10 @@ Maskotchen Name
 String
 
 Exkursionen
+
+
+T-Shirt Größen
+Frauen: S, M, L, XL
+Männer: XS, S, M, L, XL, XXL, XXXL
+Pullover unisex: XS, S, M, L, XXL
+Jogginghosen: S, M, L, XL, XXL, 3XL, 4XL, 5XL

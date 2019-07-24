@@ -16,14 +16,10 @@ ADMIN_USER = ['justus2342','Hobbesgoblin']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
-        ('fitted_xxl', 'XXL fitted'),
         ('fitted_xl', 'XL fitted'),
         ('fitted_l', 'L fitted'),
         ('fitted_m', 'M fitted'),
         ('fitted_s', 'S fitted'),
-        ('fitted_xs', 'XS fitted'),
-        ('5xl', '5XL'),
-        ('4xl', '4XL'),
         ('3xl', '3XL'),
         ('xxl', 'XXL'),
         ('xl', 'XL'),
@@ -34,15 +30,6 @@ T_SHIRT_CHOICES = [
         ]
 
 HOODIE_CHOICES = [
-        ('fitted_xxl', 'XXL fitted'),
-        ('fitted_xl', 'XL fitted'),
-        ('fitted_l', 'L fitted'),
-        ('fitted_m', 'M fitted'),
-        ('fitted_s', 'S fitted'),
-        ('fitted_xs', 'XS fitted'),
-        ('5xl', '5XL'),
-        ('4xl', '4XL'),
-        ('3xl', '3XL'),
         ('xxl', 'XXL'),
         ('xl', 'XL'),
         ('l', 'L'),
@@ -52,12 +39,6 @@ HOODIE_CHOICES = [
     ]
         
 JOGGING_CHOICES = [
-        ('fitted_xxl', 'XXL fitted'),
-        ('fitted_xl', 'XL fitted'),
-        ('fitted_l', 'L fitted'),
-        ('fitted_m', 'M fitted'),
-        ('fitted_s', 'S fitted'),
-        ('fitted_xs', 'XS fitted'),
         ('5xl', '5XL'),
         ('4xl', '4XL'),
         ('3xl', '3XL'),
@@ -66,7 +47,6 @@ JOGGING_CHOICES = [
         ('l', 'L'),
         ('m', 'M'),
         ('s', 'S'),
-        ('xs', 'XS'),
     ]
 
 class ExkursionenValidator(object):
