@@ -153,8 +153,8 @@ class Winter19Registration(FlaskForm):
 #    krug = BooleanField('Ich möchte einen Bierkrug (0,4l) bestellen (ca 5€, verbindliche Kaufzusage) Wer mehr will, schreibt das in das Kommentarfeld')
 #    bierak = BooleanField('Ich möchte am Bieraustausch AK teilnehmen (5€ Teilnahmegebühr)(neuer Modus, Bier wird gestellt, siehe E-Mail)')
     immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
-        ('ja', 'Ja')
-        ('nein', 'Nein')
+        ('ja', 'Ja'),
+        ('nein', 'Nein'),
     ])
     zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
@@ -167,8 +167,8 @@ class Winter19Registration(FlaskForm):
 #   formular sollte nur abegshcickt werdne können wenn oberes gechekct ist, wenn möglich.
     minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
     vertrauensperson = SelectField('Wärst du theoretisch bereit, dich als Vertrauensperson aufzustellen? (du weißt nicht was das ist? gebe bitte nein an)', choices=[
-        ('ja', 'Ja')
-        ('nein', 'Nein')
+        ('ja', 'Ja'),
+        ('nein', 'Nein'),
     ])
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
 #   gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
