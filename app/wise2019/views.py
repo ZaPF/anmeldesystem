@@ -10,9 +10,9 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2019, 4, 21, 21, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2019, 4, 28, 21, 59, 59, tzinfo=pytz.utc)
-ADMIN_USER = ['justus2342','Hobbesgoblin']
+REGISTRATION_SOFT_CLOSE = datetime(2019, 9, 6, 23, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2019, 9, 13, 23, 59, 59, tzinfo=pytz.utc)
+ADMIN_USER = ['Ginok','t.prinz','Sean']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
@@ -65,6 +65,16 @@ class ExkursionenValidator(object):
                 if follower.data == field.data:
                     raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
 
+class ImmatrikulationsValidator(object, rightanswer):
+	def __init__(self, following=None):
+		self.following = following
+
+	def __call__(self, form, field):
+        if field.data != rightanswer:
+			raise validators.ValidationError('Bitte gebe an, dass du deine Immatrikulationsbesch'
+											'einigung mitbringen wirst.')
+
+
 class Winter19Registration(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
@@ -73,14 +83,22 @@ class Winter19Registration(FlaskForm):
 
     def __init__(self, **kwargs):
         super(Winter19Registration, self).__init__(**kwargs)
-        self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
-        self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
-        self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
+#        self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
+#        self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
+#        self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
+#		self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator([self.immatriklationsbescheinigung]), 'Ja']
+#        self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator([self.immatriklationsbescheinigung2]), 'Nein']
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
-    allergien = StringField('Allergien? Wenn ja, dann wie stark?')
-    immatrikulationsbescheinigung = BooleanField('Bringst du deine Immatrikulationsbescheinigung mit?')
+    allergien = StringField('Lebensmittelallergien? Wenn ja, dann wie stark?')
+ #   immatrikulationsbescheinigung = BooleanField('Bringst du deine Immatrikulationsbescheinigung mit?')
+
+   immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
+	('ja', 'Ja'),
+	('nein', 'NEIN'),	
+	])
+
     essen = SelectField('Essen', choices=[
         ('vegetarisch', 'Vegetarisch'),
         ('vegan', 'Vegan'),
@@ -107,7 +125,7 @@ class Winter19Registration(FlaskForm):
         ('badeente', 'Badeente'),
         ])
     altersack = BooleanField('Alter Sack?')
-    turnhalle = BooleanField('Ich bin ok damit in einer großen Turnhalle zu schlafen.')
+#   turnhalle = BooleanField('Ich bin ok damit in einer großen Turnhalle zu schlafen.')
     satzung = BooleanField('Ich habe unsere Satzung gelesen und habe verstanden, dass es sich bei der ZaPF um eine hochschulpolitische Veranstaltung handelt.')
 #   abreise = SelectField('Abreise vorraussichtlich:', choices=[
 #        ('ende', 'Nach dem Plenum'),
@@ -152,7 +170,6 @@ class Winter19Registration(FlaskForm):
         ('ja', 'Ja')
         ('nein', 'Nein')
     ])
-    maskottchen = StringField('Falls du ein Maskottchen mitbringst; Wie heißt er / sie / es / * ?')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
 #   gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
     widget = TextArea())
