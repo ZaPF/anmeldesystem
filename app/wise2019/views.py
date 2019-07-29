@@ -98,7 +98,7 @@ class Winter19Registration(FlaskForm):
 #        self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
 #        self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
 		self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator(self.immatrikulationsbescheinigung)]
-		self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatriklationsbescheinigung2)]
+		self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatrikulationsbescheinigung2)]
 
 	uni = SelectField('Uni', choices=[], coerce=str)
 	spitzname = StringField('Spitzname')
