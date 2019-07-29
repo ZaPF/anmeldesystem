@@ -182,7 +182,7 @@ class Winter19Registration(FlaskForm):
 #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
 #   formular sollte nur abegshcickt werdne können wenn oberes gechekct ist, wenn möglich.
 	minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
-	vertrauensperson = SelectField('Wärst Du theoretisch bereit, dich als Vertrauensperson aufzustellen? (du weißt nicht was das ist? Gib bitte nein an)', choices=[
+	vertrauensperson = SelectField('Wärst Du bereit, dich als Vertrauensperson aufzustellen? (Du weißt nicht was das ist? Gib bitte "Nein" an!)', choices=[
 		('nein', 'Nein'),
 		('ja', 'Ja'),
 	])
