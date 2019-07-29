@@ -49,6 +49,7 @@ JOGGING_CHOICES = [
 		('s', 'S'),
 	]
 
+''' # Dieses Jahr gibt es keine Exkursionen
 class ExkursionenValidator(object):
 	def __init__(self, following=None):
 		self.following = following
@@ -65,14 +66,24 @@ class ExkursionenValidator(object):
 				if follower.data == field.data:
 					raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
 
-class ImmatrikulationsValidator(object, rightanswer):
+'''
+class ImmatrikulationsValidator(object):
 	def __init__(self, following=None):
 		self.following = following
 
 	def __call__(self, form, field):
-		if field.data != rightanswer:
-			raise validators.ValidationError('Bitte gebe an, dass du deine Immatrikulationsbesch'
-											'einigung mitbringen wirst.')
+		if field.data != 'ja':
+			raise validators.ValidationError('Bitte gebe an, dass du deine Immatrikulationsbescheinigung mitbringen wirst.')
+
+
+# Beliebige antwort angeben klappt nicht so. Daher 2 Validators
+class ImmatrikulationsValidator2(object):
+	def __init__(self, following=None):
+		self.following = following
+
+	def __call__(self, form, field):
+		if field.data != 'nein':
+			raise validators.ValidationError('Bitte gebe an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
 
 
 class Winter19Registration(FlaskForm):
@@ -86,18 +97,18 @@ class Winter19Registration(FlaskForm):
 #        self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
 #        self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
 #        self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
-#		self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator([self.immatriklationsbescheinigung]), 'Ja']
-#        self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator([self.immatriklationsbescheinigung2]), 'Nein']
+		self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator(self.immatrikulationsbescheinigung)]
+		self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatriklationsbescheinigung2)]
 
 	uni = SelectField('Uni', choices=[], coerce=str)
 	spitzname = StringField('Spitzname')
 	allergien = StringField('Lebensmittelallergien? Wenn ja, dann wie stark?')
- #   immatrikulationsbescheinigung = BooleanField('Bringst du deine Immatrikulationsbescheinigung mit?')
+ 
 
-   immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
-	('ja', 'Ja'),
-	('nein', 'NEIN'),	
-	])
+	immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
+		('ja', 'Ja'),
+		('nein', 'Nein'),	
+		])
 
 	essen = SelectField('Essen', choices=[
 		('vegetarisch', 'Vegetarisch'),
@@ -126,7 +137,7 @@ class Winter19Registration(FlaskForm):
 		])
 	altersack = BooleanField('Alter Sack?')
 #   turnhalle = BooleanField('Ich bin ok damit in einer großen Turnhalle zu schlafen.')
-	satzung = BooleanField('Ich habe unsere Satzung gelesen und habe verstanden, dass es sich bei der ZaPF um eine hochschulpolitische Veranstaltung handelt.')
+#	satzung = BooleanField('Ich habe unsere Satzung gelesen und habe verstanden, dass es sich bei der ZaPF um eine hochschulpolitische Veranstaltung handelt.')
 #   abreise = SelectField('Abreise vorraussichtlich:', choices=[
 #        ('ende', 'Nach dem Plenum'),
 #        ('so810', 'Sonntag 8-10'),
