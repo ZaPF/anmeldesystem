@@ -169,7 +169,6 @@ class Winter19Registration(FlaskForm):
 	])
 	zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
 		('ja','Ja'),
-		('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
 		('nein','Nein'),
 		])
 #    mentor = BooleanField('Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird.')
