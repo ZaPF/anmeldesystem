@@ -178,8 +178,8 @@ class Winter19Registration(FlaskForm):
 #   formular sollte nur abegshcickt werdne können wenn oberes gechekct ist, wenn möglich.
 	minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
 	vertrauensperson = SelectField('Wärst du theoretisch bereit, dich als Vertrauensperson aufzustellen? (du weißt nicht was das ist? Gib bitte nein an)', choices=[
-		('ja', 'Ja'),
 		('nein', 'Nein'),
+		('ja', 'Ja'),
 	])
 	kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
 #   gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
