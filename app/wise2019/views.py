@@ -139,7 +139,7 @@ class Winter19Registration(FlaskForm):
 		('geisterbahn', 'Geisterbahn'),
 		('badeente', 'Badeente'),
 		])
-	altersack = BooleanField('Alter Sack?')
+#	altersack = BooleanField('Alter Sack?')
 #   turnhalle = BooleanField('Ich bin ok damit in einer großen Turnhalle zu schlafen.')
 #	satzung = BooleanField('Ich habe unsere Satzung gelesen und habe verstanden, dass es sich bei der ZaPF um eine hochschulpolitische Veranstaltung handelt.')
 #   abreise = SelectField('Abreise vorraussichtlich:', choices=[
