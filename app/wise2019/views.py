@@ -106,6 +106,7 @@ class Winter19Registration(FlaskForm):
  
 
 	immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
+		('invalid','---'),
 		('ja', 'Ja'),
 		('nein', 'Nein'),	
 		])
@@ -164,6 +165,7 @@ class Winter19Registration(FlaskForm):
 #    krug = BooleanField('Ich möchte einen Bierkrug (0,4l) bestellen (ca 5€, verbindliche Kaufzusage) Wer mehr will, schreibt das in das Kommentarfeld')
 #    bierak = BooleanField('Ich möchte am Bieraustausch AK teilnehmen (5€ Teilnahmegebühr)(neuer Modus, Bier wird gestellt, siehe E-Mail)')
 	immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
+		('invalid','---'),
 		('ja', 'Ja'),
 		('nein', 'Nein'),
 	])
