@@ -15,7 +15,7 @@ REGISTRATION_HARD_CLOSE = datetime(2019, 9, 13, 21, 59, 59, tzinfo=pytz.utc)
 ADMIN_USER = ['Ginok','t.prinz','Sean']
 
 T_SHIRT_CHOICES = [
-		('keins', 'Nein, ich möchte keins'),
+		('keins', 'Nein, ich möchte kein cooles T-Shirt.'),
 		('fitted_xl', 'XL fitted'),
 		('fitted_l', 'L fitted'),
 		('fitted_m', 'M fitted'),
@@ -30,6 +30,7 @@ T_SHIRT_CHOICES = [
 		]
 
 HOODIE_CHOICES = [
+		('keins', 'Nein, ich möchte keinen coolen Hoodie.'),
 		('xxl', 'XXL'),
 		('xl', 'XL'),
 		('l', 'L'),
@@ -39,6 +40,7 @@ HOODIE_CHOICES = [
 	]
 		
 JOGGING_CHOICES = [
+		('keins', 'Nein, ich möchte keine coole Jogginghose.'),
 		('5xl', '5XL'),
 		('4xl', '4XL'),
 		('3xl', '3XL'),
@@ -72,8 +74,8 @@ class ImmatrikulationsValidator(object):
 		self.following = following
 
 	def __call__(self, form, field):
-		if field.data != 'ja':
-			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung mitbringen wirst.')
+		if field.data != 'ja' and field.data != 'n.i.':
+			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung mitbringen wirst oder, dass du keine hast.')
 
 
 # Beliebige antwort angeben klappt nicht so. Daher 2 Validators
@@ -82,7 +84,7 @@ class ImmatrikulationsValidator2(object):
 		self.following = following
 
 	def __call__(self, form, field):
-		if field.data != 'nein':
+		if field.data != 'nein' and field.data != 'n.i.':
 			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
 
 
@@ -107,8 +109,9 @@ class Winter19Registration(FlaskForm):
 
 	immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
 		('invalid','---'),
-		('ja', 'Ja'),
-		('nein', 'Nein'),	
+		('ja', 'Ich bin an einer Hochschule immatrikuliert und bringe eine gültige Bescheinigung darüber mit.'),
+		('nein', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
+		('n.i.', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
 		])
 
 	essen = SelectField('Essen', choices=[
@@ -166,8 +169,9 @@ class Winter19Registration(FlaskForm):
 #    bierak = BooleanField('Ich möchte am Bieraustausch AK teilnehmen (5€ Teilnahmegebühr)(neuer Modus, Bier wird gestellt, siehe E-Mail)')
 	immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
 		('invalid','---'),
-		('ja', 'Ja'),
-		('nein', 'Nein'),
+		('ja', 'Ja.'),
+		('nein', 'Nein.'),
+		('n.i.', 'Ich habe keine.'),
 	])
 	zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
 		('ja','Ja'),
