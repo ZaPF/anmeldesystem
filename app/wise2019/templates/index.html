@@ -76,6 +76,7 @@
   {% if current_user.is_authenticated %}
     <div class="jumbotron">
       <h1>Hallo {{current_user.firstName}}!</h1>
+      <p>ACHTUNG! Dieses Formular ist noch nicht freigeschaltet und wenn du dich jetzt anmeldest, werden deine Daten gelöscht, bevor der eigentliche Anemldezeitraum beginnt!</p>
       {% if confirmed == None %}
         <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
         Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
