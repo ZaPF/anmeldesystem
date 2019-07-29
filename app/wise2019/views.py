@@ -73,7 +73,7 @@ class ImmatrikulationsValidator(object):
 
 	def __call__(self, form, field):
 		if field.data != 'ja':
-			raise validators.ValidationError('Bitte gebe an, dass du deine Immatrikulationsbescheinigung mitbringen wirst.')
+			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung mitbringen wirst.')
 
 
 # Beliebige antwort angeben klappt nicht so. Daher 2 Validators
@@ -83,7 +83,7 @@ class ImmatrikulationsValidator2(object):
 
 	def __call__(self, form, field):
 		if field.data != 'nein':
-			raise validators.ValidationError('Bitte gebe an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
+			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
 
 
 class Winter19Registration(FlaskForm):
@@ -177,7 +177,7 @@ class Winter19Registration(FlaskForm):
 #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
 #   formular sollte nur abegshcickt werdne können wenn oberes gechekct ist, wenn möglich.
 	minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
-	vertrauensperson = SelectField('Wärst du theoretisch bereit, dich als Vertrauensperson aufzustellen? (du weißt nicht was das ist? gebe bitte nein an)', choices=[
+	vertrauensperson = SelectField('Wärst du theoretisch bereit, dich als Vertrauensperson aufzustellen? (du weißt nicht was das ist? Gib bitte nein an)', choices=[
 		('ja', 'Ja'),
 		('nein', 'Nein'),
 	])
