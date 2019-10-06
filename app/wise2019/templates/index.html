@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Anmeldung Winter-ZaPF Freiburg 2019{% endblock %}
+
+{% macro form_group(field, help_text=None, id=None, list=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            {{ field.label }}
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            {{ field(class="form-control", list=list) }}
+          </div>
+{% endmacro %}
+
+{% macro checkbox(field, label, help_text=None, id=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            <label>{{ label }}</label>
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            <div class="checkbox">
+              <label>
+                {{ field }}
+                {{ field.label }}
+              </label>
+            </div>
+          </div>
+{% endmacro %}
+
+{% macro datalist(list_id, options) %}
+  <datalist id="{{list_id}}">
+  {% for option in options %}
+    <option value="{{option}}"/>
+  {% endfor %}
+  </datalist>
+{% endmacro %}
+
+{% macro show_form_errors(form, container = True) %}
+{% if form.errors -%} {# don't output anything if there are no errors #}
+{% if container -%}
+  <div class="row">
+    <div class="col-md-12">
+{% endif -%}
+      <div class="alert alert-danger" role="alert">
+        <p><strong>Errors when validating form data:</strong></p>
+        {{ wtf.form_errors(form) }}
+      </div>
+{% if container %}
+    </div>
+  </div>
+{% endif -%}
+{% endif -%}
+{% endmacro -%}
+
+{% block content %}
+<div class="container">
+  {% if current_user.is_authenticated %}
+    <div class="jumbotron">
+      <h1>Hallo {{current_user.firstName}}!</h1>
+      {% if confirmed == None %}
+        <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
+        Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
+        und ihre Prioritätenreihenfolge festlegen.</p>
+      {% elif confirmed %}
+        <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
+      {% else %}
+        <p>Du bist schon registriert, allerdings muss Deine Fachschaft Dich
+        noch bestätigen.</p>
+      {% endif %}
+      <p>Bei Fragen zur Anmeldung wende dich bitte an <a href=mailto:zapf@physik.uni-freiburg.de>zapf@physik.uni-freiburg.de</a>.
+        Bei Problemen technischer Natur ist eine Mail an <a href=mailto:topf@zapf.in>topf@zapf.in</a> eventuell lösungsorientierter.</p>
+    </div>
+
+    <form method="POST">
+      {{ form.csrf_token }}
+      {{ show_form_errors(form) }}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Allgemein</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.spitzname) }}
+          {{ form_group(form.uni, 'Wenn Du Alumnus bist, wähle bitte die Uni "Universidad de los saccos veteres" aus.') }}
+          {{ form_group(form.immatrikulationsbescheinigung, 'Für die BMBF-Förderung müssen wir eure Immatrikulationsbescheinigungen einsammeln. Um das möglichst gut mit Datenschutz vereinbaren zu können, müsst ihr eine ausgedruckte Immatrikulationsbescheinigung mitbringen. Informationen zum weiteren Vorgehen gibt es dann vor Ort.') }}
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Essen</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.essen) }}
+          {{ form_group(form.allergien) }}
+          {{ form_group(form.heissgetraenk) }}
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Merch</h2>
+          </div>
+          <div class="panel-body">
+            {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
+            {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben. Preis 10€/Stück. Verbindliche Kaufzusage.') }}
+            {{ form_group(form.hoodie, '30€/Stück. Verbindliche Kaufzusage.') }}
+            {{ form_group(form.jogging, 'Maximal 25€/Stück, je nach Nachfrage. Nur bei ausreichender Nachfrage. Verbindliche Kaufzusage.') }}
+          </div>
+        </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Sonstiges</h2>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.musikwunsch) }}
+          {{ form_group(form.vertrauensperson) }}
+          {{ form_group(form.anreise, id="anreise") }}
+	        {{ form_group(form.zaepfchen) }}
+          {{ checkbox(form.minderjaehrig) }}
+          {{ checkbox(form.foto) }}
+          {{ form_group(form.immatrikulationsbescheinigung2) }}
+          {{ form_group(form.kommentar) }}
+        </div>
+      </div>
+      {{ form.submit(class="btn-submit btn-default btn") }}
+    </form>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('static', filename='wise18/registration.js')}}"></script>
+{% endblock %}

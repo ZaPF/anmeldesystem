@@ -1,0 +1,68 @@
+Name*
+String
+
+Uni*
+dropdown
+
+Spitzname
+String
+
+Bist du über 18 Abfrage?
+Checkbox
+
+Allergien
+String
+wenn ja, dann wie stark? 
+
+Bringst du deine Immatrikulationsbescheinigung mit?*
+(y/n) (nur ja gültige antwort)
+
+Essenswunsch
+dropdown
+
+Lied
+3x String
+
+Kaffee oder Tee?
+(K/T)
+
+Anreise?
+Dropdown
+
+Alter Sack?
+checkbox
+
+Ich bin ok damit in einer großen Turnhalle zu schlafen.*
+checkbox
+
+Ich habe unsere Satzung gelesen und habe verstanden, dass es sich bei der ZaPF um eine hochschulpolitische Veranstaltung handelt*
+checkbox
+
+Merch
+-Pulli
+dropdown mit größen
+-Jogginghose
+dropdown mit größen
+-Extra t-shirt
+dropdown mit größen
+
+wirst du deine Immatrikulationsbescheinigung vergessen (Y/N)*
+(y/n) (nur nein gültige antwort)
+
+Ist das deine erste ZaPF
+(y/n) 
+
+Wärst du theoretisch bereit, dich als Vertrauensperson aufzustellen? (du weißt nicht was das ist? gebe bitte nein an) 
+(y/n) 
+
+Maskotchen Name
+String
+
+Exkursionen
+
+
+T-Shirt Größen
+Frauen: S, M, L, XL
+Männer: XS, S, M, L, XL, XXL, XXXL
+Pullover unisex: XS, S, M, L, XXL
+Jogginghosen: S, M, L, XL, XXL, 3XL, 4XL, 5XL
