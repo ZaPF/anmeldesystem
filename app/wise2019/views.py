@@ -245,6 +245,7 @@ def index():
 
 	return render_template('index.html', form=form, confirmed=confirmed)
 
+''' Admin access was disabled in auth
 @winter19.route('/admin/wise19/<string:username>', methods=['GET', 'POST'])
 def adminEdit(username):
 	if 'me' not in session:
@@ -293,3 +294,4 @@ def adminEdit(username):
 		return redirect(url_for('winter19.adminEdit', username=username))
 
 	return render_template('index.html', form=form, confirmed=confirmed)
+'''
