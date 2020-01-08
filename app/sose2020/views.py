@@ -12,8 +12,8 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2020, 4, 21, 21, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2020, 4, 28, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_SOFT_CLOSE = datetime(2020, 4, 1, 23, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2020, 4, 7, 23, 59, 59, tzinfo=pytz.utc)
 ADMIN_USER = ['justus2342','Hobbesgoblin']
 
 T_SHIRT_CHOICES = [
@@ -66,6 +66,15 @@ class Sommer20Registration(FlaskForm):
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
+#   TODO formular sollte nur abegshcickt werdne können, wenn unteres gecheckt ist.
+    immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
+            ('invalid','---'),
+            ('ja', 'Ich bin an einer Hochschule immatrikuliert und bringe eine gültige Bescheinigung darüber mit.'),
+            ('janein', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
+            ('nein', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
+            ])
+
+
     essen = SelectField('Essen', choices=[
         ('omnivor', 'Omnivor'),
         ('vegetarisch', 'Vegetarisch'),
@@ -92,7 +101,7 @@ class Sommer20Registration(FlaskForm):
         ('physch', 'PhySch-Labor'),
         ('ipp', 'IPP Greifswald'),
         ('inp', 'INP Greifswald'),
-        ('ente', 'Entennaehworkshop'),
+        ('ente', 'Entennaehworkshop, 1 Euro'),
         ('laser', 'Lasertag, 20 Euro'),
         ('nordex', 'Nordex'),
         ('wind', 'Windrad'),
@@ -116,7 +125,6 @@ class Sommer20Registration(FlaskForm):
         ('fahrrad', 'Fahrrad'),
         ('badeente', 'Badeente'),
         ])
-# TODO wann reist ihr an?
     anreise = SelectField('Anreise vorraussichtlich:', choices=[
         ('mi1416', 'Mittwoch 14-16'),
         ('mi1618', 'Mittwoch 16-18'),
@@ -163,20 +171,21 @@ class Sommer20Registration(FlaskForm):
     mentor = BooleanField('Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird.')
     foto = BooleanField('Ich bin damit einverstanden, dass Fotos von mir gemacht werden.')
 #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
-    minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
+    minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.', [validators.InputRequired()])
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
 #   gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
     widget = TextArea())
     submit = SubmitField()
 
 
-#   TODO formular sollte nur abegshcickt werdne können, wenn unteres gecheckt ist.
-    immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
+
+
+    immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
             ('invalid','---'),
-            ('ja', 'Ich bin an einer Hochschule immatrikuliert und bringe eine gültige Bescheinigung darüber mit.'),
-            ('nein', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
-            ('n.i.', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
-            ])
+            ('ja', 'Ja.'),
+            ('janein', 'Nein.'),
+            ('nein', 'Ich habe keine.'),
+    ])
     anrede= SelectField('Wie möchtest du angesprochen werden?',choices=[
             ('er','Er'),
             ('sie','Sie'),
@@ -184,6 +193,15 @@ class Sommer20Registration(FlaskForm):
             ('anderes','Sprich mich darauf an'),
             ('ka','Keine Angabe'),
             ])
+    vertrauensperson = SelectField('Wärst Du bereit, dich als Vertrauensperson aufzustellen? (Du weißt nicht was das ist? Gib bitte "Nein" an!)', choices=[
+	    ('nein', 'Nein'),
+	    ('ja', 'Ja'),
+    ])
+    protokoll = SelectField('Wärst Du bereit bei den Plenen Protokoll zu schreiben?', choices=[
+            ('nein', 'Nein'),
+            ('ja','Ja'),
+    ])
+
 
 @sommer20.route('/', methods=['GET', 'POST'])
 def index():
@@ -288,3 +306,5 @@ def adminEdit(username):
         return redirect(url_for('sommer20.adminEdit', username=username))
 
     return render_0emplate('index.html', form=form, confirmed=confirmed)
+
+

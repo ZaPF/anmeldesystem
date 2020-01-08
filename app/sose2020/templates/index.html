@@ -98,6 +98,7 @@
         <div class="panel-body">
           {{ form_group(form.spitzname) }}
           {{ form_group(form.uni, 'Wenn Du Alumnus bist, wähle bitte die Uni "Alumnika" aus.') }}
+	  {{ form_group(immatrikulationsbescheinigung,'Für die BMBF-Förderung müssen wir eure Immatrikulationsbescheinigungen einsammeln. Um das möglichst gut mit Datenschutz vereinbaren zu können, müsst ihr eine ausgedruckte Immatrikulationsbescheinigung mitbringen. Informationen zum weiteren Vorgehen gibt es dann vor Ort.') }}
         </div>
       </div>
       <div class="panel panel-default">
@@ -108,11 +109,6 @@
           {{ form_group(form.essen) }}
           {{ form_group(form.allergien) }}
           {{ form_group(form.heissgetraenk) }}
-	<!--
-          {{ form_group(form.milch) }}
-	  {{ form_group(form.zucker) }}
-	  {{ checkbox(form.schuss) }}
-	-->
         </div>
       </div>
 
@@ -134,6 +130,15 @@
           {{ checkbox(form.bierak, 'Bieraustausch-AK') }}
         </div>
       </div>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Merch</h2>
+          </div>
+          <div class="panel-body">
+            {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
+            {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben. Preis 10€/Stück. Verbindliche Kaufzusage.') }}
+          </div>
+        </div>
 
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -142,17 +147,13 @@
         <div class="panel-body">
           {{ form_group(form.anreise, id="anreise") }}
 	  {{ checkbox(form.excar) }}
-	  {{ form_group(form.parktickets) }}
-	  {{ form_group(form.nrwticket) }}
-          {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
-          {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben, Preis 10€/Stück. Verbindliche Kaufzusage.') }}
-	  {{ checkbox(form.bottle, 'Wasserflaschen mit Zapflogo, maximal 10€ (Mindestbestellmenge 50 Stück)') }}
-	  {{ checkbox(form.krug, 'Bierkrüge mit Zapflogo, maximal 5€. (Mindestbestellmenge 100 Stück)') }}
-	  {{ form_group(form.quant, 'Quanten-Aufkleder, 2€ pro Bogen.') }}
+          {{ form_group(form.vertrauensperson) }}
+          {{ form_group(form.protokoll) }}
 	  {{ form_group(form.zaepfchen, 'Wenn du angibst einen Mentor zu wollen, erklärst du dich damit einverstanden, dass wir deine E-mail Adresse an deinen Mentor weitergegeben.') }}
 	  {{ checkbox(form.mentor) }}
-	  {{ checkbox(form.halle, 'Hast du die Hallenordnung gelesen?') }}
           {{ checkbox(form.minderjaehrig, 'Einziger Alterscheck - Wir wollen nur auf Nummer sicher gehen.') }}
+          {{ checkbox(form.foto) }}
+          {{ form_group(form.immatrikulationsbescheinigung2) }}
           {{ form_group(form.kommentar) }}
         </div>
       </div>
