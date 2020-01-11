@@ -24,8 +24,27 @@ T_SHIRT_CHOICES = [
 #        ('fitted_m', 'M fitted'),
 #        ('fitted_s', 'S fitted'),
 #        ('fitted_xs', 'XS fitted'),
-        ('5xl', '5XL'),
-        ('4xl', '4XL'),
+#        ('5xl', '5XL'),
+#        ('4xl', '4XL'),
+        ('3xl', '3XL'),
+        ('xxl', 'XXL'),
+        ('xl', 'XL'),
+        ('l', 'L'),
+        ('m', 'M'),
+        ('s', 'S'),
+        ('xs', 'XS'),
+        ]
+
+HOODIE_CHOICES = [
+        ('keins', 'Nein, ich möchte keins'),
+#        ('fitted_xxl', 'XXL fitted'),
+#       ('fitted_xl', 'XL fitted'),
+#       ('fitted_l', 'L fitted'),
+#        ('fitted_m', 'M fitted'),
+#        ('fitted_s', 'S fitted'),
+#        ('fitted_xs', 'XS fitted'),
+#        ('5xl', '5XL'),
+#        ('4xl', '4XL'),
         ('3xl', '3XL'),
         ('xxl', 'XXL'),
         ('xl', 'XL'),
@@ -95,18 +114,16 @@ class Sommer20Registration(FlaskForm):
         ('hansebrau', 'Hanseatische Brauerei, 8 Euro'),
         ('trotzenburg', 'Trotzenburger Brauerei, 9 Euro'),
         ('kulturhist', 'Kulturhistorisches Museum'),
-        ('stadt','Stadtfuehrung'),
-        ('neptunwerft', 'Neptunwerft'),
-        ('zoo', 'Zoo Rostock, 13,50 Euro'),
+        ('stadt','Stadtführung'),
+        ('zoo', 'Zoo Rostock, max. 13,50 Euro'),
         ('physch', 'PhySch-Labor'),
         ('ipp', 'IPP Greifswald'),
         ('inp', 'INP Greifswald'),
-        ('ente', 'Entennaehworkshop, 1 Euro'),
-        ('laser', 'Lasertag, 20 Euro'),
+        ('ente', 'Entennähworkshop, 1 Euro'),
         ('nordex', 'Nordex'),
         ('wind', 'Windrad'),
-        ('iow', 'Institut fuer Ostseeforschung'),
-        ('likat', 'Leibniz-Institut fuer Katalyse'),
+        ('iow', 'Institut für Ostseeforschung'),
+        ('likat', 'Leibniz-Institut für Katalyse'),
        ]
     exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
     exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
@@ -115,7 +132,7 @@ class Sommer20Registration(FlaskForm):
     musikwunsch = StringField('Musikwunsch')
     #alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
-    anreise = SelectField('Anreise vorraussichtlich mit:', choices=[
+    anreise_verkehr = SelectField('Anreise vorraussichtlich mit:', choices=[
         ('bus', 'Fernbus'),
         ('bahn', 'Zug'),
         ('auto', 'Auto'),
@@ -125,25 +142,25 @@ class Sommer20Registration(FlaskForm):
         ('fahrrad', 'Fahrrad'),
         ('badeente', 'Badeente'),
         ])
-    anreise = SelectField('Anreise vorraussichtlich:', choices=[
-        ('mi1416', 'Mittwoch 14-16'),
-        ('mi1618', 'Mittwoch 16-18'),
-        ('mi1820', 'Mittwoch 18-20'),
-        ('mi2022', 'Mittwoch 20-22'),
-        ('ende', 'Spaeter'),
+    anreise_zeit = SelectField('Anreise vorraussichtlich:', choices=[
+        ('mi1416', 'Mittwoch 14-16 Uhr'),
+        ('mi1618', 'Mittwoch 16-18 Uhr'),
+        ('mi1820', 'Mittwoch 18-20 Uhr'),
+        ('mi2022', 'Mittwoch 20-22 Uhr'),
+        ('ende', 'Später'),
         ])
 
-    excar = BooleanField('Ich reise mit Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
+    #excar = BooleanField('Ich reise mit Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
 
-    abreise = SelectField('Abreise vorraussichtlich:', choices=[
-        ('ende', 'Nach dem Plenum'),
-        ('so810', 'Sonntag 8-10'),
-        ('so1012', 'Sonntag 10-12'),
-        ('so1214', 'Sonntag 12-14'),
-        ('so1416', 'Sonntag 14-16'),
-        ('so1618', 'Sonntag 16-18'),
-        ('so1820', 'Sonntag 18-20'),
+    abreise_zeit = SelectField('Abreise vorraussichtlich:', choices=[
         ('vorso', 'Vor Sonntag'),
+        ('so810', 'Sonntag 8-10 Uhr'),
+        ('so1012', 'Sonntag 10-12 Uhr'),
+        ('so1214', 'Sonntag 12-14 Uhr'),
+        ('so1416', 'Sonntag 14-16 Uhr'),
+        ('so1618', 'Sonntag 16-18 Uhr'),
+        ('so1820', 'Sonntag 18-20 Uhr'),
+        ('ende', 'Nach dem Plenum'),
         ])
 #   schlafen = SelectField('Unterkunft', choices=[
 #       ('egal','Egal'),
@@ -157,12 +174,12 @@ class Sommer20Registration(FlaskForm):
 
 
 #TODO Welches Merch haben wir
-#   hoodie = SelectField('Hoodie', choices = HOODIE_CHOICES)
-#   handtuch = BooleanField('Ich möchte gerne ein Handtuch bestellen')
+    hoodie = SelectField('Ich möchte gerne ein Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
+    handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
 
 
 
-    bierak = BooleanField('Ich bringe Bier fuer den Bieraustausch-AK mit.')
+    bierak = BooleanField('Ich bringe Bier für den Bieraustausch-AK mit.')
     zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
@@ -189,7 +206,6 @@ class Sommer20Registration(FlaskForm):
     anrede= SelectField('Wie möchtest du angesprochen werden?',choices=[
             ('er','Er'),
             ('sie','Sie'),
-            ('es','Es'),
             ('anderes','Sprich mich darauf an'),
             ('ka','Keine Angabe'),
             ])
@@ -200,6 +216,14 @@ class Sommer20Registration(FlaskForm):
     protokoll = SelectField('Wärst Du bereit bei den Plenen Protokoll zu schreiben?', choices=[
             ('nein', 'Nein'),
             ('ja','Ja'),
+    ])
+    schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast du?', choices=[
+        ('keins','keins'),
+        ('seepferd','Seepferdchen'),
+        ('bronze','Bronze'),
+        ('silber','Silber'),
+        ('gold','Gold'),
+        ('rett','Rettungsschwimmer'),
     ])
 
 
