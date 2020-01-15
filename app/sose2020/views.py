@@ -108,22 +108,20 @@ class Sommer20Registration(FlaskForm):
 #   essenswunsch = StringField('Unverbindlicher Essenswunsch:')
 
     exkursionen = [
-        ('egal', 'Ist mir egal'),
-        ('alpaka', 'Alpakawanderung, 15 Euro'),
-        ('strand', 'Strandwanderung'),
-        ('hansebrau', 'Hanseatische Brauerei, 8 Euro'),
-        ('trotzenburg', 'Trotzenburger Brauerei, 9 Euro'),
-        ('kulturhist', 'Kulturhistorisches Museum'),
-        ('stadt','Stadtführung'),
-        ('zoo', 'Zoo Rostock, max. 13,50 Euro'),
-        ('physch', 'PhySch-Labor'),
-        ('ipp', 'IPP Greifswald'),
-        ('inp', 'INP Greifswald'),
-        ('ente', 'Entennähworkshop, 1 Euro'),
-        ('nordex', 'Nordex'),
-        ('wind', 'Windrad'),
-        ('iow', 'Institut für Ostseeforschung'),
-        ('likat', 'Leibniz-Institut für Katalyse'),
+        ('egal', 'Ist mir egal'),#
+        ('alpaka', 'Alpakawanderung, 15 Euro'),#
+        ('ente', 'Entennähworkshop, 1 Euro'),#
+        ('hansebrau', 'Hanseatische Brauerei, 8 Euro'),#
+        ('iow', 'Institut für Ostseeforschung'),#
+        ('kulturhist', 'Kulturhistorisches Museum'),#
+        ('laser','Lasertag, 20 Euro'),#
+        ('inp', 'Leibniz-Institut für Plasmaforschung und Technologie, Greifswald'),#
+        ('ipp', 'Max-Planck-Institut für Plasmaphysik, Greifswald'),#
+        ('physch', 'PhySch-Labor'),#
+        ('stadt','Stadtführung'),#
+        ('strand', 'Strandwanderung'),#
+        ('trotzenburg', 'Trotzenburger Brauerei, 9 Euro'),#
+        ('zoo', 'Zoo Rostock, max. 13,50 Euro'),#
        ]
     exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
     exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
@@ -150,7 +148,7 @@ class Sommer20Registration(FlaskForm):
         ('ende', 'Später'),
         ])
 
-    #excar = BooleanField('Ich reise mit Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
+    excar = BooleanField('Ich reise mit Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
 
     abreise_zeit = SelectField('Abreise vorraussichtlich:', choices=[
         ('vorso', 'Vor Sonntag'),
