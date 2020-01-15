@@ -179,7 +179,7 @@ class Sommer20Registration(FlaskForm):
 
 
 
-    bierak = BooleanField('Ich bringe Bier für den Bieraustausch-AK mit.')
+    bierak = BooleanField('Ich möchte am Bier-AK teilnehmen(Euro-Zahl folgt).')
     zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
