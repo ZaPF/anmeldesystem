@@ -99,7 +99,7 @@
           {{ form_group(form.spitzname) }}
           {{ form_group(form.uni, 'Wenn Du zu den Alumni gehörst, wähle bitte die Uni "Alumnika" aus.') }}
 	  {{ form_group(form.immatrikulationsbescheinigung,'Für die BMBF-Förderung müssen wir eure Immatrikulationsbescheinigungen einsammeln. Um das möglichst gut mit Datenschutz vereinbaren zu können, müsst ihr eine ausgedruckte Immatrikulationsbescheinigung mitbringen. Informationen zum weiteren Vorgehen gibt es dann vor Ort.') }}
-	  {{ form_group(form.anrede, 'Auf deinem Tagungsausweis wird vermerkt, wie die du angesprochen werden möchtest.') }}
+	  {{ form_group(form.anrede, 'Auf deinem Tagungsausweis wird vermerkt, wie du angesprochen werden möchtest.') }}
         </div>
       </div>
       <div class="panel panel-default">
@@ -141,7 +141,7 @@
             {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
             {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben. Preis 10€/Stück. Verbindliche Kaufzusage.') }}
             {{ form_group(form.hoodie) }}
-            {{ form_group(form.handtuch) }}
+            {{ checkbox(form.handtuch) }}
           </div>
         </div>
       <div class="panel panel-default">
