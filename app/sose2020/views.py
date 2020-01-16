@@ -172,7 +172,7 @@ class Sommer20Registration(FlaskForm):
 
 
 #TODO Welches Merch haben wir
-    hoodie = SelectField('Ich möchte gerne ein Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
+    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
     handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
 
 
