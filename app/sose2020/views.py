@@ -36,7 +36,7 @@ T_SHIRT_CHOICES = [
         ]
 
 HOODIE_CHOICES = [
-        ('keins', 'Nein, ich möchte keins'),
+        ('keins', 'Nein, ich möchte keinen'),
 #        ('fitted_xxl', 'XXL fitted'),
 #       ('fitted_xl', 'XL fitted'),
 #       ('fitted_l', 'L fitted'),
