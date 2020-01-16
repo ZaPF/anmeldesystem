@@ -12,8 +12,8 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2020, 3,20, 23, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2020, 3, 27, 23, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_SOFT_CLOSE = datetime(2020, 3, 20, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2020, 3, 27, 21, 59, 59, tzinfo=pytz.utc)
 ADMIN_USER = ['justus2342','Hobbesgoblin']
 
 T_SHIRT_CHOICES = [
@@ -36,7 +36,7 @@ T_SHIRT_CHOICES = [
         ]
 
 HOODIE_CHOICES = [
-        ('keins', 'Nein, ich möchte keins'),
+        ('keins', 'Nein, ich möchte keinen'),
 #        ('fitted_xxl', 'XXL fitted'),
 #       ('fitted_xl', 'XL fitted'),
 #       ('fitted_l', 'L fitted'),
@@ -172,7 +172,7 @@ class Sommer20Registration(FlaskForm):
         ('ende', 'Später'),
         ])
 
-    excar = BooleanField('Ich reise mit Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
+    excar = BooleanField('Ich reise mit einem Auto an und bin bereit, auf Exkursionen Zapfika mitzunehmen.')
 
     abreise_zeit = SelectField('Abreise vorraussichtlich:', choices=[
         ('vorso', 'Vor Sonntag'),
@@ -195,12 +195,12 @@ class Sommer20Registration(FlaskForm):
 
 
 
-    hoodie = SelectField('Ich möchte gerne ein Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
+    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
     handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
 
 
 
-    bierak = BooleanField('Ich möchte am Bier-AK teilnehmen(Euro-Zahl folgt).')
+    bierak = BooleanField('Ich möchte am Bier-AK teilnehmen (Preis folgt).')
     zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
@@ -238,7 +238,7 @@ class Sommer20Registration(FlaskForm):
         ('bronze','Bronze'),
         ('silber','Silber'),
         ('gold','Gold'),
-        ('rett','Rettungsschwimmer'),
+        ('rett','Rettungsschwimmer*in'),
     ])
 
 
@@ -258,7 +258,7 @@ def index():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Sommer19Registration
+    Form = Sommer20Registration
 
     defaults = {}
     confirmed = None
