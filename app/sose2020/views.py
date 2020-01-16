@@ -54,6 +54,23 @@ HOODIE_CHOICES = [
         ('xs', 'XS'),
         ]
 
+class ImmatrikulationsValidator(object):
+	def __init__(self, following=None):
+		self.following = following
+
+	def __call__(self, form, field):
+		if field.data != 'ja' and field.data != 'n.i.':
+			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung mitbringen wirst oder, dass du keine hast.')
+
+class ImmatrikulationsValidator2(object):
+	def __init__(self, following=None):
+		self.following = following
+
+	def __call__(self, form, field):
+		if field.data != 'nein' and field.data != 'n.i.':
+			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
+
+
 
 class ExkursionenValidator(object):
     def __init__(self, following=None):
@@ -82,16 +99,23 @@ class Sommer20Registration(FlaskForm):
         self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
         self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
         self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
+        self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator(self.immatrikulationsbescheinigung)]
+        self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatrikulationsbescheinigung2)]
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
-#   TODO formular sollte nur abegshcickt werdne können, wenn unteres gecheckt ist.
     immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
             ('invalid','---'),
             ('ja', 'Ich bin an einer Hochschule immatrikuliert und bringe eine gültige Bescheinigung darüber mit.'),
-            ('janein', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
+            ('n.i.', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
             ('nein', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
             ])
+    immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
+            ('invalid','---'),
+            ('ja', 'Ja.'),
+            ('nein', 'Nein.'),
+            ('n.i.', 'Ich habe keine.'),
+    ])
 
 
     essen = SelectField('Essen', choices=[
@@ -171,7 +195,6 @@ class Sommer20Registration(FlaskForm):
 
 
 
-#TODO Welches Merch haben wir
     hoodie = SelectField('Ich möchte gerne ein Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
     handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
 
@@ -186,7 +209,7 @@ class Sommer20Registration(FlaskForm):
     mentor = BooleanField('Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird.')
     foto = BooleanField('Ich bin damit einverstanden, dass Fotos von mir gemacht werden.')
 #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
-    minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.', [validators.InputRequired()])
+    minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
 #   gremien = BoolanField('Ich bin Mitglied in StAPF, TOPF, KommGrem, oder ZaPF-e.V-Vorstand und moechte mich über das Gremienkontingent anmelden.')
     widget = TextArea())
@@ -195,17 +218,11 @@ class Sommer20Registration(FlaskForm):
 
 
 
-    immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
-            ('invalid','---'),
-            ('ja', 'Ja.'),
-            ('janein', 'Nein.'),
-            ('nein', 'Ich habe keine.'),
-    ])
     anrede= SelectField('Wie möchtest du angesprochen werden?',choices=[
+            ('ka','Keine Angabe'),
             ('er','Er'),
             ('sie','Sie'),
             ('anderes','Sprich mich darauf an'),
-            ('ka','Keine Angabe'),
             ])
     vertrauensperson = SelectField('Wärst Du bereit, dich als Vertrauensperson aufzustellen? (Du weißt nicht was das ist? Gib bitte "Nein" an!)', choices=[
 	    ('nein', 'Nein'),
@@ -324,7 +341,6 @@ def adminEdit(username):
             flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
         else:
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
-            #TODO was mach der return
         return redirect(url_for('sommer20.adminEdit', username=username))
 
     return render_0emplate('index.html', form=form, confirmed=confirmed)
