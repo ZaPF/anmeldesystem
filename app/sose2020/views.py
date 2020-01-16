@@ -148,7 +148,7 @@ class Sommer20Registration(FlaskForm):
         ('ende', 'Später'),
         ])
 
-    excar = BooleanField('Ich reise mit Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
+    excar = BooleanField('Ich reise mit einem Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
 
     abreise_zeit = SelectField('Abreise vorraussichtlich:', choices=[
         ('vorso', 'Vor Sonntag'),
