@@ -12,8 +12,8 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2020, 3,20, 23, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2020, 3, 27, 23, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_SOFT_CLOSE = datetime(2020, 3, 20, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2020, 3, 27, 21, 59, 59, tzinfo=pytz.utc)
 ADMIN_USER = ['justus2342','Hobbesgoblin']
 
 T_SHIRT_CHOICES = [
@@ -148,7 +148,7 @@ class Sommer20Registration(FlaskForm):
         ('ende', 'Später'),
         ])
 
-    excar = BooleanField('Ich reise mit einem Auto an und bin bereit auf Exkursionen Zapfika mitzunehmen.')
+    excar = BooleanField('Ich reise mit einem Auto an und bin bereit, auf Exkursionen Zapfika mitzunehmen.')
 
     abreise_zeit = SelectField('Abreise vorraussichtlich:', choices=[
         ('vorso', 'Vor Sonntag'),
