@@ -241,7 +241,7 @@ def index():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Sommer19Registration
+    Form = Sommer20Registration
 
     defaults = {}
     confirmed = None
