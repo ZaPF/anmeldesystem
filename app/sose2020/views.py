@@ -221,7 +221,7 @@ class Sommer20Registration(FlaskForm):
         ('bronze','Bronze'),
         ('silber','Silber'),
         ('gold','Gold'),
-        ('rett','Rettungsschwimmer'),
+        ('rett','Rettungsschwimmer*in'),
     ])
 
 
