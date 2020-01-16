@@ -107,8 +107,8 @@ class Sommer20Registration(FlaskForm):
     immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
             ('invalid','---'),
             ('ja', 'Ich bin an einer Hochschule immatrikuliert und bringe eine gültige Bescheinigung darüber mit.'),
-            ('n.i.', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
-            ('nein', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
+            ('nein', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
+            ('n.i.', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
             ])
     immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
             ('invalid','---'),
