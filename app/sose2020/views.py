@@ -132,6 +132,7 @@ class Sommer20Registration(FlaskForm):
 #   essenswunsch = StringField('Unverbindlicher Essenswunsch:')
 
     exkursionen = [
+        ('keine', 'keine Exkursion'),#
         ('egal', 'Ist mir egal'),#
         ('alpaka', 'Alpakawanderung, 15 Euro'),#
         ('ente', 'Entennähworkshop, 1 Euro'),#
