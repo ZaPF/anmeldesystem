@@ -241,7 +241,7 @@ class Sommer20Registration(FlaskForm):
         ('gold','Gold'),
         ('rett','Rettungsschwimmer*in'),
     ])
-    datenschutz = BoolanField('Ja', [validators.InputRequired()])
+    datenschutz = BooleanField('Ja', [validators.InputRequired()])
 
 
 @sommer20.route('/', methods=['GET', 'POST'])
