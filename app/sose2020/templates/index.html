@@ -176,6 +176,15 @@
           {{ form_group(form.kommentar) }}
         </div>
       </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Datenschutz</h2>
+        </div>
+        <div class="panel-body">
+          Ich habe die <a href="{{url_for('static', filename='sose20/datenschutz.html')}}">Datenschutzerklärung</a> gelesen und bin mit dar darin beschriebenen Verarbeitung meiner Daten einverstanden.
+          {{ checkbox(form.datenschutz) }}
+        </div>
+      </div>
       {{ form.submit(class="btn-submit btn-default btn") }}
     </form>
   {% endif %}
