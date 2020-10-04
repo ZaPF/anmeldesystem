@@ -18,7 +18,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">
-        <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>ZaPF-Anmeldung
+	      <img src="https://zapf.wiki/zapflogo.png" alt="ZaPF-Logo" height=30px style="display: inline; vertical-align: middle"> <span style="padding-left: 5px; vertical-align: middle">ZaPF-Anmeldung</span>
       </a>
     </div>
 
@@ -26,7 +26,7 @@
       <ul class="nav navbar-nav navbar-right">
       {% block navbar_right %}
       {% if current_user.is_authenticated %}
-        <li><a href="{{url_for('oauth_client.logout')}}">logout {{current_user.full_name}}</a></li>
+      <li style="padding: 10px">Eingeloggt als: {{current_user.full_name}} ({{current_user.username}}) <a style="display: inline; padding: 0; padding-left: 5px" href="{{url_for('oauth_client.logout')}}"><span class="btn-default btn">Logout</span></a></li>
       {% endif %}
       {% endblock %}
       </ul>
