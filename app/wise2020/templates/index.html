@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Anmeldung zur ZaPF in Garching 05. bis 09. November 2020{% endblock %}
+
+{% macro form_group(field, help_text=None, id=None, list=None, placeholder='', rows=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            {{ field.label }}
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            {{ field(class="form-control", list=list, placeholder=placeholder, rows=rows) }}
+          </div>
+{% endmacro %}
+
+{% macro radio_group(field, help_text=None, id=None, list=None, placeholder='', rows=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            {{ field.label }}
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            <div class="radio">
+              {{ field(list=list, placeholder=placeholder, rows=rows, style="list-style-type: none;") }}
+	    </div>
+          </div>
+{% endmacro %}
+
+{% macro checkbox(field, label, help_text=None, id=None) %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
+            {% if label %}<label>{{ label }}</label> {% endif %}
+            {% if help_text or field.errors %}
+            <span class="help-block">
+              {% if field.errors %}
+              <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+              {% if help_text %}{{ help_text }}{% endif %}
+            </span>
+            {% endif %}
+            <div class="checkbox">
+              <label>
+                {{ field }}
+                {{ field.label }}
+              </label>
+            </div>
+          </div>
+{% endmacro %}
+
+{% macro datalist(list_id, options) %}
+  <datalist id="{{list_id}}">
+  {% for option in options %}
+    <option value="{{option}}"/>
+  {% endfor %}
+  </datalist>
+{% endmacro %}
+
+{% macro show_form_errors(form, container = True) %}
+{% if form.errors -%} {# don't output anything if there are no errors #}
+{% if container -%}
+  <div class="row">
+    <div class="col-md-12">
+{% endif -%}
+      <div class="alert alert-danger" role="alert">
+        <p><strong>Errors when validating form data:</strong></p>
+        {{ wtf.form_errors(form) }}
+      </div>
+{% if container %}
+    </div>
+  </div>
+{% endif -%}
+{% endif -%}
+{% endmacro -%}
+
+{% block content %}
+<div class="container">
+  {% if current_user.is_authenticated %}
+    <div class="jumbotron">
+      <h1>Hallo {{current_user.firstName}}!</h1>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Infos zum Einstieg</h2>
+      </div>
+      <div class="panel-body">
+      {% if confirmed == None %}
+      <label>Anmeldung zur ZaPF</label><p>Bitte fülle das Formular unten aus, um dich zur ZaPF anzumelden.
+        Deine Fachschaft kann dich dann bis zum {{ registration_close[1] }} mit ihrem Token bestätigen
+	und ihre Prioritätenreihenfolge festlegen. Falls du ein gewähltes Amt der ZaPF oder des ZaPF e.V. innehast, solltest du sofort bestätigt sein. Ist dies nicht der Fall, wende dich bitte an <a href="mailto:topf@zapf.in">den TOPF</a>.</p>
+        <label>Wichtig!</label><p>Bitte Überprüfe nach dem Absenden des Formulars,
+          ob deine Daten gespeichert wurden. 
+          Wenn das Formular nach dem Absenden wieder leer ist, 
+          wurden die Daten <b>nicht</b>&nbsp;gespeichert.
+          Das passiert u.a., wenn das Formular lange offen war, ohne abgeschickt oder neu geladen zu werden.
+        </p>
+		<label>Teilnahmebeitrag</label><p>Der Teilnahmebeitrag beträgt 30€.</p>
+      <label>Anmeldeschluss</label><p>Die Anmeldung ist bis zum {{ registration_close[0] }} möglich.</p>
+      {% elif confirmed %}
+        <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
+      {% else %}
+        <p>Du bist schon registriert, allerdings muss Deine Fachschaft Dich
+        noch bestätigen.</p>
+      {% endif %}
+	<label>Name und E-Mail-Adresse</label><p>Dein Name und deine E-Mail-Adresse werden aus dem <a href="https://auth.zapf.in">ZaPF-Auth</a> übernommen. Falls du deinen Namen oder deine E-Mail-Adresse ändern möchtest, mach dies am besten vor der Anmeldung <a href="https://auth.zapf.in/user/edit">hier</a>.
+	</p>
+      <label>Änderungen</label><p> Du kannst deine Angaben bis zum {{ registration_close[1] }} noch ändern, indem du auf diese Seite zurückkehrst.</p> 
+    </div>
+    </div>
+
+    <form method="POST">
+      {{ form.csrf_token }}
+      {{ show_form_errors(form) }}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Allgemein</h2>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.spitzname, 'Der Spitzname wird auf dem Tagungsausweis vermerkt. Lässt du dieses Feld leer, wird stattdessen der Vorname verwendet.') }}
+	  {{ form_group(form.anrede, 'Auf deinem Tagungsausweis wird vermerkt, wie du angesprochen werden möchtest.') }}
+	  <div class="form-group">
+		  <label>E-Mail-Adresse*</label>
+		  <span class="help-block">Diese E-Mail-Adresse wird verwendet, um dich vor und während der ZaPF auf dem aktuellen Stand zu halten. Möchtest du eine andere Adresse benutzen, musst du sie <a href="https://auth.zapf.in/user/edit">hier</a> ändern.</span>
+		  <span class="form-control">{{ current_user.email }}</span>
+	  </div>
+          {{ form_group(form.uni, 'Wenn Du zu den Alumni gehörst, wähle bitte die Uni "Universidad de los Saccos Veteres " aus.') }}
+	  {{ radio_group(form.immatrikuliert, 'Für die BMBF-Förderung müssen wir Immatrikulatinsbescheinigungen einsammeln und auf Aufforderung dem BMBF vorlegen können. Um das möglichst gut mit Datenschutz vereinbaren zu können, müsst ihr eine ausgedruckte Immatrikulationsbescheinigung mitbringen. Informationen zum weiteren Vorgehen gibt es dann vor Ort.') }}
+	  <span class="help-block">* Pflichtfeld</span>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Informationen zur Nachverfolgung von Infektonsketten, Hygienemaßnahmen</h2>
+        </div>
+        <div class="panel-body">
+	  <p>Diese Informationen müssen wir sammeln, um den Gesundheitsbehörden im Falle einer SARS-CoV-2-Infektion die Nachverfolgung und Unterbrechung der Infektionskette zu ermöglichen.</p>
+		<label for="names">Vollständiger Name*</label><span class="help-block">Ist der angezeigte Name nicht korrekt, musst du ihn <a href="https://auth.zapf.in/user/edit">hier</a> ändern.</span><span class="form-control" id="names">{{ current_user.firstName }} {{ current_user.surname }}</span>
+          {{ form_group(form.adresse, rows="5", placeholder="ggf. c/o
+Straße Hausnummer
+PLZ Ort
+Land") }}
+          {{ form_group(form.telefon) }}
+	  {{ checkbox(form.korrekt, 'Korrektheit der Angaben*') }}
+          {{ checkbox(form.corona, 'Hygienemaßnahmen*') }} 
+	  <span class="help-block">* Pflichtfeld</span>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Essen</h2>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.essen) }}
+          {{ form_group(form.allergien) }}
+          {{ checkbox(form.alkohol, 'Alkoholkonsum') }}
+	</div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Rahmenprogramm</h2>
+        </div>
+        <div class="panel-body">
+          <p>Hier könnt Ihr Eure Wunschexkursionen angeben.
+          Informationen zu den Exkursionen könnt Ihr
+          <a href="https://garching.zapf.in/?p=exkursionen" target="_blank">hier</a>
+          nachlesen.</p>
+          {{ form_group(form.exkursion1, id="exkursion1") }}
+          {{ form_group(form.exkursion2, id="exkursion2") }}
+          {{ form_group(form.exkursion3, id="exkursion3") }}
+          {{ form_group(form.exkursion4, id="exkursion4") }}
+          {{ form_group(form.musikwunsch, 'Sofern möglich wird dein Musikwunsch zur ZaPF-Playlist hinzugefügt und kann auf der Party gespielt werden.') }}
+        </div>
+      </div>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Merch</h2>
+          </div>
+          <div class="panel-body">
+            {{ form_group(form.tshirt, 'Im Anmeldepreis enthalten.') }}
+	    <p>Im folgenden kannst du zusätzliches Merch bestellen. Die Bestellung ist eine verbindliche Kaufzusage. Die Bezahlung erfolgt vor Ort zusammen mit der Teilnahmegebühr. Weitere Infos und Bilder: <a href="https://garching.zapf.in/?p=merchandise">https://garching.zapf.in/?p=merchandise</a>.</p>
+            {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmikashirts, Größe wie oben angegeben. Preis 15€/Stück.') }}
+            {{ form_group(form.hoodie) }}
+            {{ checkbox(form.krug) }}
+	    {{ checkbox(form.muetze) }}
+          </div>
+        </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Reiseinfos</h2>
+        </div>
+        <div class="panel-body">
+          {{ form_group(form.anreise_verkehr, id="anreise_verkehr") }}
+          {{ form_group(form.abreise_zeit, id="abreise_zeit") }}
+	  {{ checkbox(form.eigene_unterkunft) }}
+        </div>
+      </div>
+
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Sonstiges</h2>
+        </div>
+        <div class="panel-body">
+	  {{ form_group(form.zaepfchen, 'Wenn du angibst einen Mentor zu wollen, erklärst du dich damit einverstanden, dass wir deine E-Mail-Adresse an deinen Mentor weitergeben.') }}
+	  {{ checkbox(form.mentor, 'Mentoring') }}
+          {{ checkbox(form.protokoll, 'Plenumsprotokoll') }}
+          {{ checkbox(form.langzeithelfikon, 'Langzeithelfikon') }}
+		{{ checkbox(form.vertrauensperson, 'Vertrauenspersonen', 'Die Vertrauenspersonen dienen als Anlaufstelle für hilfesuchende Personen, die Ausgrenzung, Diskriminierung oder Belästigung im Rahmen der ZaPF erfahren haben. Die Wahl der höchstens sechs Vertrauenspersonen ist zu Beginn jeder ZaPF durchzuführen.') }}
+	  {{ radio_group(form.stream, 'Da wir auf dieser ZaPF aus Gründen des Infektionsschutzes eventuell nur eine Person pro Fachschaft willkommen heißen dürfen, würden wir gerne den anderen Fachschaftika die Teilnahme an den Plenen über das Internet ermöglichen. Dazu würden wir gerne das Bild der Bühne und alle Redebeiträge als Livestream zur Verfügung stellen.') }}
+          {{ checkbox(form.minderjaehrig, 'Alterscheck') }}
+          {{ form_group(form.kommentar) }}
+	  {{ radio_group(form.immatrikulationsbescheinigung) }}
+	  <span class="help-block">* Pflichtfeld</span>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Datenschutz</h2>
+        </div>
+        <div class="panel-body">
+          <a href="{{url_for('static', filename='wise20/datenschutz.html')}}" rel="noopener noreferrer" target="_blank">Klicke hier, um die Datenschutzerklärung in einem neuen Tab zu öffnen.</a>
+          {{ checkbox(form.datenschutz) }}
+	  <span class="help-block">* Pflichtfeld</span>
+        </div>
+      </div>
+      {{ form.submit(class="btn-submit btn-default btn") }}
+    </form>
+  {% endif %}
+  <footer style="margin-top: 25px; margin-bottom: 10px"><a href="https://zapfev.de/impressum/" rel="noopener noreferrer" target="_blank">Impressum</a>,  <a href="{{url_for('static', filename='wise20/datenschutz.html')}}" rel="noopener noreferrer" target="_blank">Datenschutzerklärung</a></footer>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('static', filename='wise18/registration.js')}}"></script>
+{% endblock %}
