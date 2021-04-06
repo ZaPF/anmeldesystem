@@ -33,9 +33,9 @@ def create_app(profile="default"):
     app.register_blueprint(priorities, url_prefix='/priorities')
     init_priorities(priorities)
 
-    from app.sose2020 import sommer20, init_app as init_sommer20
+    from app.sose2021 import sommer21, init_app as init_sommer21
     app.register_blueprint(sommer20)
-    init_sommer20(app)
+    init_sommer21(app)
 
     @app.context_processor
     def inject_current_user():
