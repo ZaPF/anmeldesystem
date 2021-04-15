@@ -154,19 +154,19 @@ class Sommer21Registration(FlaskForm):
         ('fahrrad', 'Fahrrad'),
         ('badeente', 'Badeente'),
         ])
-    tshirt = SelectField('T-Shirt', choices = T_SHIRT_CHOICES)
+    tshirt = SelectField('Ich möchte gerne ein T-Shirt für max. 17 Euro bestellen.', choices = T_SHIRT_CHOICES)
     addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
 
 
 
 
-    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. XX Euro bestellen', choices = HOODIE_CHOICES)
-    handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. XX Euro bestellen')
-    tasse = BooleanField('Ich möchte gerne eine Tasse für max. XX Euro bestellen')
-    usb = BooleanField('Ich möchte gerne einen USB-Stick für max. XX Euro bestellen')
-    frisbee = BooleanField('Ich möchte gerne eine Frisbee für max. XX Euro bestellen')
-    aufnaeher = IntegerField('Anzahl Aufnäher',[validators.optional()], widget=NumberInput())
-    schal = BooleanField('Ich möchte gerne einen Schlauchschal für max. XX Euro bestellen')
+    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 30 Euro bestellen', choices = HOODIE_CHOICES)
+    handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 10 Euro bestellen')
+    tasse = BooleanField('Ich möchte gerne eine Tasse für max. 8 Euro bestellen')
+    usb = BooleanField('Ich möchte gerne einen USB-Stick für max. 6 Euro bestellen')
+    frisbee = BooleanField('Ich möchte gerne eine Frisbee für max. 25 Euro bestellen')
+    aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.optional()], widget=NumberInput())
+    schal = BooleanField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen')
 
 
 
