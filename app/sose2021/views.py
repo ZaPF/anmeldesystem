@@ -78,10 +78,11 @@ class Sommer21Registration(FlaskForm):
 
     def __init__(self, **kwargs):
         super(Sommer21Registration, self).__init__(**kwargs)
-        
+
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
-
+    
+    musikwunsch = StringField('Musikwunsch')
     anreise_verkehr = SelectField('Wie wäret ihr zur Ostsee-ZaPF gereist?', choices=[
         ('bus', 'Fernbus'),
         ('bahn', 'Zug'),
