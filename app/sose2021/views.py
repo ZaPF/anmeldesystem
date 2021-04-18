@@ -104,8 +104,6 @@ class Sommer21Registration(FlaskForm):
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
-    ])
-
 
     essen = SelectField('Essen', choices=[
         ('omnivor', 'Omnivor'),
@@ -305,6 +303,6 @@ def adminEdit(username):
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
         return redirect(url_for('sommer21.adminEdit', username=username))
 
-    return render_0emplate('index.html', form=form, confirmed=confirmed)
+    return render_template('index.html', form=form, confirmed=confirmed)
 
 
