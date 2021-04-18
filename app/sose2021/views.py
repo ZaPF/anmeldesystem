@@ -54,24 +54,6 @@ HOODIE_CHOICES = [
         ('xs', 'XS'),
         ]
 
-class ImmatrikulationsValidator(object):
-	def __init__(self, following=None):
-		self.following = following
-
-	def __call__(self, form, field):
-		if field.data != 'ja' and field.data != 'n.i.':
-			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung mitbringen wirst oder, dass du keine hast.')
-
-class ImmatrikulationsValidator2(object):
-	def __init__(self, following=None):
-		self.following = following
-
-	def __call__(self, form, field):
-		if field.data != 'nein' and field.data != 'n.i.':
-			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
-
-
-
 class ExkursionenValidator(object):
     def __init__(self, following=None):
         self.following = following
@@ -99,48 +81,9 @@ class Sommer21Registration(FlaskForm):
         self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
         self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
         self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
-        self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator(self.immatrikulationsbescheinigung)]
-        self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatrikulationsbescheinigung2)]
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
-
-    essen = SelectField('Essen', choices=[
-        ('omnivor', 'Omnivor'),
-        ('vegetarisch', 'Vegetarisch'),
-        ('vegan', 'Vegan'),
-        ])
-    allergien = StringField('Allergien')
-    heissgetraenk = SelectField('Kaffee oder Tee?', choices=[
-#        ('egal', 'Egal'),
-        ('kaffee', 'Kaffee'),
-        ('tee', 'Tee'),
-        ])
-#   essenswunsch = StringField('Unverbindlicher Essenswunsch:')
-
-    exkursionen = [
-        ('keine', 'keine Exkursion'),#
-        ('egal', 'Ist mir egal'),#
-        ('alpaka', 'Alpakawanderung, 15 Euro'),#
-        ('ente', 'Entennähworkshop, 1 Euro'),#
-        ('hansebrau', 'Hanseatische Brauerei, 8 Euro'),#
-        ('iow', 'Institut für Ostseeforschung'),#
-        ('kulturhist', 'Kulturhistorisches Museum'),#
-        ('laser','Lasertag, 20 Euro'),#
-        ('inp', 'Leibniz-Institut für Plasmaforschung und Technologie, Greifswald'),#
-        ('ipp', 'Max-Planck-Institut für Plasmaphysik, Greifswald'),#
-        ('physch', 'PhySch-Labor'),#
-        ('stadt','Stadtführung'),#
-        ('strand', 'Strandwanderung'),#
-        ('trotzenburg', 'Trotzenburger Brauerei, 9 Euro'),#
-        ('zoo', 'Zoo Rostock, max. 13,50 Euro'),#
-       ]
-    exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
-    exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
-    exkursion3 = SelectField('Drittwunsch', choices=exkursionen)
-    exkursion4 = SelectField('Viertwunsch', choices=exkursionen)
-    musikwunsch = StringField('Musikwunsch')
-    #alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
     anreise_verkehr = SelectField('Wie wäret ihr zur Ostsee-ZaPF gereist?', choices=[
         ('bus', 'Fernbus'),
@@ -166,16 +109,12 @@ class Sommer21Registration(FlaskForm):
     aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.optional()], widget=NumberInput())
     schal = BooleanField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen')
 
-
-
-    bierak = BooleanField('Ich möchte am Bier-AK für maximal XX Euro teilnehmen.')
     zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne ein ZaPF-Mentikon.'),
         ('nein','Nein'),
         ])
     mentor = BooleanField('Ich möchte ZaPF-Mentikon werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird.')
-    foto = BooleanField('Ich bin damit einverstanden, dass Fotos von mir gemacht werden.')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
     widget = TextArea())
     submit = SubmitField()
