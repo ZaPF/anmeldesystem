@@ -78,10 +78,7 @@ class Sommer21Registration(FlaskForm):
 
     def __init__(self, **kwargs):
         super(Sommer21Registration, self).__init__(**kwargs)
-        self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
-        self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
-        self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
-
+        
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
 
