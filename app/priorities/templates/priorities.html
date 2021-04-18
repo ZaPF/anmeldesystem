@@ -18,7 +18,7 @@
 
 {% block navbar_right %}
 {% if 'zapf_token' in session %}
-  <li><a href="{{url_for('priorities.logout')}}">logout {{ uni }}</a></li>
+  <li style="padding: 10px">Eingeloggt als: {{uni}} <a style="display: inline; padding: 0; padding-left: 5px" href="{{url_for('priorities.logout')}}"><span class="btn-default btn">Logout</span></a></li>
 {% endif %}
 {% endblock %}
 

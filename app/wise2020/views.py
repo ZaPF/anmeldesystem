@@ -1,23 +1,23 @@
 
 # coding=utf-8
-from . import sommer20
+from . import winter20
 from flask import render_template, session, redirect, url_for, flash, current_app
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField, BooleanField, validators, IntegerField
+from wtforms import StringField, SelectField, SubmitField, BooleanField, validators, IntegerField, RadioField, TextAreaField
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 from wtforms.widgets.html5 import NumberInput
 from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
-from datetime import datetime, time, timezone
+from datetime import datetime, time, timezone, timedelta
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2020, 3, 20, 21, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2020, 3, 27, 21, 59, 59, tzinfo=pytz.utc)
-ADMIN_USER = ['justus2342','Hobbesgoblin']
+REGISTRATION_SOFT_CLOSE = datetime(2020, 10, 3, 21, 59, 59, tzinfo=pytz.utc)
+REGISTRATION_HARD_CLOSE = datetime(2020, 10, 4, 21, 59, 59, tzinfo=pytz.utc)
+ADMIN_USER = ['t.prinz']
 
 T_SHIRT_CHOICES = [
-        ('keins', 'Nein, ich möchte keins'),
+        ('keins', 'Nein, ich möchte kein T-Shirt'),
 #        ('fitted_xxl', 'XXL fitted'),
 #       ('fitted_xl', 'XL fitted'),
 #       ('fitted_l', 'L fitted'),
@@ -36,7 +36,7 @@ T_SHIRT_CHOICES = [
         ]
 
 HOODIE_CHOICES = [
-        ('keins', 'Nein, ich möchte keinen'),
+        ('keins', 'Nein, ich möchte keine Sweatjacke'),
 #        ('fitted_xxl', 'XXL fitted'),
 #       ('fitted_xl', 'XL fitted'),
 #       ('fitted_l', 'L fitted'),
@@ -71,7 +71,6 @@ class ImmatrikulationsValidator2(object):
 			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
 
 
-
 class ExkursionenValidator(object):
     def __init__(self, following=None):
         self.following = following
@@ -81,72 +80,71 @@ class ExkursionenValidator(object):
             for follower in self.following:
                 if follower.data != "keine":
                     raise validators.ValidationError('Die folgenden Exkursionen sollten auch auf '
-                                                     '"Keine Exkursion" stehen, alles anderes ist '
+                                                     '"Keine Exkursion" stehen, alles andere ist '
                                                      'nicht sinnvoll ;).')
         elif field.data != "egal":
             for follower in self.following:
                 if follower.data == field.data:
                     raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
 
-class Sommer20Registration(FlaskForm):
+class Winter20Registration(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
         setattr(cls, name, field)
         return cls
 
     def __init__(self, **kwargs):
-        super(Sommer20Registration, self).__init__(**kwargs)
+        super(Winter20Registration, self).__init__(**kwargs)
         self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
         self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
         self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
-        self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator(self.immatrikulationsbescheinigung)]
-        self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatrikulationsbescheinigung2)]
+        self.immatrikuliert.validators=[ImmatrikulationsValidator(self.immatrikuliert)]
+        self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator2(self.immatrikulationsbescheinigung)]
+    
+    adresse = TextAreaField('Adresse*')
+    telefon = StringField('Telefonnummer*', default='+49 ')
 
-    uni = SelectField('Uni', choices=[], coerce=str)
-    spitzname = StringField('Spitzname')
-    immatrikulationsbescheinigung = SelectField('Bringst du deine Immatrikulationsbescheinigung mit?', choices=[
-            ('invalid','---'),
+    uni = SelectField('Uni*', [validators.InputRequired()], choices=[], coerce=str)
+    spitzname = StringField('Spitzname/Rufname')
+    immatrikuliert = RadioField('Bringst du deine Immatrikulationsbescheinigung mit?*', choices=[
             ('ja', 'Ich bin an einer Hochschule immatrikuliert und bringe eine gültige Bescheinigung darüber mit.'),
             ('nein', 'Ich bin an einer Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),	
             ('n.i.', 'Ich bin an keiner Hochschule immatrikuliert und bringe keine gültige Bescheinigung darüber mit.'),
             ])
-    immatrikulationsbescheinigung2 = SelectField('Wirst du deine Immatrikulationsbescheinigung vergessen?', choices=[
-            ('invalid','---'),
+    immatrikulationsbescheinigung = RadioField('Wirst du deine Immatrikulationsbescheinigung vergessen?*', choices=[
             ('ja', 'Ja.'),
             ('nein', 'Nein.'),
             ('n.i.', 'Ich habe keine.'),
-    ])
-
-
+    ]) 
     essen = SelectField('Essen', choices=[
         ('omnivor', 'Omnivor'),
         ('vegetarisch', 'Vegetarisch'),
         ('vegan', 'Vegan'),
         ])
-    allergien = StringField('Allergien')
-    heissgetraenk = SelectField('Kaffee oder Tee?', choices=[
+    allergien = StringField('Hast du irgendwelche Allergien oder andere Essenseinschränkungen?')
+    alkohol = BooleanField('Ich trinke Alkohol')
+#'''    heissgetraenk = SelectField('Kaffee oder Tee?', choices=[
 #        ('egal', 'Egal'),
-        ('kaffee', 'Kaffee'),
-        ('tee', 'Tee'),
-        ])
+#        ('kaffee', 'Kaffee'),
+#        ('tee', 'Tee'),
+#        ])'''
 #   essenswunsch = StringField('Unverbindlicher Essenswunsch:')
-
+#
     exkursionen = [
         ('keine', 'keine Exkursion'),#
         ('egal', 'Ist mir egal'),#
-        ('alpaka', 'Alpakawanderung, 15 Euro'),#
-        ('ente', 'Entennähworkshop, 1 Euro'),#
-        ('hansebrau', 'Hanseatische Brauerei, 8 Euro'),#
-        ('iow', 'Institut für Ostseeforschung'),#
-        ('kulturhist', 'Kulturhistorisches Museum'),#
-        ('laser','Lasertag, 20 Euro'),#
-        ('inp', 'Leibniz-Institut für Plasmaforschung und Technologie, Greifswald'),#
-        ('ipp', 'Max-Planck-Institut für Plasmaphysik, Greifswald'),#
-        ('physch', 'PhySch-Labor'),#
-        ('stadt','Stadtführung'),#
-        ('strand', 'Strandwanderung'),#
-        ('trotzenburg', 'Trotzenburger Brauerei, 9 Euro'),#
-        ('zoo', 'Zoo Rostock, max. 13,50 Euro'),#
+        ('eso', 'ESO - Europäische Südsternwarte'),#
+        ('ipp', 'IPP - Max-Plank-Institut für Plasmaphysik'),#
+        ('mpq', 'MPQ - Max-Plank-Institut für Quantenoptik'),#
+        ('mpe', 'MPE - Max-Plank-Institut für Extraterrestrische Physik'),#
+        ('mpa', 'MPA - Max-Plank-Institut für Astrophysik'),#
+        ('lrz', 'LRZ - Leibniz-Rechenzentrum'),#
+        ('frm2', 'FRM II'),#
+        ('stadtfuehrung', 'Stadtführung Garching'),#
+        ('isarwanderung', 'Isarwanderung'),#
+        ('campusfuehrung', 'Ausgiebigerere Campusführung'),#
+        ('lss', 'Führung durch das LSS'),#
+        ('aisec', 'Fraunhofer AISEC'),
        ]
     exkursion1 = SelectField('Erstwunsch', choices=exkursionen)
     exkursion2 = SelectField('Zweitwunsch', choices=exkursionen)
@@ -155,36 +153,39 @@ class Sommer20Registration(FlaskForm):
     musikwunsch = StringField('Musikwunsch')
     #alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
-    anreise_verkehr = SelectField('Anreise vorraussichtlich mit:', choices=[
+    anreise_verkehr = SelectField('Wie kommst du zu uns?', choices=[
+        ('', ' --- '),
         ('bus', 'Fernbus'),
         ('bahn', 'Zug'),
         ('auto', 'Auto'),
-#        ('flug', 'Flugzeug'),
+        ('flug', 'Flugzeug'),
 #       ('zeitmaschine', 'Zeitmaschine'),
-        ('boot', 'Boot'),
+        ('floss', 'Floß'),
         ('fahrrad', 'Fahrrad'),
-        ('badeente', 'Badeente'),
-        ])
-    anreise_zeit = SelectField('Anreise vorraussichtlich:', choices=[
-        ('mi1416', 'Mittwoch 14-16 Uhr'),
-        ('mi1618', 'Mittwoch 16-18 Uhr'),
-        ('mi1820', 'Mittwoch 18-20 Uhr'),
-        ('mi2022', 'Mittwoch 20-22 Uhr'),
-        ('ende', 'Später'),
-        ])
+        ('sonstige', 'Sonstige'),
+    ])
+# '''   anreise_zeit = SelectField('Anreise vorraussichtlich:', choices=[
+#        ('mi1416', 'Mittwoch 14-16 Uhr'),
+#        ('mi1618', 'Mittwoch 16-18 Uhr'),
+#        ('mi1820', 'Mittwoch 18-20 Uhr'),
+#        ('mi2022', 'Mittwoch 20-22 Uhr'),
+#        ('ende', 'Später'),
+#        ])'''
 
-    excar = BooleanField('Ich reise mit einem Auto an und bin bereit, auf Exkursionen Zapfika mitzunehmen.')
+#    excar = BooleanField('Ich reise mit einem Auto an und bin bereit, auf Exkursionen Zapfika mitzunehmen.')
 
     abreise_zeit = SelectField('Abreise vorraussichtlich:', choices=[
-        ('vorso', 'Vor Sonntag'),
-        ('so810', 'Sonntag 8-10 Uhr'),
-        ('so1012', 'Sonntag 10-12 Uhr'),
-        ('so1214', 'Sonntag 12-14 Uhr'),
-        ('so1416', 'Sonntag 14-16 Uhr'),
-        ('so1618', 'Sonntag 16-18 Uhr'),
-        ('so1820', 'Sonntag 18-20 Uhr'),
-        ('ende', 'Nach dem Plenum'),
+        ('', ' --- '),
+        ('fr', 'Freitag'),
+        ('sa', 'Samstag'),
+        ('sovormittag', 'Sonntag Vormittag'),
+        ('soabend', 'Sonntag Abend'),
+        ('monacht', 'Nacht auf Montag'),
+        ('movormittag', 'Montag Vormittag'),
         ])
+
+    eigene_unterkunft = BooleanField('Ich könnte mich selber um eine Unterkunft kümmern, falls ihr mir keinen Schlafplatz anbieten könnt.')
+
 #   schlafen = SelectField('Unterkunft', choices=[
 #       ('egal','Egal'),
 #       ('MZH','Unterkunft A'),
@@ -196,19 +197,20 @@ class Sommer20Registration(FlaskForm):
 
 
 
-    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
-    handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
+    hoodie = SelectField('Ich möchte gerne eine Sweatjacke für 25 Euro bestellen.', choices = HOODIE_CHOICES)
+    krug = BooleanField('Ich möchte gerne einen Maßkrug für 15 Euro bestellen.')
+    muetze = BooleanField('Ich möchte gerne eine Mütze für 10 Euro bestellen.')
 
 
-
-    bierak = BooleanField('Ich möchte am Bier-AK für maximal 10 Euro teilnehmen.')
-    zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
-        ('ja','Ja'),
-        ('jaund','Ja und ich hätte gerne einen ZaPF-Mentor.'),
+#    bierak = BooleanField('Ich möchte am Bier-AK für maximal 10 Euro teilnehmen.')
+    zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?*', [validators.InputRequired()], choices=[
+        ('','Bitte auswählen'),
+        ('jamentor','Ja und ich hätte gerne einen ZaPF-Mentor.'),
+        ('ja','Ja, aber ich möchte keinen Mentor oder bringe meinen eigenen Mentor mit.'),
         ('nein','Nein'),
         ])
     mentor = BooleanField('Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird.')
-    foto = BooleanField('Ich bin damit einverstanden, dass Fotos von mir gemacht werden.')
+#    foto = BooleanField('Ich bin damit einverstanden, dass Fotos von mir gemacht werden.')
 #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
     minderjaehrig = BooleanField('Ich bin zum Zeitpunkt der ZaPF JÜNGER als 18 Jahre.')
     kommentar = StringField('Möchtest Du uns sonst etwas mitteilen?',
@@ -220,31 +222,36 @@ class Sommer20Registration(FlaskForm):
 
 
     anrede= SelectField('Wie möchtest du angesprochen werden?',choices=[
-            ('ka','Keine Angabe'),
-            ('er','Er'),
-            ('sie','Sie'),
+            ('ka',''),
+            ('er','Er/Ihm'),
+            ('sie','Sie/Ihr'),
+            ('es','Es/Ihm'),
+            ('siemehrzahl','Sie (Mehrzahl)/Ihnen'),
+            ('vorname','Mit meinem Vornamen/Spitznamen'),
             ('anderes','Sprich mich darauf an'),
-            ])
-    vertrauensperson = SelectField('Wärst Du bereit, dich als Vertrauensperson aufzustellen? (Du weißt nicht was das ist? Gib bitte "Nein" an!)', choices=[
-	    ('nein', 'Nein'),
-	    ('ja', 'Ja'),
-    ])
-    protokoll = SelectField('Wärst Du bereit bei den Plenen Protokoll zu schreiben?', choices=[
-            ('nein', 'Nein'),
-            ('ja','Ja'),
-    ])
-    schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast du?', choices=[
-        ('keins','keins'),
-        ('seepferd','Seepferdchen'),
-        ('bronze','Bronze'),
-        ('silber','Silber'),
-        ('gold','Gold'),
-        ('rett','Rettungsschwimmer*in'),
-    ])
-    datenschutz = BooleanField('Ja', [validators.InputRequired()])
+            ], default="")
+    vertrauensperson = BooleanField('Ich möchte mich als Vertrauensperson zur Wahl stellen.')
+    stream = RadioField('Wärst du damit einverstanden, dass die Plenen Live ins Internet gestreamt werden?*', [validators.InputRequired()], choices=[
+        ('nein', 'Nein'),
+        ('japasswort', 'Ja, wenn nur Fachschaftika zugänglich (Passwortgeschützt)'),
+        ('ja', 'Ja, auch öffentlich'),
+        ])
+    protokoll = BooleanField('Ich wäre bereit, bei den Plenen Protokoll zu schreiben.')
+    langzeithelfikon = BooleanField('Ich bin bereit, im laufe der ZaPF mehr als 12 Stunden als Helfikon tätig zu sein.')
+# '''   schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast du?', choices=[
+#        ('keins','keins'),
+#        ('seepferd','Seepferdchen'),
+#        ('bronze','Bronze'),
+#        ('silber','Silber'),
+#        ('gold','Gold'),
+#        ('rett','Rettungsschwimmer*in'),
+#    ])'''
+    datenschutz = BooleanField('Ich habe die Datenschutzerklärung gelesen und bin mit der darin beschriebenen Verarbeitung meiner Daten einverstanden.*', [validators.InputRequired()])
+    corona = BooleanField('Ich bin mir bewusst, dass vor der Tagung eine Hausordnung inklusive Hygienemaßnahmen veröffentlicht wird und werde mich an diese Regeln halten.', [validators.InputRequired()])
+    korrekt = BooleanField('Die oben angegebenen Daten sind meine eigenen, korrekt und aktuell. Sollten sie sich bis zum Ende der ZaPF ändern, werde ich die ausrichtende Fachschaft darüber informieren.', [validators.InputRequired()])
 
 
-@sommer20.route('/', methods=['GET', 'POST'])
+@winter20.route('/', methods=['GET', 'POST'])
 def index():
     registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
     priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
@@ -254,13 +261,13 @@ def index():
         return render_template('registration_closed.html')
 
     if 'me' not in session:
-        return render_template('landing.html', registration_open = registration_open, priorities_open = priorities_open)
+        return render_template('landing.html', registration_open = registration_open, priorities_open = priorities_open, registration_close=(REGISTRATION_SOFT_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z"), REGISTRATION_HARD_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z")))
 
     if not getOAuthToken():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Sommer20Registration
+    Form = Winter20Registration
 
     defaults = {}
     confirmed = None
@@ -283,7 +290,7 @@ def index():
         raise
     if unis._resp.code != 200:
         return redirect(url_for('oauth_client.login'))
-    form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
+    form.uni.choices = [('','Bitte Auswählen')] + sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
 
     # Daten speichern
     if form.submit.data and form.validate_on_submit():
@@ -296,9 +303,9 @@ def index():
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
         return redirect('/')
 
-    return render_template('index.html', form=form, confirmed=confirmed)
+    return render_template('index.html', form=form, confirmed=confirmed, registration_close=(REGISTRATION_SOFT_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z"), REGISTRATION_HARD_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z")))
 
-@sommer20.route('/admin/sose19/<string:username>', methods=['GET', 'POST'])
+@winter20.route('/admin/wise20/<string:username>', methods=['GET', 'POST'])
 def adminEdit(username):
     if 'me' not in session:
         return redirect('/')
@@ -311,7 +318,7 @@ def adminEdit(username):
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Sommer20Registration
+    Form = Winter20Registration
 
     defaults = {}
     confirmed = None
@@ -332,7 +339,7 @@ def adminEdit(username):
     unis = oauth_remoteapp.get('unis')
     if unis._resp.code != 200:
         return redirect(url_for('oauth_client.login'))
-    form.uni.choices = sorted(unis.data.items(), key=lambda uniEntry: int(uniEntry[0]))
+    form.uni.choices = sorted(unis.data.items())
 
     # Daten speichern
     if form.submit.data and form.validate_on_submit():
@@ -343,8 +350,8 @@ def adminEdit(username):
             flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
         else:
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
-        return redirect(url_for('sommer20.adminEdit', username=username))
+        return redirect(url_for('winter20.adminEdit', username=username))
 
-    return render_0emplate('index.html', form=form, confirmed=confirmed)
+    return render_template('index.html', form=form, confirmed=confirmed, registration_close=(REGISTRATION_SOFT_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z"), REGISTRATION_HARD_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z")))
 
 

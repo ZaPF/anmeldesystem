@@ -34,7 +34,7 @@ def create_app(profile="default"):
     init_priorities(priorities)
 
     from app.sose2021 import sommer21, init_app as init_sommer21
-    app.register_blueprint(sommer20)
+    app.register_blueprint(sommer21)
     init_sommer21(app)
 
     @app.context_processor

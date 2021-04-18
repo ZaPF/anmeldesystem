@@ -80,6 +80,12 @@
         <p>Bitte fülle das Formular unten aus, um Dich zur ZaPF anzumelden.
         Deine Fachschaft kann Dich dann später mit ihrem Token bestätigen
         und ihre Prioritätenreihenfolge festlegen.</p>
+        <p>Bitte überprüfe nach dem Absenden des Formulars,
+          ob deine Daten gespeichert wurden. 
+          Wenn das Formular nach dem Absenden wieder leer ist, 
+          wurden die Daten <b>nicht</b>&nbsp;gespeichert.
+          Das passiert u.a., wenn das Formular lange offen war, ohne abgeschickt oder neu geladen zu werden.
+        </p>
       {% elif confirmed %}
         <p>Glückwunsch! Deine Fachschaft hat Dich bestätigt.</p>
       {% else %}
@@ -168,6 +174,15 @@
           {{ checkbox(form.foto) }}
           {{ form_group(form.immatrikulationsbescheinigung2) }}
           {{ form_group(form.kommentar) }}
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Datenschutz</h2>
+        </div>
+        <div class="panel-body">
+          Ich habe die <a href="{{url_for('static', filename='sose20/datenschutz.html')}}" rel="noopener noreferrer" target="_blank">Datenschutzerklärung</a> gelesen und bin mit der darin beschriebenen Verarbeitung meiner Daten einverstanden.
+          {{ checkbox(form.datenschutz) }}
         </div>
       </div>
       {{ form.submit(class="btn-submit btn-default btn") }}
