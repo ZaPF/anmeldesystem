@@ -70,6 +70,13 @@ class ImmatrikulationsValidator2(object):
 		if field.data != 'nein' and field.data != 'n.i.':
 			raise validators.ValidationError('Bitte gib an, dass du deine Immatrikulationsbescheinigung nicht vergessen wirst.')
 
+class PosNumberValidator(object):
+	def __init__(self, following=None):
+		self.following = following
+
+	def __call__(self, form, field):
+		if field.data < 0:
+			raise validators.ValidationError('Bitte gib eine positive Zahl an.')
 
 
 class ExkursionenValidator(object):
@@ -101,6 +108,8 @@ class Sommer21Registration(FlaskForm):
         self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
         self.immatrikulationsbescheinigung.validators=[ImmatrikulationsValidator(self.immatrikulationsbescheinigung)]
         self.immatrikulationsbescheinigung2.validators=[ImmatrikulationsValidator2(self.immatrikulationsbescheinigung2)]
+        self.addtshirt.validators=[PosNumberValidator(self.addshirt)]
+        self.aufnaeher.validators=[PosNumberValidator(self.aufnaeher)]
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
@@ -144,7 +153,7 @@ class Sommer21Registration(FlaskForm):
     musikwunsch = StringField('Musikwunsch')
     #alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
-    anreise_verkehr = SelectField('Wie wäret ihr zur Ostsee-ZaPF gereist?', choices=[
+    anreise_verkehr = SelectField('Wie wärst Du zur Ostsee-ZaPF gereist?', choices=[
         ('bus', 'Fernbus'),
         ('bahn', 'Zug'),
         ('auto', 'Auto'),
@@ -171,7 +180,7 @@ class Sommer21Registration(FlaskForm):
 
 
     bierak = BooleanField('Ich möchte am Bier-AK für maximal XX Euro teilnehmen.')
-    zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
+    zaepfchen = SelectField('Kommst Du zum ersten Mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne ein ZaPF-Mentikon.'),
         ('nein','Nein'),
