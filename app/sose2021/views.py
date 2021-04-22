@@ -54,31 +54,6 @@ HOODIE_CHOICES = [
         ('xs', 'XS'),
         ]
 
-class PosNumberValidator(object):
-	def __init__(self, following=None):
-		self.following = following
-
-	def __call__(self, form, field):
-		if field.data < 0:
-			raise validators.ValidationError('Bitte gib eine positive Zahl an.')
-
-
-class ExkursionenValidator(object):
-    def __init__(self, following=None):
-        self.following = following
-
-    def __call__(self, form, field):
-        if field.data == "keine":
-            for follower in self.following:
-                if follower.data != "keine":
-                    raise validators.ValidationError('Die folgenden Exkursionen sollten auch auf '
-                                                     '"Keine Exkursion" stehen, alles anderes ist '
-                                                     'nicht sinnvoll ;).')
-        elif field.data != "egal":
-            for follower in self.following:
-                if follower.data == field.data:
-                    raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
-
 class Sommer21Registration(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
@@ -87,8 +62,6 @@ class Sommer21Registration(FlaskForm):
 
     def __init__(self, **kwargs):
         super(Sommer21Registration, self).__init__(**kwargs)
-        self.addtshirt.validators=[PosNumberValidator(self.addtshirt)]
-        self.aufnaeher.validators=[PosNumberValidator(self.aufnaeher)]
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
@@ -106,7 +79,7 @@ class Sommer21Registration(FlaskForm):
         ('badeente', 'Badeente'),
         ])
     tshirt = SelectField('Ich möchte gerne ein T-Shirt für max. 17 Euro bestellen.', choices = T_SHIRT_CHOICES)
-    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.optional()], widget=NumberInput())
+    addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
 
 
 
@@ -116,7 +89,7 @@ class Sommer21Registration(FlaskForm):
     tasse = BooleanField('Ich möchte gerne eine Tasse für max. 8 Euro bestellen')
     usb = BooleanField('Ich möchte gerne einen USB-Stick für max. 6 Euro bestellen')
     frisbee = BooleanField('Ich möchte gerne eine Frisbee für max. 25 Euro bestellen')
-    aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.optional()], widget=NumberInput())
+    aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
     schal = BooleanField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen')
 
     zaepfchen = SelectField('Kommst Du zum ersten Mal zu einer ZaPF?', choices=[
