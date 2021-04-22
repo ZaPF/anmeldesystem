@@ -87,7 +87,7 @@ class Sommer21Registration(FlaskForm):
 
     def __init__(self, **kwargs):
         super(Sommer21Registration, self).__init__(**kwargs)
-        self.addtshirt.validators=[PosNumberValidator(self.addshirt)]
+        self.addtshirt.validators=[PosNumberValidator(self.addtshirt)]
         self.aufnaeher.validators=[PosNumberValidator(self.aufnaeher)]
 
     uni = SelectField('Uni', choices=[], coerce=str)
