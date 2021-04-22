@@ -202,7 +202,7 @@ class Sommer21Registration(FlaskForm):
             ('nein', 'Nein'),
             ('ja','Ja'),
     ])
-    schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast du?', choices=[
+    schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast Du?', choices=[
         ('keins','keins'),
         ('bleiente','Bleiente'),
         ('seepferd','Seepferdchen'),
