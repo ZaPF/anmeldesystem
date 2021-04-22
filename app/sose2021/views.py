@@ -54,6 +54,15 @@ HOODIE_CHOICES = [
         ('xs', 'XS'),
         ]
 
+class PosNumberValidator(object):
+	def __init__(self, following=None):
+		self.following = following
+
+	def __call__(self, form, field):
+		if field.data < 0:
+			raise validators.ValidationError('Bitte gib eine positive Zahl an.')
+
+
 class ExkursionenValidator(object):
     def __init__(self, following=None):
         self.following = following
@@ -78,12 +87,15 @@ class Sommer21Registration(FlaskForm):
 
     def __init__(self, **kwargs):
         super(Sommer21Registration, self).__init__(**kwargs)
+        self.addtshirt.validators=[PosNumberValidator(self.addshirt)]
+        self.aufnaeher.validators=[PosNumberValidator(self.aufnaeher)]
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
     
     musikwunsch = StringField('Musikwunsch')
-    anreise_verkehr = SelectField('Wie wäret ihr zur Ostsee-ZaPF gereist?', choices=[
+
+    anreise_verkehr = SelectField('Wie wärst Du zur Ostsee-ZaPF gereist?', choices=[
         ('bus', 'Fernbus'),
         ('bahn', 'Zug'),
         ('auto', 'Auto'),
@@ -107,7 +119,7 @@ class Sommer21Registration(FlaskForm):
     aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.optional()], widget=NumberInput())
     schal = BooleanField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen')
 
-    zaepfchen = SelectField('Kommst du zum ersten mal zu einer ZaPF?', choices=[
+    zaepfchen = SelectField('Kommst Du zum ersten Mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
         ('jaund','Ja und ich hätte gerne ein ZaPF-Mentikon.'),
         ('nein','Nein'),
@@ -128,7 +140,7 @@ class Sommer21Registration(FlaskForm):
             ('nein', 'Nein'),
             ('ja','Ja'),
     ])
-    schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast du?', choices=[
+    schwimmabzeichen = SelectField('Welches Schwimmabzeichen hast Du?', choices=[
         ('keins','keins'),
         ('bleiente','Bleiente'),
         ('seepferd','Seepferdchen'),
