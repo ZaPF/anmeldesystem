@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Anmeldung Ostsee-ZaPF 202<strike>0</strike>1{% endblock %}
+{% block title %}Anmeldung Ostsee-ZaPF 2021{% endblock %}
 
 {% macro form_group(field, help_text=None, id=None, list=None) %}
           <div class="form-group{% if field.errors %} has-error{% endif %}"{% if id %} id="formgroup-{{ id }}"{% endif %}>
@@ -122,14 +122,16 @@
 	    <p>Der Großteil des Merchandise wird erst ab einer Mindestmenge bestellt. Der angegebene Preis ist daher auch nur der Maximalpreis bei der Mindestbestellmenge. Weitere Infos zum Merch (Design, Preise, Größen) findet ihr auf der Website:<a href="https://ostsee.zapf.in/merch/">ostsee.zapf.in/merch/</a> </p>
 	  
             {{ form_group(form.tshirt, '') }}
-            {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Größe wie bei diesen angegeben.') }}
+            {{ form_group(form.tshirt_color, '') }}
+            {{ form_group(form.addtshirt, 'Zusätzliche Teilnehmershirts, Farbe/ Art wie bei diesen angegeben. Falls Du eine andere Größe oder Farbe haben möchtest, schreibe bitte eine E-Mail an merch.ostseezapf21@yahoo.com') }}
             {{ form_group(form.hoodie) }}
+            {{ form_group(form.hoodie_color, '') }}
 
-            {{ checkbox(form.handtuch) }}
-            {{ checkbox(form.tasse) }}
-            {{ checkbox(form.usb) }}
-            {{ checkbox(form.frisbee) }}
-            {{ checkbox(form.schal) }}
+            {{ form_group(form.handtuch) }}
+            {{ form_group(form.tasse) }}
+            {{ form_group(form.usb) }}
+            {{ form_group(form.frisbee) }}
+            {{ form_group(form.schal) }}
             {{ form_group(form.aufnaeher) }}
           </div>
         </div>
