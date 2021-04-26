@@ -18,12 +18,12 @@ ADMIN_USER = ['justus2342','Hobbesgoblin']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
-#        ('fitted_xxl', 'XXL fitted'),
-#       ('fitted_xl', 'XL fitted'),
-#       ('fitted_l', 'L fitted'),
-#        ('fitted_m', 'M fitted'),
-#        ('fitted_s', 'S fitted'),
-#        ('fitted_xs', 'XS fitted'),
+        ('fitted_xxl', 'XXL fitted'),
+       ('fitted_xl', 'XL fitted'),
+       ('fitted_l', 'L fitted'),
+        ('fitted_m', 'M fitted'),
+        ('fitted_s', 'S fitted'),
+        ('fitted_xs', 'XS fitted'),
 #        ('5xl', '5XL'),
 #        ('4xl', '4XL'),
         ('3xl', '3XL'),
@@ -37,12 +37,12 @@ T_SHIRT_CHOICES = [
 
 HOODIE_CHOICES = [
         ('keins', 'Nein, ich möchte keinen'),
-#        ('fitted_xxl', 'XXL fitted'),
-#       ('fitted_xl', 'XL fitted'),
-#       ('fitted_l', 'L fitted'),
-#        ('fitted_m', 'M fitted'),
-#        ('fitted_s', 'S fitted'),
-#        ('fitted_xs', 'XS fitted'),
+        ('fitted_xxl', 'XXL fitted'),
+       ('fitted_xl', 'XL fitted'),
+       ('fitted_l', 'L fitted'),
+        ('fitted_m', 'M fitted'),
+        ('fitted_s', 'S fitted'),
+        ('fitted_xs', 'XS fitted'),
 #        ('5xl', '5XL'),
 #        ('4xl', '4XL'),
         ('3xl', '3XL'),
@@ -52,6 +52,13 @@ HOODIE_CHOICES = [
         ('m', 'M'),
         ('s', 'S'),
         ('xs', 'XS'),
+        ]
+
+
+MERCH_COLORS = [
+        ('navy','Navy'),
+        ('grau','Dunkelgrau'),
+        ('schwarz','Schwarz'),
         ]
 
 class Sommer21Registration(FlaskForm):
@@ -79,18 +86,20 @@ class Sommer21Registration(FlaskForm):
         ('badeente', 'Badeente'),
         ])
     tshirt = SelectField('Ich möchte gerne ein T-Shirt für max. 17 Euro bestellen.', choices = T_SHIRT_CHOICES)
+    tshirt_color = SelectField('Als T-Shirt-Farbe möchte ich', choices = MERCH_COLORS)
     addtshirt = IntegerField('Anzahl zusätzliche T-Shirts',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
 
 
 
 
     hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 30 Euro bestellen', choices = HOODIE_CHOICES)
-    handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 10 Euro bestellen')
-    tasse = BooleanField('Ich möchte gerne eine Tasse für max. 8 Euro bestellen')
-    usb = BooleanField('Ich möchte gerne einen USB-Stick für max. 6 Euro bestellen')
-    frisbee = BooleanField('Ich möchte gerne eine Frisbee für max. 25 Euro bestellen')
+    hoodie_color = SelectField('Als Hoodie-Farbe möchte ich', choices = MERCH_COLORS)
+    handtuch = IntegerField('Ich möchte gerne ein Handtuch für max. 10 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    tasse = IntegerField('Ich möchte gerne eine Tasse für max. 8 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    usb = IntegerField('Ich möchte gerne einen USB-Stick für max. 6 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    frisbee = IntegerField('Ich möchte gerne eine Frisbee für max. 22 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
     aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
-    schal = BooleanField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen')
+    schal = IntegerField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
 
     zaepfchen = SelectField('Kommst Du zum ersten Mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
