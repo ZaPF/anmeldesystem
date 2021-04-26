@@ -159,11 +159,6 @@ def index():
         if 'geburtsdatum' in defaults and defaults['geburtsdatum']:
             defaults['geburtsdatum'] = datetime.strptime(defaults['geburtsdatum'], "%Y-%m-%d")
         confirmed = req.data['confirmed']
-        for key in ['handtuch', 'frisbee', 'usb', 'tasse', 'schal']:
-            if defaults[key] == True:
-                defaults[key] == 1
-            else:
-                defaults[key] == 0
     else:
         if not is_admin and not registration_open:
             return render_template('registration_closed.html')
