@@ -94,12 +94,12 @@ class Sommer21Registration(FlaskForm):
 
     hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 30 Euro bestellen', choices = HOODIE_CHOICES)
     hoodie_color = SelectField('Als Hoodie-Farbe möchte ich', choices = MERCH_COLORS)
-    handtuch = IntegerField('Ich möchte gerne ein Handtuch für max. 10 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
-    tasse = IntegerField('Ich möchte gerne eine Tasse für max. 8 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
-    usb = IntegerField('Ich möchte gerne einen USB-Stick für max. 6 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
-    frisbee = IntegerField('Ich möchte gerne eine Frisbee für max. 22 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    handtuch = IntegerField('Anzahl Handtuch (max. 12 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    tasse = IntegerField('Anzahl Tassen (max. 10 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    usb = IntegerField('Anzahl USB-Stick (max. 6 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    frisbee = IntegerField('Anzahl Frisbee (max. 22 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
     aufnaeher = IntegerField('Anzahl Aufnäher (max. 10 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
-    schal = IntegerField('Ich möchte gerne einen Schlauchschal für max. 10 Euro bestellen',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
+    schal = IntegerField('Anzahl Schlauchschal (max. 10 Euro pro Stück)',[validators.NumberRange(min=0),validators.optional()], widget=NumberInput())
 
     zaepfchen = SelectField('Kommst Du zum ersten Mal zu einer ZaPF?', choices=[
         ('ja','Ja'),
