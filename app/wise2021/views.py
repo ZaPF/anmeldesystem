@@ -540,4 +540,4 @@ def adminEdit(username):
             flash("Deine Anmeldendaten konnten nicht gespeichert werden.", "error")
         return redirect(url_for("sommer20.adminEdit", username=username))
 
-    return render_0emplate("index.html", form=form, confirmed=confirmed)
+    return render_template("index.html", form=form, confirmed=confirmed)
