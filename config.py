@@ -1,5 +1,7 @@
 import os
 import secrets
+from dateutil import parser as dateparser
+import pytz
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
@@ -18,6 +20,28 @@ class Config:
     ZAPFAUTH_LOGOUT_URL = 'https://auth.zapf.in/logout'
 
     CURRENT_REGISTRATION = os.getenv('CURRENT_REGISTRATION', 'sose2021')
+
+    TIMEZONE = pytz.timezone(
+        os.getenv('TIMEZONE', 'Europe/Berlin')
+    )
+
+    REGISTRATION_FORCE_OPEN = 'REGISTRATION_FORCE_OPEN' in os.environ
+    REGISTRATION_FORCE_PRIORITIES_OPEN = ('REGISTRATION_FORCE_PRIORITIES_OPEN' in os.environ) or REGISTRATION_FORCE_OPEN
+
+    REGISTRATION_SOFT_CLOSE = TIMEZONE.localize(dateparser.parse(
+        os.getenv('REGISTRATION_SOFT_CLOSE', '1970/01/01'),
+        ignoretz = True
+    ))
+
+    REGISTRATION_HARD_CLOSE = TIMEZONE.localize(dateparser.parse(
+        os.getenv('REGISTRATION_HARD_CLOSE', '1970/01/01'),
+        ignoretz = True
+    ))
+
+    ADMIN_USERS = list(filter(
+        lambda s: s != '',
+        os.getenv('ADMIN_USERS', '').split(',')
+    ))
 
     @staticmethod
     def init_app(app):

@@ -12,9 +12,6 @@ import json
 from datetime import datetime, time, timezone, timedelta
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2020, 10, 3, 21, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2020, 10, 4, 21, 59, 59, tzinfo=pytz.utc)
-ADMIN_USER = ['t.prinz']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte kein T-Shirt'),
@@ -253,15 +250,15 @@ class Winter20Registration(FlaskForm):
 
 @winter20.route('/', methods=['GET', 'POST'])
 def index():
-    registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
-    priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
-    is_admin = 'me' in session and session['me']['username'] in ADMIN_USER
+    registration_open = (datetime.now(pytz.utc) <= current_app.config['REGISTRATION_SOFT_CLOSE']) or current_app.config['REGISTRATION_FORCE_OPEN']
+    priorities_open   = (datetime.now(pytz.utc) <= current_app.config['REGISTRATION_HARD_CLOSE']) or current_app.config['REGISTRATION_FORCE_PRIORITIES_OPEN']
+    is_admin = 'me' in session and session['me']['username'] in current_app.config['ADMIN_USERS']
 
     if not is_admin and not priorities_open:
         return render_template('registration_closed.html')
 
     if 'me' not in session:
-        return render_template('landing.html', registration_open = registration_open, priorities_open = priorities_open, registration_close=(REGISTRATION_SOFT_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z"), REGISTRATION_HARD_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z")))
+        return render_template('landing.html', registration_open = registration_open, priorities_open = priorities_open, registration_close=(current_app.config['REGISTRATION_SOFT_CLOSE'].astimezone(app.config['TIMEZONE']).strftime("%d.%m. um %H:%M Uhr %Z"), current_app.config['REGISTRATION_HARD_CLOSE'].astimezone(app.config['TIMEZONE']).strftime("%d.%m. um %H:%M Uhr %Z")))
 
     if not getOAuthToken():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
@@ -303,14 +300,14 @@ def index():
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
         return redirect('/')
 
-    return render_template('index.html', form=form, confirmed=confirmed, registration_close=(REGISTRATION_SOFT_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z"), REGISTRATION_HARD_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z")))
+    return render_template('index.html', form=form, confirmed=confirmed, registration_close=(current_app.config['REGISTRATION_SOFT_CLOSE'].astimezone(app.config['TIMEZONE']).strftime("%d.%m. um %H:%M Uhr %Z"), current_app.config['REGISTRATION_HARD_CLOSE'].astimezone(app.config['TIMEZONE']).strftime("%d.%m. um %H:%M Uhr %Z")))
 
 @winter20.route('/admin/wise20/<string:username>', methods=['GET', 'POST'])
 def adminEdit(username):
     if 'me' not in session:
         return redirect('/')
 
-    is_admin = 'me' in session and session['me']['username'] in ADMIN_USER
+    is_admin = 'me' in session and session['me']['username'] in current_app.config['ADMIN_USERS']
     if not is_admin:
         abort(403)
 
@@ -352,6 +349,6 @@ def adminEdit(username):
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
         return redirect(url_for('winter20.adminEdit', username=username))
 
-    return render_template('index.html', form=form, confirmed=confirmed, registration_close=(REGISTRATION_SOFT_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z"), REGISTRATION_HARD_CLOSE.astimezone(pytz.timezone("Europe/Berlin")).strftime("%d.%m. um %H:%M Uhr %Z")))
+    return render_template('index.html', form=form, confirmed=confirmed, registration_close=(current_app.config['REGISTRATION_SOFT_CLOSE'].astimezone(app.config['TIMEZONE']).strftime("%d.%m. um %H:%M Uhr %Z"), current_app.config['REGISTRATION_HARD_CLOSE'].astimezone(app.config['TIMEZONE']).strftime("%d.%m. um %H:%M Uhr %Z")))
 
 
