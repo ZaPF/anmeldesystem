@@ -1,4 +1,4 @@
-from . import winter17
+from . import reg_blueprint
 from flask import render_template, session, redirect, url_for, flash, current_app
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField, validators
@@ -51,14 +51,14 @@ class ExkursionenValidator(object):
                 if follower.data == field.data:
                     raise validators.ValidationError('Selbe Exkursion mehrfach als Wunsch ausgewählt')
 
-class Winter17Registration(FlaskForm):
+class RegistrationForm(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
         setattr(cls, name, field)
         return cls
 
     def __init__(self, **kwargs):
-        super(Winter17Registration, self).__init__(**kwargs)
+        super(RegistrationForm, self).__init__(**kwargs)
         self.exkursion1.validators=[ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])]
         self.exkursion2.validators=[ExkursionenValidator([self.exkursion3, self.exkursion4])]
         self.exkursion3.validators=[ExkursionenValidator([self.exkursion4])]
@@ -143,7 +143,7 @@ class Winter17Registration(FlaskForm):
 
     submit = SubmitField()
 
-@winter17.route('/', methods=['GET', 'POST'])
+@reg_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
     priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
@@ -159,7 +159,7 @@ def index():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Winter17Registration
+    Form = RegistrationForm
 
     defaults = {}
     confirmed = None
@@ -195,7 +195,7 @@ def index():
 
     return render_template('index.html', form=form, confirmed=confirmed)
 
-@winter17.route('/admin/wise17/<string:username>', methods=['GET', 'POST'])
+@reg_blueprint.route('/admin/wise17/<string:username>', methods=['GET', 'POST'])
 def adminEdit(username):
     if 'me' not in session:
         return redirect('/')
@@ -208,7 +208,7 @@ def adminEdit(username):
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Winter17Registration
+    Form = RegistrationForm
 
     defaults = {}
     confirmed = None
@@ -240,6 +240,6 @@ def adminEdit(username):
             flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
         else:
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
-        return redirect(url_for('sommer17.adminEdit', username=username))
+        return redirect(url_for('reg_blueprint.adminEdit', username=username))
 
     return render_template('index.html', form=form, confirmed=confirmed)

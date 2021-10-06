@@ -33,9 +33,10 @@ def create_app(profile="default"):
     app.register_blueprint(priorities, url_prefix='/priorities')
     init_priorities(priorities)
 
-    from app.sose2021 import sommer21, init_app as init_sommer21
-    app.register_blueprint(sommer21)
-    init_sommer21(app)
+    import importlib
+    registration = importlib.import_module(f"app.{app.config['CURRENT_REGISTRATION']}")
+    app.register_blueprint(registration.reg_blueprint)
+    registration.init_app(app)
 
     @app.context_processor
     def inject_current_user():
