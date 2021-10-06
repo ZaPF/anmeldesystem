@@ -17,7 +17,7 @@ class Config:
     ZAPFAUTH_ACCESS_TOKEN_METHOD = "POST"
     ZAPFAUTH_CONSUMER_KEY = os.getenv("ZAPFAUTH_CONSUMER_KEY", "a random string key")
     ZAPFAUTH_CONSUMER_SECRET = os.getenv(
-        "ZAPFAUTH_CONSUMER_KEY", "a random string secret"
+        "ZAPFAUTH_CONSUMER_SECRET", "a random string secret"
     )
     SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_bytes(32))
     ZAPFAUTH_REVOKE_URL = "https://auth.zapf.in/oauth/revoke"
