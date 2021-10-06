@@ -1,5 +1,13 @@
 from flask import redirect, url_for, request, jsonify, session, current_app, flash
-from . import oauth_client_blueprint, oauth_remoteapp, saveOAuthToken, getOAuthToken, deleteOAuthToken, oauth_login_required
+from . import (
+    oauth_client_blueprint,
+    oauth_remoteapp,
+    saveOAuthToken,
+    getOAuthToken,
+    deleteOAuthToken,
+    oauth_login_required,
+)
+
 try:
     from urllib import urlencode, unquote
     from urlparse import urlparse, parse_qsl, ParseResult
@@ -8,7 +16,7 @@ except ImportError:
 
 
 def add_url_params(url, params):
-    """ Add GET params to provided URL being aware of existing.
+    """Add GET params to provided URL being aware of existing.
 
     :param url: string of target URL
     :param params: dict containing requested params to be added
@@ -35,47 +43,66 @@ def add_url_params(url, params):
     # Creating new parsed result object based on provided with new
     # URL arguments. Same thing happens inside of urlparse.
     new_url = ParseResult(
-        parsed_url.scheme, parsed_url.netloc, parsed_url.path,
-        parsed_url.params, encoded_get_args, parsed_url.fragment
+        parsed_url.scheme,
+        parsed_url.netloc,
+        parsed_url.path,
+        parsed_url.params,
+        encoded_get_args,
+        parsed_url.fragment,
     ).geturl()
 
     return new_url
 
-@oauth_client_blueprint.route('/oauth/login')
-def login():
-    print(url_for('oauth_client.authorized', _external=True, _scheme='https'))
-    return oauth_remoteapp.authorize(callback=url_for('oauth_client.authorized', _scheme='https', _external=True))
 
-@oauth_client_blueprint.route('/oauth/authorized')
+@oauth_client_blueprint.route("/oauth/login")
+def login():
+    print(url_for("oauth_client.authorized", _external=True, _scheme="https"))
+    return oauth_remoteapp.authorize(
+        callback=url_for("oauth_client.authorized", _scheme="https", _external=True)
+    )
+
+
+@oauth_client_blueprint.route("/oauth/authorized")
 def authorized():
     resp = oauth_remoteapp.authorized_response()
-    if resp is None or resp.get('access_token') is None:
-        flash('Access denied: reason=%s error=%s resp=%s' % (
-            request.args['error'],
-            request.args['error_description'],
-            resp
-        ), 'error')
-        return redirect('/')
-    if 'me' not in session:
-        next = redirect(url_for('oauth_client.loadMe'))
+    if resp is None or resp.get("access_token") is None:
+        flash(
+            "Access denied: reason=%s error=%s resp=%s"
+            % (request.args["error"], request.args["error_description"], resp),
+            "error",
+        )
+        return redirect("/")
+    if "me" not in session:
+        next = redirect(url_for("oauth_client.loadMe"))
     else:
-        next = redirect('/')
-    return saveOAuthToken(next, resp['access_token'], '')
+        next = redirect("/")
+    return saveOAuthToken(next, resp["access_token"], "")
 
-@oauth_client_blueprint.route('/oauth/logout')
+
+@oauth_client_blueprint.route("/oauth/logout")
 def logout():
     if getOAuthToken():
-        oauth_remoteapp.post(current_app.config["ZAPFAUTH_REVOKE_URL"], data={"action": "logout"})
-    session.pop('me')
-    return deleteOAuthToken(redirect(add_url_params(current_app.config["ZAPFAUTH_LOGOUT_URL"],
-             {"next": url_for('oauth_client.loggedout', _external=True)})))
+        oauth_remoteapp.post(
+            current_app.config["ZAPFAUTH_REVOKE_URL"], data={"action": "logout"}
+        )
+    session.pop("me")
+    return deleteOAuthToken(
+        redirect(
+            add_url_params(
+                current_app.config["ZAPFAUTH_LOGOUT_URL"],
+                {"next": url_for("oauth_client.loggedout", _external=True)},
+            )
+        )
+    )
 
-@oauth_client_blueprint.route('/oauth/loadme')
+
+@oauth_client_blueprint.route("/oauth/loadme")
 def loadMe():
-    session['me'] = oauth_remoteapp.get('me').data
-    return redirect('/')
+    session["me"] = oauth_remoteapp.get("me").data
+    return redirect("/")
 
-@oauth_client_blueprint.route('/oauth/loggedout')
+
+@oauth_client_blueprint.route("/oauth/loggedout")
 def loggedout():
     flash("Du wurdest erfolgreich abgemeldet!", "info")
-    return redirect('/')
+    return redirect("/")

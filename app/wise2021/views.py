@@ -397,9 +397,16 @@ class RegistrationForm(FlaskForm):
 
 @reg_blueprint.route("/", methods=["GET", "POST"])
 def index():
-    registration_open = (datetime.now(pytz.utc) <= current_app.config['REGISTRATION_SOFT_CLOSE']) or current_app.config['REGISTRATION_FORCE_OPEN']
-    priorities_open   = (datetime.now(pytz.utc) <= current_app.config['REGISTRATION_HARD_CLOSE']) or current_app.config['REGISTRATION_FORCE_PRIORITIES_OPEN']
-    is_admin = "me" in session and session["me"]["username"] in current_app.config['ADMIN_USERS']
+    registration_open = (
+        datetime.now(pytz.utc) <= current_app.config["REGISTRATION_SOFT_CLOSE"]
+    ) or current_app.config["REGISTRATION_FORCE_OPEN"]
+    priorities_open = (
+        datetime.now(pytz.utc) <= current_app.config["REGISTRATION_HARD_CLOSE"]
+    ) or current_app.config["REGISTRATION_FORCE_PRIORITIES_OPEN"]
+    is_admin = (
+        "me" in session
+        and session["me"]["username"] in current_app.config["ADMIN_USERS"]
+    )
 
     if not is_admin and not priorities_open:
         return render_template("registration_closed.html")
@@ -473,7 +480,10 @@ def adminEdit(username):
     if "me" not in session:
         return redirect("/")
 
-    is_admin = "me" in session and session["me"]["username"] in current_app.config['ADMIN_USERS']
+    is_admin = (
+        "me" in session
+        and session["me"]["username"] in current_app.config["ADMIN_USERS"]
+    )
     if not is_admin:
         abort(403)
 
