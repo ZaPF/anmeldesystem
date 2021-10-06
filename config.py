@@ -15,6 +15,8 @@ class Config:
     ZAPFAUTH_REVOKE_URL = 'https://auth.zapf.in/oauth/revoke'
     ZAPFAUTH_LOGOUT_URL = 'https://auth.zapf.in/logout'
 
+    CURRENT_REGISTRATION = os.getenv('CURRENT_REGISTATION', 'sose2021')
+
     @staticmethod
     def init_app(app):
         pass

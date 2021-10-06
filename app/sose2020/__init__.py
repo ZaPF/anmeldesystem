@@ -2,7 +2,7 @@ from flask import Blueprint, session, redirect, url_for
 from flask.json import JSONEncoder
 from datetime import date
 
-sommer20= Blueprint('sommer20', __name__, template_folder = 'templates/', static_folder = 'static')
+reg_blueprint = Blueprint('sommer20', __name__, template_folder = 'templates/', static_folder = 'static')
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):

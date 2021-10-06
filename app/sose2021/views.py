@@ -1,6 +1,6 @@
 
 # coding=utf-8
-from . import sommer21
+from . import reg_blueprint
 from flask import render_template, session, redirect, url_for, flash, current_app
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, BooleanField, validators, IntegerField
@@ -61,14 +61,14 @@ MERCH_COLORS = [
         ('schwarz','Schwarz'),
         ]
 
-class Sommer21Registration(FlaskForm):
+class RegistrationForm(FlaskForm):
     @classmethod
     def append_field(cls, name, field):
         setattr(cls, name, field)
         return cls
 
     def __init__(self, **kwargs):
-        super(Sommer21Registration, self).__init__(**kwargs)
+        super(RegistrationForm, self).__init__(**kwargs)
 
     uni = SelectField('Uni', choices=[], coerce=str)
     spitzname = StringField('Spitzname')
@@ -133,7 +133,7 @@ class Sommer21Registration(FlaskForm):
     ])
 
 
-@sommer21.route('/', methods=['GET', 'POST'])
+@reg_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
     priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
@@ -149,7 +149,7 @@ def index():
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Sommer21Registration
+    Form = RegistrationForm
 
     defaults = {}
     confirmed = None
@@ -187,7 +187,7 @@ def index():
 
     return render_template('index.html', form=form, confirmed=confirmed)
 
-@sommer21.route('/admin/sose21/<string:username>', methods=['GET', 'POST'])
+@reg_blueprint.route('/admin/sose21/<string:username>', methods=['GET', 'POST'])
 def adminEdit(username):
     if 'me' not in session:
         return redirect('/')
@@ -200,7 +200,7 @@ def adminEdit(username):
         flash("Die Sitzung war abgelaufen, eventuell musst du deine Daten nochmal eingeben, falls sie noch nicht gespeichert waren.", 'warning')
         return redirect(url_for('oauth_client.login'))
 
-    Form = Sommer21Registration
+    Form = RegistrationForm
 
     defaults = {}
     confirmed = None
@@ -232,7 +232,7 @@ def adminEdit(username):
             flash('Deine Anmeldedaten wurden erfolgreich gespeichert', 'info')
         else:
             flash('Deine Anmeldendaten konnten nicht gespeichert werden.', 'error')
-        return redirect(url_for('sommer21.adminEdit', username=username))
+        return redirect(url_for('reg_blueprint.adminEdit', username=username))
 
     return render_template('index.html', form=form, confirmed=confirmed)
 
