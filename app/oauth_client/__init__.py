@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, redirect, url_for, make_response, requ
 from flask_oauthlib.client import OAuth
 from functools import wraps
 from datetime import datetime, timedelta
-from werkzeug.contrib.securecookie import SecureCookie
+from secure_cookie.cookie import SecureCookie
 
 oauth_client_blueprint = Blueprint('oauth_client', __name__, template_folder = 'templates/')
 oauth = OAuth()
