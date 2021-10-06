@@ -99,8 +99,7 @@ def token_required(f):
 def check_if_closed(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        REGISTRATION_HARD_CLOSE = datetime(2021, 5, 24, 21, 59, 59, tzinfo=pytz.utc)
-        if datetime.now(pytz.utc) > REGISTRATION_HARD_CLOSE:
+        if datetime.now(pytz.utc) > current_app.config['REGISTRATION_HARD_CLOSE'] and not current_app.config['REGISTRATION_FORCE_PRIORITIES OPEN']:
             return render_template("priorities_closed.html")
         return f(*args, **kwargs)
     return decorated_function

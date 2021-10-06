@@ -10,9 +10,6 @@ import json
 from datetime import datetime, time, timezone
 import pytz
 
-REGISTRATION_SOFT_CLOSE = datetime(2018, 10, 19, 21, 59, 59, tzinfo=pytz.utc)
-REGISTRATION_HARD_CLOSE = datetime(2018, 10, 24, 21, 59, 59, tzinfo=pytz.utc)
-ADMIN_USER = ['Loctus','wb', 'andreas_wuerzburg','1']
 
 T_SHIRT_CHOICES = [
         ('keins', 'Nein, ich möchte keins'),
@@ -155,9 +152,9 @@ class RegistrationForm(FlaskForm):
 
 @reg_blueprint.route('/', methods=['GET', 'POST'])
 def index():
-    registration_open = datetime.now(pytz.utc) <= REGISTRATION_SOFT_CLOSE
-    priorities_open   = datetime.now(pytz.utc) <= REGISTRATION_HARD_CLOSE
-    is_admin = 'me' in session and session['me']['username'] in ADMIN_USER
+    registration_open = (datetime.now(pytz.utc) <= current_app.config['REGISTRATION_SOFT_CLOSE']) or current_app.config['REGISTRATION_FORCE_OPEN']
+    priorities_open   = (datetime.now(pytz.utc) <= current_app.config['REGISTRATION_HARD_CLOSE']) or current_app.config['REGISTRATION_FORCE_PRIORITIES_OPEN']
+    is_admin = 'me' in session and session['me']['username'] in current_app.config['ADMIN_USERS']
 
     if not is_admin and not priorities_open:
         return render_template('registration_closed.html')
@@ -210,7 +207,7 @@ def adminEdit(username):
     if 'me' not in session:
         return redirect('/')
 
-    is_admin = 'me' in session and session['me']['username'] in ADMIN_USER
+    is_admin = 'me' in session and session['me']['username'] in current_app.config['ADMIN_USERS']
     if not is_admin:
         abort(403)
 

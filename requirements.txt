@@ -5,3 +5,4 @@ Flask-Login>=0.4.0
 Flask-WTF>=0.14.2
 secure-cookie>=0.2.0
 pytz
+python-dateutil>=2.8.2
