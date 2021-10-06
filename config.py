@@ -1,4 +1,5 @@
 import os
+import secrets
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
@@ -10,8 +11,9 @@ class Config:
     ZAPFAUTH_ACCESS_TOKEN_URL = 'https://auth.zapf.in/oauth/token'
     ZAPFAUTH_REQUEST_TOKEN_URL = None
     ZAPFAUTH_ACCESS_TOKEN_METHOD = 'POST'
-    ZAPFAUTH_CONSUMER_KEY = 'a random string key'
-    ZAPFAUTH_CONSUMER_SECRET = 'a random string secret'
+    ZAPFAUTH_CONSUMER_KEY = os.getenv('ZAPFAUTH_CONSUMER_KEY', 'a random string key')
+    ZAPFAUTH_CONSUMER_SECRET = os.getenv('ZAPFAUTH_CONSUMER_KEY', 'a random string secret')
+    SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_bytes(32))
     ZAPFAUTH_REVOKE_URL = 'https://auth.zapf.in/oauth/revoke'
     ZAPFAUTH_LOGOUT_URL = 'https://auth.zapf.in/logout'
 
