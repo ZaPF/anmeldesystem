@@ -290,7 +290,10 @@ class RegistrationForm(FlaskForm):
         "Ich habe spezifische Ansprüche an Barrierefreiheit."
     )
 
-    standort  # hier abfrage zu standorten
+    standort = Selectfield(
+        "Wunschstandort:",
+        choices=[("goe", "Göttingen"), ("koe", "Köln"), ("mue", "München")],
+    )
 
     impfstatus = SelectField(
         "Impfstatus",
