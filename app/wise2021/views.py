@@ -120,13 +120,6 @@ class RegistrationForm(FlaskForm):
 
     def __init__(self, **kwargs):
         super(RegistrationForm, self).__init__(**kwargs)
-        self.exkursion1.validators = [
-            ExkursionenValidator([self.exkursion2, self.exkursion3, self.exkursion4])
-        ]
-        self.exkursion2.validators = [
-            ExkursionenValidator([self.exkursion3, self.exkursion4])
-        ]
-        self.exkursion3.validators = [ExkursionenValidator([self.exkursion4])]
         self.immatrikulationsbescheinigung.validators = [
             ImmatrikulationsValidator(self.immatrikulationsbescheinigung)
         ]
@@ -135,7 +128,6 @@ class RegistrationForm(FlaskForm):
         ]
 
     #### Allgemein #####
-
     uni = SelectField("Uni", choices=[], coerce=str)
     spitzname = StringField("Spitzname")
     # Die Abfrage, ob Immabescheinigung mitgebracht wird geschieht später an zwei Orten. Einmal im allgemeinen Teil und die erinnerung am Ende der Anmeldung
@@ -274,6 +266,13 @@ class RegistrationForm(FlaskForm):
     )
 
     ##### Standorte ######
+    modus = Selectfield(
+        "Ich möchte in folgendem Modus an der Tagung teilnehmen:",
+        choices=[
+            ("online", "Online-Teilnahme"),
+            ("present", "Präsenzteilnahme"),
+        ],
+    )
 
     barrierefreiheit = BooleanField(
         "Ich habe spezifische Ansprüche an Barrierefreiheit."
@@ -292,12 +291,17 @@ class RegistrationForm(FlaskForm):
             ("zweifach", "zweifach geimpft"),
             ("schutz", "vollständig geschützt (zwei Wochen nach der zweiten Impfung)"),
             ("genesen", "genesen"),
+            ("kA", "keine Angabe"),
         ],
     )
 
     impfstatus2 = BooleanField(
         "Ich werde meinen (digitalen) Impfausweis oder ein Zertifikat über meine Genesung dabei haben und bei Bedarf vorzeigen",
         [validators.InputRequired()],
+    )
+
+    impfstatus3 = BooleanField(
+        "Ich lasse mich testen, sodass ich jeden Tag einen gültigen PCR Test vorweisen kann."
     )
 
     partner = StringField("Wunschpartner")
@@ -320,6 +324,10 @@ class RegistrationForm(FlaskForm):
             (
                 "duschen2",
                 "Ich möchte nicht an einen Standort, an dem ich eine Gruppendusche nutzen müsste",
+            ),
+            (
+                "duschen3",
+                "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen",
             ),
             (
                 "doppelbett1",
@@ -366,7 +374,7 @@ class RegistrationForm(FlaskForm):
         "Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird."
     )
     foto = BooleanField(
-        "Ich bin damit einverstanden, dass Fotos von mir gemacht werden."
+        "Ich bin damit einverstanden, dass Fotos von mir gemacht werden. Diese werden nicht für kommerzielle Zwecke verwendet und evtl. im Tagungreader genutzt."
     )
     #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
     minderjaehrig = SelectField(

@@ -117,26 +117,10 @@
           {{ form_group(form.allergien) }}
           {{ form_group(form.essensmenge) }}
           {{ form_group(form.heissgetraenk) }}
-          {{ form_group(form.getraenkewunsch) }}
+          {{ form_group(form.alkohol) }}
         </div>
       </div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">Rahmenprogramm</h3>
-        </div>
-        <div class="panel-body">
-          <p>Hier könnt Ihr Eure Wunschexkursionen angeben.
-          Informationen zu den Exkursionen könnt Ihr
-          <a href="https://ostsee.zapf.in/?page_id=114" target="_blank">hier</a>
-          nachlesen.</p>
-          {{ form_group(form.exkursion1, id="exkursion1") }}
-          {{ form_group(form.exkursion2, id="exkursion2") }}
-          {{ form_group(form.exkursion3, id="exkursion3") }}
-          {{ form_group(form.exkursion4, id="exkursion4") }}
-          {{ form_group(form.musikwunsch) }}
-        </div>
-      </div>
       <div class="panel panel-default">
           <div class="panel-heading">
             <h2 class="panel-title">Merch</h2>
@@ -163,19 +147,35 @@
           <h2 class="panel-title">Standorte</h2>
         </div>
         <div class="panel-body">
-          <p> Hier werden alle Infos zu den einzelnen Standorten abgefragt. Unter anderem könnt ihr euren Wunschstandort, eure Wunschperson und weitere Besonderheiten angeben. Wir können nicht garantieren, dass ihr eure Wünsche auch bekommt, denn die gesamte Personenverteilung auf die Standorte müssen wir noch organisieren </p>
-          {{ form_group(form.barrierefreiheit) }}
+          <p>
+            Diese Tagung basiert auf einem Hybridkonzept, deswegen ist sowohl eine Online-Teilnahme
+            als auch eine Präsenzteilnahme möglich. Alle inhaltliche Arbeit der Tagung wird online
+            stattfinden und es gibt auch ein online Rahmenprogramm. Wir bitten dich uns nachzusehen,
+            dass wir es nicht geschafft haben, bei Auswahl der Online-Teilnahme alle dann irrelevanten
+            Felder auszublenden. Fülle diese dann bitte einfach nicht aus :-). Außerdem tut es uns sehr
+            leid, dass wir noch nicht versprechen können, ob alle, die in Präsenz teilnehmen möchten,
+            das auch können, da wir dort nur eine begrenzte Anzahl an Plätzen haben.
+          </p>
+          {{ form_group(form.modus) }}
+          <p>
+            Hier werden alle Infos zu den einzelnen Standorten abgefragt. Unter anderem könnt ihr euren
+            Wunschstandort, eure Wunschperson und weitere Besonderheiten angeben. Wir können nicht
+            garantieren, dass ihr eure Wünsche auch bekommt, denn die gesamte Personenverteilung auf
+            die Standorte müssen wir noch organisieren.
+          </p>
+          {{ checkbox(form.barrierefreiheit) }}
           {{ form_group(form.standort,'Hier kannst du deinen Wunschstandort angeben') }}
-          {{ form_group(form.impfstatus, 'Wir müssen den Impfstatus zu COVID-19 abfragen, da die Tagung sonst nicht stattfinden kann. Wenn Du keine Angabe machen möchtest, kannst du nicht teilnehmen.') }}
-          {{ form_group(form.impfstatus2) }}
+          {{ form_group(form.impfstatus, 'Wir müssen den Impfstatus zu COVID-19 abfragen, da die Tagung sonst nicht stattfinden kann. Wenn Du keine Angabe machst, gilst du als ungeimpft.') }}
+          {{ checkbox(form.impfstatus2) }}
+          {{ checkbox(form.impfstatus3, 'Ob du dich testen lässt oder nicht, kannst du unabhängig vom Impfstatus angeben. Nur bei Teilnehmenden ohne vollständigen Impfschutz oder Genesung, die in Präsenz teilnehmen wollen, müssen wir diese Information haben.') }}
           {{ form_group(form.partner, 'Hier kannst du deine Wunschperson angeben, mit der du an einen Standort kommen möchtest. Wir bitten die Angabe auf eine Person zu beschränken oder beliebige Person aus der gleichen Fachschaft reinzuschreiben. Bei keiner Präferenz bitte freilassen') }}
           {{ form_group(form.partner2) }}
-          {{ form_group(form.schlafen, 'Zutreffendes bitte ankreuzen. Auch Mehrfachauswahl ist möglich. Bei der Größe geht es darum, dass einige Personen beim Couch Surfing wohl nur kleine Personen unterbringen können') }}
+          {{ form_group(form.schlafen, 'Zutreffendes bitte ankreuzen. Auch Mehrfachauswahl ist möglich. Bei der Größe geht es darum, dass einige Personen beim Couch Surfing wohl nur kleine Personen unterbringen können.') }}
           {{ form_group(form.unterbringung, 'Für den Standort könnte ich mich privat um eine Unterbringung kümmern sofern notwendig. Wir könnten dann entsprechend ggf. mit mehr Plätzen an dem Ort planen, geben jedoch keinerlei Garantie, das Du dann tatsächlich an den Ort kommst.') }}
-          {{ form_group(form.tagesgast, 'Ich kann als Tagesgast teilnehmen, d.h. ich brauche keine Unterbringung in der Stadt') }}
-          {{ form_group(form.platz, 'Bitte ankreuzen, wenn du bei der Verteilung der Präsenzplätze eine geringere Priorität haben möchtest') }}
-          {{ form_group(form.foerderung, 'Ich habe zur Kenntnis genommen, dass meine Fachschaft bis zwei Wochen vor Anmeldeschluss einen Antrag auf Förderung finanzschwacher Fachschaften an <a href="mailto:foerderung@zapfev.de">foerderung@zapfev.de</a>  stellen kann') }}
-          {{ checkbox(form.hygiene, 'Ich habe zur Kenntnis genommen, dass ich das Hygienekonzept <a href="url:zigzag.uni-goettingen.de/tagungsort/hygienekonzept" title="hier" target="_blank"> </a> abrufen kann') }}
+          {{ form_group(form.tagesgast, 'Ich kann als Tagesgast teilnehmen, d.h. ich brauche keine Unterbringung in der Stadt.') }}
+          {{ checkbox(form.platz, 'Bitte ankreuzen, wenn du bei der Verteilung der Präsenzplätze eine geringere Priorität haben möchtest') }}
+          {{ checkbox(form.foerderung, 'Ich habe zur Kenntnis genommen, dass meine Fachschaft bis zwei Wochen vor Anmeldeschluss einen Antrag auf Förderung finanzschwacher Fachschaften an <a href="mailto:foerderung@zapfev.de">foerderung@zapfev.de</a>  stellen kann') }}
+          {{ checkbox(form.hygiene, 'Ich habe zur Kenntnis genommen, dass ich das Hygienekonzept <a href="url:zigzag.uni-goettingen.de/tagungsort/hygienekonzept" target="_blank">hier</a> abrufen kann') }}
         </div>
       </div>
 
@@ -188,7 +188,7 @@
           {{ form_group(form.vertrauensperson) }}
           {{ form_group(form.protokoll) }}
           {{ form_group(form.zaepfchen, 'Wenn du angibst einen Mentor zu wollen, erklärst du dich damit einverstanden, dass wir deine E-Mail-Adresse an deinen Mentor weitergegeben.') }}
-          {{ checkbox(form.mentor, 'Alle Informationen zu ZaPF-Mentorika findest du im <a href="" target="_blank">ZaPF Wiki</a>.') }}
+          {{ checkbox(form.mentor, 'Alle Informationen zu ZaPF-Mentorika findest du auf <a href="url:https://zigzag.uni-goettingen.de/hinweise-fuer-zaepfchen/" target="_blank"> unserer Webseite </a>.') }}
           {{ checkbox(form.minderjaehrig, 'Alterscheck - Wir wollen nur auf Nummer sicher gehen. Die über 27 ist ggf. wichtig für die Unterkunft in einer Jugendherberge.') }}
           {{ checkbox(form.foto) }}
           {{ form_group(form.immatrikulationsbescheinigung2) }}
