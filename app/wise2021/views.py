@@ -266,7 +266,7 @@ class RegistrationForm(FlaskForm):
     )
 
     ##### Standorte ######
-    modus = Selectfield(
+    modus = SelectField(
         "Ich möchte in folgendem Modus an der Tagung teilnehmen:",
         choices=[
             ("online", "Online-Teilnahme"),
