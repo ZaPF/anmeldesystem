@@ -10,9 +10,9 @@ class Config:
     FLASK_COVERAGE = 0
     PREFERRED_URL_SCHEME = "https"
 
-    ZAPFAUTH_BASE_URL = getenv("ZAPFAUTH_BASE_URL", "https://auth.zapf.in/api/")
-    ZAPFAUTH_AUTHORIZE_URL = getenv("ZAPFAUTH_AUTHORIZE_URL", "https://auth.zapf.in/oauth/authorize")
-    ZAPFAUTH_ACCESS_TOKEN_URL = getenv("ZAPFAUTH_ACCESS_TOKEN_URL", "https://auth.zapf.in/oauth/token")
+    ZAPFAUTH_BASE_URL = os.getenv("ZAPFAUTH_BASE_URL", "https://auth.zapf.in/api/")
+    ZAPFAUTH_AUTHORIZE_URL = os.getenv("ZAPFAUTH_AUTHORIZE_URL", "https://auth.zapf.in/oauth/authorize")
+    ZAPFAUTH_ACCESS_TOKEN_URL = os.getenv("ZAPFAUTH_ACCESS_TOKEN_URL", "https://auth.zapf.in/oauth/token")
     ZAPFAUTH_REQUEST_TOKEN_URL = None
     ZAPFAUTH_ACCESS_TOKEN_METHOD = "POST"
     ZAPFAUTH_CONSUMER_KEY = os.getenv("ZAPFAUTH_CONSUMER_KEY", "a random string key")
