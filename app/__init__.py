@@ -6,9 +6,10 @@ from flask_login import AnonymousUserMixin
 from . import models
 
 
-def create_app(profile="default"):
+def create_app():
     app = Flask(__name__, template_folder="templates/")
 
+    profile = app.config['ENV']
     app.config.from_object(config[profile])
     config[profile].init_app(app)
     app.config.from_envvar("ANMELDUNG_SETTINGS", silent=True)
