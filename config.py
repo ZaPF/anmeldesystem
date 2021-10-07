@@ -10,9 +10,9 @@ class Config:
     FLASK_COVERAGE = 0
     PREFERRED_URL_SCHEME = "https"
 
-    ZAPFAUTH_BASE_URL = "https://auth.zapf.in/api/"
-    ZAPFAUTH_AUTHORIZE_URL = "https://auth.zapf.in/oauth/authorize"
-    ZAPFAUTH_ACCESS_TOKEN_URL = "https://auth.zapf.in/oauth/token"
+    ZAPFAUTH_BASE_URL = getenv("ZAPFAUTH_BASE_URL", "https://auth.zapf.in/api/")
+    ZAPFAUTH_AUTHORIZE_URL = getenv("ZAPFAUTH_AUTHORIZE_URL", "https://auth.zapf.in/oauth/authorize")
+    ZAPFAUTH_ACCESS_TOKEN_URL = getenv("ZAPFAUTH_ACCESS_TOKEN_URL", "https://auth.zapf.in/oauth/token")
     ZAPFAUTH_REQUEST_TOKEN_URL = None
     ZAPFAUTH_ACCESS_TOKEN_METHOD = "POST"
     ZAPFAUTH_CONSUMER_KEY = os.getenv("ZAPFAUTH_CONSUMER_KEY", "a random string key")
@@ -20,8 +20,8 @@ class Config:
         "ZAPFAUTH_CONSUMER_SECRET", "a random string secret"
     )
     SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_bytes(32))
-    ZAPFAUTH_REVOKE_URL = "https://auth.zapf.in/oauth/revoke"
-    ZAPFAUTH_LOGOUT_URL = "https://auth.zapf.in/logout"
+    ZAPFAUTH_REVOKE_URL = os.getenv("ZAPFAUTH_REVOKE_URL", "https://auth.zapf.in/oauth/revoke")
+    ZAPFAUTH_LOGOUT_URL = os.getenv("ZAPFAUTH_LOGOUT_URL", "https://auth.zapf.in/logout")
 
     CURRENT_REGISTRATION = os.getenv("CURRENT_REGISTRATION", "sose2021")
 
@@ -56,9 +56,6 @@ class Config:
 class DevelopmentConfig(Config):
     SECRET_KEY = "secrets"
     PREFERRED_URL_SCHEME = "http"
-    ZAPFAUTH_BASE_URL = "http://test.auth.zapf.in/api/"
-    ZAPFAUTH_AUTHORIZE_URL = "http://test.auth.zapf.in/oauth/authorize"
-    ZAPFAUTH_ACCESS_TOKEN_URL = "http://test.auth.zapf.in/oauth/token"
     DEBUG = True
 
     @staticmethod
