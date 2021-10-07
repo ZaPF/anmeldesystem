@@ -173,8 +173,14 @@ class RegistrationForm(FlaskForm):
             ("er", "Er"),
             ("sie", "Sie"),
             ("anderes", "Sprich mich darauf an"),
+            (
+                "aendern",
+                "Ich möchte die Möglichkeit haben, diese Angabe während der Tagung zu ändern",
+            ),
+            ("sonstiges", "Nichts davon, ich möchte das Freitextfeld nutzen."),
         ],
     )
+    anrede2 = StringField("Ich möchte angesprochen werden mit:")
 
     ###### Essen ######
 
@@ -205,41 +211,24 @@ class RegistrationForm(FlaskForm):
             ("unparteiisch", "Unparteiisches Alpaka"),
         ],
     )
-    getraenkewunsch = StringField(
-        "Unverbindliches Lieblingsgetränk für eine hypothetische Party:"
-    )  ## drin lassen?
+    alkohol = SelectField(
+        "Trinkst du Alkohol",
+        choices=[
+            ("ja", "Ja"),
+            ("nein", "Nein"),
+            ("ka", "Keine Angabe"),
+        ],
+    )
 
     ##### Rahmenprogramm ####
 
-    exkursionen = [
-        ("keine", "keine Exkursion"),  #
-        ("egal", "Ist mir egal"),  #
-        ("alpaka", "Alpakawanderung, 15 Euro"),  #
-        ("ente", "Entennähworkshop, 1 Euro"),  #
-        ("hansebrau", "Hanseatische Brauerei, 8 Euro"),  #
-        ("iow", "Institut für Ostseeforschung"),  #
-        ("kulturhist", "Kulturhistorisches Museum"),  #
-        ("laser", "Lasertag, 20 Euro"),  #
-        ("inp", "Leibniz-Institut für Plasmaforschung und Technologie, Greifswald"),  #
-        ("ipp", "Max-Planck-Institut für Plasmaphysik, Greifswald"),  #
-        ("physch", "PhySch-Labor"),  #
-        ("stadt", "Stadtführung"),  #
-        ("strand", "Strandwanderung"),  #
-        ("trotzenburg", "Trotzenburger Brauerei, 9 Euro"),  #
-        ("zoo", "Zoo Rostock, max. 13,50 Euro"),  #
-    ]
-    exkursion1 = SelectField("Erstwunsch", choices=exkursionen)
-    exkursion2 = SelectField("Zweitwunsch", choices=exkursionen)
-    exkursion3 = SelectField("Drittwunsch", choices=exkursionen)
-    exkursion4 = SelectField("Viertwunsch", choices=exkursionen)
-    musikwunsch = StringField("Musikwunsch")
     # alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
     #### Merch #####
 
     tshirt = SelectField("T-Shirt", choices=T_SHIRT_CHOICES)
     addtshirt = IntegerField(
-        "Anzahl zusätzliche T-Shirts", [validators.optional()], widget=NumberInput()
+        "Anzahl T-Shirts", [validators.optional()], widget=NumberInput()
     )
 
     #### Reiseinfos ####
@@ -302,11 +291,12 @@ class RegistrationForm(FlaskForm):
             ("einfach", "einfach geimpft"),
             ("zweifach", "zweifach geimpft"),
             ("schutz", "vollständig geschützt (zwei Wochen nach der zweiten Impfung)"),
+            ("genesen", "genesen"),
         ],
     )
 
     impfstatus2 = BooleanField(
-        "Ich werde meinen Impfausweis dabei haben und bei Bedarf vorzeigen",
+        "Ich werde meinen (digitalen) Impfausweis oder ein Zertifikat über meine Genesung dabei haben und bei Bedarf vorzeigen",
         [validators.InputRequired()],
     )
 
@@ -316,10 +306,21 @@ class RegistrationForm(FlaskForm):
         "Ich komme nur in Präsenz, wenn ich mit der oben angegebenen Person zusammen kommen kann."
     )
 
-    schlafen = SelectField(
+    schlafen = SelectMultipleField(
         "Für die Unterkunft:",
         choices=[
-            ("toiletten", "Ich möchte keine binären Duschen und Toiletten verwenden"),
+            (
+                "toiletten",
+                "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Toiletten zu verwenden",
+            ),
+            (
+                "duschen",
+                "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden",
+            ),
+            (
+                "duschen2",
+                "Ich möchte nicht an einen Standort, an dem ich eine Gruppendusche nutzen müsste",
+            ),
             (
                 "doppelbett1",
                 "Ich bin einverstanden mit einer beliebigen Person in einem Doppelbett zu schlafen",
@@ -334,15 +335,19 @@ class RegistrationForm(FlaskForm):
 
     unterbringung = SelectField(
         "Private Unterbringung in:",
-        choices=[
-            ## hier die Standorte
-        ],
+        choices=[("goe", "Göttingen"), ("koe", "Köln"), ("mue", "München")],
     )
-
-    platz = BooleanField("Ich möchte niemandem einen Präsenzplatz wegnehmen.")
+    tagesgast = SelectField(
+        "Tagesgast in:",
+        choices=[("goe", "Göttingen"), ("koe", "Köln"), ("mue", "München")],
+    )
+    platz = BooleanField(
+        "Ich möchte weniger stark priorisiert werden bei der Vergabe der Präsenzplätze."
+    )
 
     foerderung = BooleanField("Ja")
 
+    hygiene = BooleanField("Ja")
     #    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
     #   handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
 
@@ -370,7 +375,7 @@ class RegistrationForm(FlaskForm):
             ("u16", "JÜNGER als 16 Jahre"),
             ("u18", "JÜNGER als 18 Jahre"),
             ("zwischen", "ZWISCHEN 18 und 27 Jahren"),
-            ("a27", "ÄLTER als 27 Jahre"),
+            ("a26", "ÄLTER als 26 Jahre"),
         ],
     )
     kommentar = StringField(
