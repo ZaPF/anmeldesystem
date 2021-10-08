@@ -223,6 +223,13 @@ class RegistrationForm(FlaskForm):
     addtshirt = IntegerField(
         "Anzahl T-Shirts", [validators.optional()], widget=NumberInput()
     )
+    tasse = BooleanField(
+         "Ich möchte keine Tagungstasse haben."
+    )
+    tasse = BooleanField(
+         "Ich möchte keine Tagungstasche haben (den Inhalt kriegst du trotzdem)."
+    )
+    
 
     #### Reiseinfos ####
 
@@ -357,10 +364,6 @@ class RegistrationForm(FlaskForm):
     foerderung = BooleanField("Ja")
 
     hygiene = BooleanField("Ja")
-    #    hoodie = SelectField('Ich möchte gerne einen Hoodie für max. 35 Euro bestellen', choices = HOODIE_CHOICES)
-    #   handtuch = BooleanField('Ich möchte gerne ein Handtuch für max. 25 Euro bestellen')
-
-    #   bierak = BooleanField('Ich möchte am Bier-AK für maximal 10 Euro teilnehmen.')
 
     #### Sonstiges ####
     zaepfchen = SelectField(
@@ -377,13 +380,12 @@ class RegistrationForm(FlaskForm):
     foto = BooleanField(
         "Ich bin damit einverstanden, dass Fotos von mir gemacht werden. Diese werden nicht für kommerzielle Zwecke verwendet und evtl. im Tagungreader genutzt."
     )
-    #    halle = BooleanField('Ich habe die Hallenordnung (siehe <a href="https://bonn.zapf.in/index.php/hallenordnung/">Website</a>) gelesen und verstanden und werde mich daran halten.', [validators.InputRequired()])
     minderjaehrig = SelectField(
         "Ich bin zum Zeitpunkt der ZaPF:",
         choices=[
             ("u16", "JÜNGER als 16 Jahre"),
             ("u18", "JÜNGER als 18 Jahre"),
-            ("zwischen", "ZWISCHEN 18 und 27 Jahren"),
+            ("zwischen", "ZWISCHEN 18 und 26 Jahren"),
             ("a26", "ÄLTER als 26 Jahre"),
         ],
     )
