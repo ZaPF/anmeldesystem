@@ -32,7 +32,7 @@ T_SHIRT_CHOICES = [
     ("fitted_xs", "XS fitted"),
     #        ('5xl', '5XL'),
     #        ('4xl', '4XL'),
-    ("3xl", "3XL"),
+    #        ("3xl", "3XL"),
     ("xxl", "XXL"),
     ("xl", "XL"),
     ("l", "L"),
