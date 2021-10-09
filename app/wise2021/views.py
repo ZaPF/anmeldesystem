@@ -179,6 +179,7 @@ class RegistrationForm(FlaskForm):
     essensmenge = SelectField(
         "Wieviele Brötchen würdest du morgens essen",
         choices=[
+	    ("weniger", "Weniger!"),
             ("eins", "Eins"),
             ("zwei", "Zwei"),
             ("drei", "Drei"),
@@ -279,7 +280,12 @@ class RegistrationForm(FlaskForm):
 
     standort = SelectField(
         "Wunschstandort:",
-        choices=[("goe", "Göttingen"), ("koe", "Köln"), ("mue", "München")],
+        choices=[
+            ("goe", "Göttingen"), 
+            ("koe", "Köln"), 
+            ("mue", "München"),
+            ("egal", "Egal"),
+        ],
     )
 
     impfstatus = SelectField(
@@ -341,12 +347,22 @@ class RegistrationForm(FlaskForm):
     )
 
     unterbringung = SelectField(
-        "Private Unterbringung in:",
-        choices=[("goe", "Göttingen"), ("koe", "Köln"), ("mue", "München")],
+        "Private Unterbringung",
+        choices=[
+             ("goe", "Göttingen"), 
+             ("koe", "Köln"), 
+             ("mue", "München"),
+             ("keine", "Nichts davon."),
+         ],
     )
     tagesgast = SelectField(
-        "Tagesgast in:",
-        choices=[("goe", "Göttingen"), ("koe", "Köln"), ("mue", "München")],
+        "Tagesgast",
+        choices=[
+             ("goe", "Göttingen"), 
+             ("koe", "Köln"), 
+             ("mue", "München"),
+             ("keine", "Nichts davon."),
+         ],
     )
     platz = BooleanField(
         "Ich möchte weniger stark priorisiert werden bei der Vergabe der Präsenzplätze."
