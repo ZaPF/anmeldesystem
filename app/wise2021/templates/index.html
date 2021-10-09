@@ -128,9 +128,9 @@
           <div class="panel-body">
             Zusätzliche Infos zu Größen, Preis, Design und Arbeitsbedingungen findest du auf <a href="https://zigzag.uni-goettingen.de/merch" target="_blank"> unserer Webseite </a>
             {{ form_group(form.tshirt, 'Nicht im Anmeldepreis enthalten.') }}
-            {{ form_group(form.addtshirt, 'Verbindliche Kaufzusage.') }}
-            {{ checkbox(form.tasse) }}
-            {{ checkbox(form.tasche) }}
+            {{ form_group(form.nrtshirt, 'Verbindliche Kaufzusage.') }}
+            {{ checkbox(form.nottasse) }}
+            {{ checkbox(form.nottasche) }}
           </div>
         </div>
       <div class="panel panel-default">
@@ -139,8 +139,8 @@
         </div>
         <div class="panel-body">
           {{ form_group(form.anreise_zeit, id="anreise_zeit") }}
-          {{ form_group(form.anreise_verkehr,'Wie würdest Du Anreisen, wenn du drei Enten und zwei Füchse mitbringen müsstest und die Ente nicht zusammen mit dem Fuchs darf... Du weißt wie es weitergeht', id="anreise_verkehr") }}
           {{ form_group(form.abreise_zeit, id="abreise_zeit") }}
+          {{ form_group(form.anreise_witz,'Wie würdest Du Anreisen, wenn du drei Enten und zwei Füchse mitbringen müsstest und die Ente nicht zusammen mit dem Fuchs darf... Du weißt wie es weitergeht', id="anreise_verkehr") }}
         </div>
       </div>
 
@@ -169,14 +169,14 @@
           {{ checkbox(form.barrierefreiheit) }}
           {{ form_group(form.standort,'Hier kannst du deinen Wunschstandort angeben') }}
           {{ form_group(form.impfstatus, 'Wir müssen den Impfstatus zu COVID-19 abfragen, da die Tagung sonst nicht stattfinden kann. Wenn Du keine Angabe machst, gilst du als ungeimpft.') }}
-          {{ checkbox(form.impfstatus2) }}
-          {{ checkbox(form.impfstatus3, 'Ob du dich testen lässt oder nicht, kannst du unabhängig vom Impfstatus angeben. Nur bei Teilnehmenden ohne vollständigen Impfschutz oder Genesung, die in Präsenz teilnehmen wollen, müssen wir diese Information haben.') }}
+          {{ checkbox(form.impfzertifikat) }}
+          {{ checkbox(form.coronatest, 'Ob du dich testen lässt oder nicht, kannst du unabhängig vom Impfstatus angeben. Nur bei Teilnehmenden ohne vollständigen Impfschutz oder Genesung, die in Präsenz teilnehmen wollen, müssen wir diese Information haben.') }}
           {{ form_group(form.partner, 'Hier kannst du deine Wunschperson angeben, mit der du an einen Standort kommen möchtest. Wir bitten die Angabe auf eine Person zu beschränken oder beliebige Person aus der gleichen Fachschaft reinzuschreiben. Bei keiner Präferenz bitte freilassen') }}
-          {{ checkbox(form.partner2) }}
+          {{ checkbox(form.nurmitpartner) }}
           {{ form_group(form.schlafen, 'Zutreffendes bitte ankreuzen. Auch Mehrfachauswahl ist möglich. Bei der Größe geht es darum, dass einige Personen beim Couch Surfing wohl nur kleine Personen unterbringen können.') }}
-          {{ form_group(form.unterbringung, 'Für den Standort könnte ich mich privat um eine Unterbringung kümmern sofern notwendig. Wir könnten dann entsprechend ggf. mit mehr Plätzen an dem Ort planen, geben jedoch keinerlei Garantie, das Du dann tatsächlich an den Ort kommst.') }}
+          {{ form_group(form.privatunterbringung, 'Für den Standort könnte ich mich privat um eine Unterbringung kümmern sofern notwendig. Wir könnten dann entsprechend ggf. mit mehr Plätzen an dem Ort planen, geben jedoch keinerlei Garantie, das Du dann tatsächlich an den Ort kommst.') }}
           {{ form_group(form.tagesgast, 'Ich kann als Tagesgast teilnehmen, d.h. ich brauche keine Unterbringung in der Stadt.') }}
-          {{ checkbox(form.platz, 'Bitte ankreuzen, wenn du bei der Verteilung der Präsenzplätze eine geringere Priorität haben möchtest') }}
+          {{ checkbox(form.praesenzplatz, 'Bitte ankreuzen, wenn du bei der Verteilung der Präsenzplätze eine geringere Priorität haben möchtest') }}
           Ich habe zur Kenntnis genommen, dass meine Fachschaft bis zwei Wochen vor Anmeldeschluss einen Antrag auf Förderung finanzschwacher Fachschaften an <a href="mailto:foerderung@zapfev.de">foerderung@zapfev.de</a>  stellen kann.
           {{ checkbox(form.foerderung) }}
           Ich habe das <a href="https://zigzag.uni-goettingen.de/tagungsort/hygienekonzept" target="_blank">Hygienekonzept</a> zur Kenntnis genommen.
@@ -195,7 +195,7 @@
           {{ form_group(form.zaepfchen, 'Wenn du angibst einen Mentor zu wollen, erklärst du dich damit einverstanden, dass wir deine E-Mail-Adresse an deinen Mentor weitergegeben.') }}
           Alle Informationen zu ZaPF-Mentorika findest du auf <a href="https://zigzag.uni-goettingen.de/hinweise-fuer-zaepfchen/" target="_blank"> unserer Webseite </a>.
           {{ checkbox(form.mentor) }}
-          {{ form_group(form.minderjaehrig, 'Alterscheck - Wir wollen nur auf Nummer sicher gehen. Die über 27 ist ggf. wichtig für die Unterkunft in einer Jugendherberge.') }}
+          {{ form_group(form.alter, 'Alterscheck - Wir wollen nur auf Nummer sicher gehen. Die über 27 ist ggf. wichtig für die Unterkunft in einer Jugendherberge.') }}
           {{ checkbox(form.foto) }}
           {{ form_group(form.immatrikulationsbescheinigung2) }}
           {{ form_group(form.kommentar) }}

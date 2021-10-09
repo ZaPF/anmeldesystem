@@ -157,10 +157,7 @@ class RegistrationForm(FlaskForm):
             ("er", "Er"),
             ("sie", "Sie"),
             ("anderes", "Sprich mich darauf an"),
-            (
-                "aendern",
-                "Ich möchte die Möglichkeit haben, diese Angabe während der Tagung zu ändern",
-            ),
+            ("aendern", "Ich möchte die Möglichkeit haben, diese Angabe während der Tagung zu ändern"),
             ("sonstiges", "Nichts davon, ich möchte das Freitextfeld nutzen."),
         ],
     )
@@ -212,20 +209,20 @@ class RegistrationForm(FlaskForm):
     #### Merch #####
 
     tshirt = SelectField("T-Shirt", choices=T_SHIRT_CHOICES)
-    addtshirt = IntegerField(
+    nrtshirt = IntegerField(
         "Anzahl T-Shirts", [validators.optional()], widget=NumberInput()
     )
-    tasse = BooleanField(
+    nottasse = BooleanField(
          "Ich möchte keine Tagungstasse haben."
     )
-    tasche = BooleanField(
+    nottasche = BooleanField(
          "Ich möchte keine Tagungstasche haben (den Inhalt kriegst du trotzdem)."
     )
     
 
     #### Reiseinfos ####
 
-    anreise_verkehr = SelectField(
+    anreise_witz = SelectField(
         "Verkehrsmittel deiner Wahl",
         choices=[
             ("bus", "Fernbus"),
@@ -300,18 +297,18 @@ class RegistrationForm(FlaskForm):
         ],
     )
 
-    impfstatus2 = BooleanField(
+    impfzertifikat = BooleanField(
         "Ich werde meinen (digitalen) Impfausweis oder ein Zertifikat über meine Genesung dabei haben und bei Bedarf vorzeigen",
         [validators.InputRequired()],
     )
 
-    impfstatus3 = BooleanField(
+    coronatest = BooleanField(
         "Ich lasse mich testen, sodass ich jeden Tag einen gültigen PCR Test vorweisen kann."
     )
 
     partner = StringField("Wunschpartner")
 
-    partner2 = BooleanField(
+    nurmitpartner = BooleanField(
         "Ich komme nur in Präsenz, wenn ich mit der oben angegebenen Person zusammen kommen kann."
     )
 
@@ -319,34 +316,34 @@ class RegistrationForm(FlaskForm):
         "Für die Unterkunft:",
         choices=[
             (
-                "toiletten",
+                "binarytoiletten",
                 "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Toiletten zu verwenden",
             ),
             (
-                "duschen",
+                "binaryduschen",
                 "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden",
             ),
             (
-                "duschen2",
+                "notgruppenduschen",
                 "Ich möchte nicht an einen Standort, an dem ich eine Gruppendusche nutzen müsste",
             ),
             (
-                "duschen3",
+                "nurohnegruppenduschen",
                 "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen",
             ),
             (
-                "doppelbett1",
+                "doppelbettbeliebig",
                 "Ich bin einverstanden mit einer beliebigen Person in einem Doppelbett zu schlafen",
             ),
             (
-                "doppelbett2",
+                "doppelbettbestimmt",
                 "Ich bin einverstanden mit einer bestimmten Person in einem Doppelbett zu schlafen",
             ),
-            ("groesse", "Ich bin klein"),
+            ("klein", "Ich bin klein"),
         ],
     )
 
-    unterbringung = SelectField(
+    privatunterbringung = SelectField(
         "Private Unterbringung",
         choices=[
              ("goe", "Göttingen"), 
@@ -364,7 +361,7 @@ class RegistrationForm(FlaskForm):
              ("keine", "Nichts davon."),
          ],
     )
-    platz = BooleanField(
+    praesenzplatz = BooleanField(
         "Ich möchte weniger stark priorisiert werden bei der Vergabe der Präsenzplätze."
     )
 
@@ -387,12 +384,12 @@ class RegistrationForm(FlaskForm):
     foto = BooleanField(
         "Ich bin damit einverstanden, dass Fotos von mir gemacht werden. Diese werden nicht für kommerzielle Zwecke verwendet und evtl. im Tagungreader genutzt."
     )
-    minderjaehrig = SelectField(
+    alter = SelectField(
         "Ich bin zum Zeitpunkt der ZaPF:",
         choices=[
             ("u16", "JÜNGER als 16 Jahre"),
             ("u18", "JÜNGER als 18 Jahre"),
-            ("zwischen", "ZWISCHEN 18 und 26 Jahren"),
+            ("18-26", "ZWISCHEN 18 und 26 Jahren"),
             ("a26", "ÄLTER als 26 Jahre"),
         ],
     )
