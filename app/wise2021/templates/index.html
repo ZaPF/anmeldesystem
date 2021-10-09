@@ -126,7 +126,7 @@
             <h2 class="panel-title">Merch</h2>
           </div>
           <div class="panel-body">
-            {{ form_group(form.tshirt, 'Nicht im Anmeldepreis enthalten. Zusätzliche Infos zu Größen, Preis, 	Design und Arbeitsbedingungen findest du auf <a href="url:https://zigzag.uni-goettingen.de" target="_blank"> unserer Webseite </a>') }}
+            {{ form_group(form.tshirt, 'Nicht im Anmeldepreis enthalten. Zusätzliche Infos zu Größen, Preis, 	Design und Arbeitsbedingungen findest du auf <a href="url:https://zigzag.uni-goettingen.de/merch" target="_blank"> unserer Webseite </a>') }}
             {{ form_group(form.addtshirt, 'Verbindliche Kaufzusage.') }}
             {{ checkbox(form.tasse) }}
             {{ checkbox(form.tasche) }}
@@ -171,7 +171,7 @@
           {{ checkbox(form.impfstatus2) }}
           {{ checkbox(form.impfstatus3, 'Ob du dich testen lässt oder nicht, kannst du unabhängig vom Impfstatus angeben. Nur bei Teilnehmenden ohne vollständigen Impfschutz oder Genesung, die in Präsenz teilnehmen wollen, müssen wir diese Information haben.') }}
           {{ form_group(form.partner, 'Hier kannst du deine Wunschperson angeben, mit der du an einen Standort kommen möchtest. Wir bitten die Angabe auf eine Person zu beschränken oder beliebige Person aus der gleichen Fachschaft reinzuschreiben. Bei keiner Präferenz bitte freilassen') }}
-          {{ form_group(form.partner2) }}
+          {{ checkbox(form.partner2) }}
           {{ form_group(form.schlafen, 'Zutreffendes bitte ankreuzen. Auch Mehrfachauswahl ist möglich. Bei der Größe geht es darum, dass einige Personen beim Couch Surfing wohl nur kleine Personen unterbringen können.') }}
           {{ form_group(form.unterbringung, 'Für den Standort könnte ich mich privat um eine Unterbringung kümmern sofern notwendig. Wir könnten dann entsprechend ggf. mit mehr Plätzen an dem Ort planen, geben jedoch keinerlei Garantie, das Du dann tatsächlich an den Ort kommst.') }}
           {{ form_group(form.tagesgast, 'Ich kann als Tagesgast teilnehmen, d.h. ich brauche keine Unterbringung in der Stadt.') }}
