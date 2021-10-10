@@ -300,8 +300,7 @@ class RegistrationForm(FlaskForm):
     )
 
     impfzertifikat = BooleanField(
-        "Ich werde meinen (digitalen) Impfausweis oder ein Zertifikat über meine Genesung dabei haben und bei Bedarf vorzeigen",
-        [validators.InputRequired()],
+        "Ich werde meinen (digitalen) Impfausweis oder ein Zertifikat über meine Genesung dabei haben und bei Bedarf vorzeigen"
     )
 
     coronatest = BooleanField(
