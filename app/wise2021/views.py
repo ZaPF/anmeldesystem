@@ -308,7 +308,7 @@ class RegistrationForm(FlaskForm):
         "Ich lasse mich testen, sodass ich jeden Tag einen gültigen PCR Test vorweisen kann."
     )
 
-    partner = StringField("Wunschpartner")
+    partner = StringField("Wunschperson")
 
     nurmitpartner = BooleanField(
         "Ich komme nur in Präsenz, wenn ich mit der oben angegebenen Person zusammen kommen kann."
@@ -373,10 +373,10 @@ class RegistrationForm(FlaskForm):
         ],
     )
     mentor = BooleanField(
-        "Ich möchte ZaPF-Mentor werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird."
+        "Ich möchte ZaPF-Mentorikon werden und erkläre mich damit einverstanden, dass meine E-Mail-Adresse an ein Zäpfchen weitergegeben wird."
     )
     foto = BooleanField(
-        "Ich bin damit einverstanden, dass Fotos von mir gemacht werden. Diese werden nicht für kommerzielle Zwecke verwendet und evtl. im Tagungreader genutzt."
+        "Ich bin damit einverstanden, dass Fotos von mir gemacht werden. Diese werden evtl im Tagungsreader genutzt. und nicht für kommerzielle Zwecke verwendet."
     )
     alter = SelectField(
         "Ich bin zum Zeitpunkt der ZaPF:",
