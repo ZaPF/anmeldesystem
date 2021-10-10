@@ -304,7 +304,7 @@ class RegistrationForm(FlaskForm):
     )
 
     coronatest = BooleanField(
-        "Ich lasse mich testen, sodass ich jeden Tag einen gültigen PCR Test vorweisen kann."
+        "Ich lasse mich testen, sodass ich jeden Tag einen gültigen Test vorweisen kann."
     )
 
     partner = StringField("Wunschperson")
