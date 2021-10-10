@@ -332,7 +332,7 @@ class RegistrationForm(FlaskForm):
                 "Ich bin einverstanden mit einer bestimmten Person in einem Doppelbett zu schlafen"
             )
     klein = BooleanField( 
-                "Ich bin klein"
+                "Ich bin unter 1,70 m groß"
             )
         
 
