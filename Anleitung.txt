@@ -1,0 +1,31 @@
+Notizen zum Anmeldesystem
+
+Erstmal einen fork des Github repository erstellen und damit arbeiten.
+
+Die views.py ist das backend (alle Funktionalitäten) und die index.html das frontend (wie es am Ende aussieht). Beide müssen eigentlich immer zusammen angepasst werden z.B. muss jede in views.py erstellte Abfrage in der index.html eingebunden werden, damit sie auftaucht.
+
+Alle Einrückungen werden mit Leerzeichen gemacht!
+
+In der index.html: Es gibt form_group() und checkbox(). Letzteres nur für Boolean abfragen verwenden und ersteres für alles andere. 
+
+Die Beschreibung der Abfrage im views.py ist mehr wie eine Überschrift (wird fett gedruckt) und sollte kurz gehalten werden. Die Beschreibung der Abfrage in index.html ist wie eine Unterschrift (aber oben drüber) und kann ruhig länger ausfallen (wird kleiner gedruckt und in leichterem grau).
+
+Links können nur im Fließtext im index.html eingebaut werden, nicht in die beiden oben genannten Beschreibungen einer Abfrage
+
+Bei SelectField() muss und kann man nur eine Option wählen, also immer eine neutrale Option einbauen wenn das gewüsncht ist
+
+SelectMultipleField() funktioniert nicht (Stand 10.10.2021), stattdessen besser viele kleine Checkboxen
+
+Abfragen und Abfrageoptionen am besten so benennen, dass ihr am Namen erkennt, was damit gemeint ist. 
+
+Die Datenschutzerklärung liegt in static und muss auch jedes Jahr überarbeitet und dann mit dem Befehl <a href="{{url_for('static', filename='wise21/datenschutz.html')}}" rel="noopener noreferrer" target="_blank">Datenschutzerklärung</a> eingebunden werden
+
+Erklärung zu Links <a href="url" target="_blank">Name</a>. Zwischen die <a> kommt das Wort, was anklickbar sein soll. Die url immer mit https:// angeben. target="_blank" öffnet den Link in einem neuen Tab, wenn man draufklickt.
+
+Wenn ihr wollt, dass man nur abschicken kann, wenn man etwas bestätigt, dann benutzt [validators.InputRequired()] innerhalb der Abfrageoption z.B. so BooleanField("Ja", [validators.InputRequired()]). Für die Immatrikulationsbescheinigung ist das schon auf andere Weise geregelt.
+
+Für die Einschränkung einer Zahleneingabe widget=NumberInput(min=0, max=10) 
+
+In _init_.py müsst ihr den richtigen file eingeben, wo er die Daten der Anmeldung hernehmen soll
+
+Emailadressen in die index.html einbauen mit <a href="mailto:foerderung@zapfev.de">foerderung@zapfev.de</a> 
