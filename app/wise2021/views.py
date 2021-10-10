@@ -211,7 +211,7 @@ class RegistrationForm(FlaskForm):
 
     tshirt = SelectField("T-Shirt", choices=T_SHIRT_CHOICES)
     nrtshirt = IntegerField(
-        "Anzahl T-Shirts", [validators.optional()], widget=NumberInput()
+        "Anzahl T-Shirts", [validators.optional()], widget=NumberInput(min=0, max=10)
     )
     nottasse = BooleanField(
          "Ich möchte keine Tagungstasse haben."
