@@ -312,36 +312,28 @@ class RegistrationForm(FlaskForm):
         "Ich komme nur in Präsenz, wenn ich mit der oben angegebenen Person zusammen kommen kann."
     )
 
-    schlafen = SelectMultipleField(
-        "Für die Unterkunft:",
-        choices=[
-            (
-                "binarytoiletten",
-                "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Toiletten zu verwenden",
-            ),
-            (
-                "binaryduschen",
-                "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden",
-            ),
-            (
-                "notgruppenduschen",
-                "Ich möchte nicht an einen Standort, an dem ich eine Gruppendusche nutzen müsste",
-            ),
-            (
-                "nurohnegruppenduschen",
-                "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen",
-            ),
-            (
-                "doppelbettbeliebig",
-                "Ich bin einverstanden mit einer beliebigen Person in einem Doppelbett zu schlafen",
-            ),
-            (
-                "doppelbettbestimmt",
-                "Ich bin einverstanden mit einer bestimmten Person in einem Doppelbett zu schlafen",
-            ),
-            ("klein", "Ich bin klein"),
-        ],
-    )
+    notbinarytoiletten = BooleanField(
+                "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Toiletten zu verwenden"
+            )
+    notbinaryduschen = BooleanField(
+                "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden"
+            )
+    notgruppenduschen = BooleanField(
+                "Ich möchte nicht an einen Standort, an dem ich eine Gruppendusche nutzen müsste"
+            )
+    nurohnegruppenduschen = BooleanField(
+                "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen"
+            )
+    doppelbettbeliebig = BooleanField(
+                "Ich bin einverstanden mit einer beliebigen Person in einem Doppelbett zu schlafen"
+            )
+    doppelbettbestimmt = BooleanField(
+                "Ich bin einverstanden mit einer bestimmten Person in einem Doppelbett zu schlafen"
+            )
+    klein = BooleanField( 
+                "Ich bin klein"
+            )
+        
 
     privatunterbringung = SelectField(
         "Private Unterbringung",
