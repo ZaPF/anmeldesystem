@@ -239,6 +239,7 @@ class RegistrationForm(FlaskForm):
     anreise_zeit = SelectField(
         "Anreise vorraussichtlich:",
         choices=[
+            ("frueher", "Ich komme früher und helfe gerne beim Aufbau."),
             ("do1416", "Donnerstag 14-16 Uhr"),
             ("do1618", "Donnerstag 16-18 Uhr"),
             ("do1820", "Donnerstag 18-20 Uhr"),
