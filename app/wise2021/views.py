@@ -282,7 +282,7 @@ class RegistrationForm(FlaskForm):
         choices=[
             ("goe", "Göttingen"), 
             ("koe", "Köln"), 
-            ("mue", "München"),
+            ("mue", "München (Garchingen)"),
             ("egal", "Egal"),
         ],
     )
@@ -341,7 +341,7 @@ class RegistrationForm(FlaskForm):
         choices=[
              ("goe", "Göttingen"), 
              ("koe", "Köln"), 
-             ("mue", "München"),
+             ("mue", "München (Garchingen)"),
              ("keine", "Nichts davon."),
          ],
     )
@@ -350,7 +350,7 @@ class RegistrationForm(FlaskForm):
         choices=[
              ("goe", "Göttingen"), 
              ("koe", "Köln"), 
-             ("mue", "München"),
+             ("mue", "München (Garchingen)"),
              ("keine", "Nichts davon."),
          ],
     )
