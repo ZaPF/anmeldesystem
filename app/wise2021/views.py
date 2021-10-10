@@ -163,6 +163,8 @@ class RegistrationForm(FlaskForm):
     )
     anrede2 = StringField("Ich möchte angesprochen werden mit:")
 
+    musikwunsch = StringField("Musikwunsch")
+
     ###### Essen ######
 
     essen = SelectField(
