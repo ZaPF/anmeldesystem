@@ -130,7 +130,7 @@
           </div>
           <div class="panel-body">
             {{ form_group(form.tshirt, 'Nicht im Anmeldepreis enthalten.') }}
-            {{ form_group(form.nrtshirt, 'Verbindliche Kaufzusage.') }}
+            {{ form_group(form.nrtshirt) }}
             Zusätzliche Infos zu Größen, Preis, Design, Arbeitsbedingungen bei der Herstellung und Nachhaltigkeit findest du auf <a href="https://zigzag.uni-goettingen.de/merch" target="_blank"> unserer Webseite</a>.
             {{ checkbox(form.nottasse) }}
             {{ checkbox(form.nottasche) }}
@@ -160,7 +160,7 @@
             dass wir es nicht geschafft haben, bei Auswahl der Online-Teilnahme alle dann irrelevanten
             Felder auszublenden. Außerdem tut es uns sehr
             leid, dass wir noch nicht versprechen können, ob alle, die in Präsenz teilnehmen möchten,
-            das auch können, da wir dort nur eine begrenzte Anzahl an Plätzen haben.
+            das auch können, da wir dort nur eine begrenzte Anzahl an Plätzen haben. Der Teilnahmebeitrag für die Präsenzteilnahme beträgt 25 €.
           </p>
           {{ form_group(form.modus) }}
           <p>
@@ -172,7 +172,7 @@
           {{ checkbox(form.barrierefreiheit,'Barrierefreiheit') }}
           Wir melden uns dann nochmal bei dir, um alles Wichtige abzusprechen. Zugang zu dieser Info hat auch erstmal nur die Hauptorga und der Finanzer der ZaPF Göttingen und der ToPF.
           {{ form_group(form.standort,'Hier kannst du deinen Wunschstandort angeben') }}
-          {{ form_group(form.impfstatus, 'Wir müssen den Impfstatus zu COVID-19 abfragen, da die Tagung sonst nicht stattfinden kann. Wenn Du keine Angabe machst, müssen wir dich als ungeimpft behandeln. Bitte gib deinen Impfstatus zum Beginn der ZaPF an, soweit möglich.') }}
+          {{ form_group(form.impfstatus, 'Wir müssen den Impfstatus zu COVID-19 abfragen, da die Tagung sonst nicht stattfinden kann. Wenn Du keine Angabe machst, müssen wir dich als ungeimpft behandeln. Bitte gib deinen Impfstatus zum Beginn der ZaPF an, soweit möglich. Wenn du dich aus medizinischen Gründen nicht impfen lassen kannst, müssen wir evtl. nochmal nachfragen, sollten die Vorschriften an einigen Orten das verlangen.') }}
           {{ checkbox(form.impfzertifikat) }}
           {{ checkbox(form.coronatest, 'Ob du dich testen lässt oder nicht, kannst du unabhängig vom Impfstatus angeben. Nur bei Teilnehmenden ohne vollständigen Impfschutz oder Genesung, die in Präsenz teilnehmen wollen, müssen wir diese Information haben.') }}
           {{ form_group(form.partner, 'Hier kannst du deine Wunschperson (bitte mit Fachschaft) angeben, mit der du an einen Standort kommen möchtest. Wir bitten die Angabe auf eine Person zu beschränken oder beliebige Person aus der gleichen Fachschaft reinzuschreiben. Bei keiner Präferenz bitte freilassen') }}

@@ -297,12 +297,13 @@ class RegistrationForm(FlaskForm):
             ("zweifach", "zweifach geimpft"),
             ("schutz", "vollständig geschützt (zwei Wochen nach der zweiten Impfung)"),
             ("genesen", "genesen"),
+            ("impfbefreiung", "kann mich aus medizinischen Gründen nicht impfen lassen"),
             ("kA", "keine Angabe"),
         ],
     )
 
     impfzertifikat = BooleanField(
-        "Ich werde meinen (digitalen) Impfausweis oder ein Zertifikat über meine Genesung dabei haben und bei Bedarf vorzeigen"
+        "Ich werde meinen (digitalen) Impfausweis, ein Zertifikat über meine Genesung oder einen Nachweis über die Befreiung von der 2G Pflicht dabei haben und bei Bedarf vorzeigen"
     )
 
     coronatest = BooleanField(
