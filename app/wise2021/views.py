@@ -279,6 +279,10 @@ class RegistrationForm(FlaskForm):
         "Ich habe spezifische Ansprüche an Barrierefreiheit."
     )
 
+    eduroam = BooleanField(
+        "Ich habe Eduroam (Internet-Zugangsdienst)."
+    )
+
     standort = SelectField(
         "Wunschstandort:",
         choices=[

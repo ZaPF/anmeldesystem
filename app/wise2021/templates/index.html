@@ -171,6 +171,7 @@
           </p>
           {{ checkbox(form.barrierefreiheit,'Barrierefreiheit') }}
           Wir melden uns dann nochmal bei dir, um alles Wichtige abzusprechen. Zugang zu dieser Info hat auch erstmal nur die Hauptorga und der Finanzer der ZaPF Göttingen und der ToPF.
+          {{ checkbox(form.eduroam, 'Eduroam') }}
           {{ form_group(form.standort,'Hier kannst du deinen Wunschstandort angeben') }}
           {{ form_group(form.impfstatus, 'Wir müssen den Impfstatus zu COVID-19 abfragen, da die Tagung sonst nicht stattfinden kann. Wenn Du keine Angabe machst, müssen wir dich als ungeimpft behandeln. Bitte gib deinen Impfstatus zum Beginn der ZaPF an, soweit möglich. Wenn du dich aus medizinischen Gründen nicht impfen lassen kannst, müssen wir evtl. nochmal nachfragen, sollten die Vorschriften an einigen Orten das verlangen.') }}
           {{ checkbox(form.impfzertifikat) }}
