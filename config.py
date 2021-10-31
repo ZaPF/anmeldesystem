@@ -56,6 +56,8 @@ class Config:
         filter(lambda s: s != "", os.getenv("ADMIN_USERS", "").split(","))
     )
 
+    BOOTSTRAP_SERVE_LOCAL = "BOOTSTRAP_SERVE_FROM_CDN" not in os.environ
+
     @staticmethod
     def init_app(app):
         pass
