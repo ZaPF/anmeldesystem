@@ -311,10 +311,10 @@ class RegistrationForm(FlaskForm):
         "Impfstatus",
         choices=[
             ("keinfach", "ungeimpft"),
-            ("einfach", "einfach geimpft"),
-            ("zweifach", "zweifach geimpft"),
-            ("schutz", "vollständig geschützt (zwei Wochen nach der zweiten Impfung)"),
+            ("geimpft", "geimpft"),
+            ("geboostert", "geimft und geboostert"),
             ("genesen", "genesen"),
+            ("genimpft", "geimpft und genesen, bzw geimpft, geboostert und genesen"),
             ("impfbefreiung", "kann mich aus medizinischen Gründen nicht impfen lassen"),
             ("kA", "keine Angabe"),
         ],
