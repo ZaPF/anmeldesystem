@@ -208,7 +208,7 @@ class RegistrationForm(FlaskForm):
     ##### Rahmenprogramm ####
 
     exkursionen = [
-        ("egal", "Ist mir egal"),
+        ("egal", "Ist mir egal (es werden noch weiter Exkursionen angekündigt)"),
         ("spaziergang", "Spaziergang um den Kemnader See mit Besuch im Botanischen Garten"),
         ("planetarium", "Planetariumvorstellung (Faszinierendes Weltall) mit anschließender Erklärung der Technik"),
         ("lehrstuhlvorstellung", "Lehrstuhlvorstellung"),
