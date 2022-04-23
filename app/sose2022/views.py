@@ -220,6 +220,10 @@ class RegistrationForm(FlaskForm):
     exkursion3 = SelectField("Drittwunsch", choices=exkursionen)
     exkursion4 = SelectField("Viertwunsch", choices=exkursionen)
 
+    bierak = BooleanField(
+        "Ich möchte am Bieraustausch AK teilnehmen."
+    )
+
     # alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
     #### Merch #####
@@ -296,14 +300,11 @@ class RegistrationForm(FlaskForm):
     )
     
     nrwticket = SelectField(
-        "Ich habe ein NRW-Ticket."
+        "Ich habe ein NRW-Ticket.",
         choices=[
             ("nein", "Nein"),
             ("ja", "Ja"),
             ("jaund", "Ja und ich kann in Bochum jemanden darauf mitnehmen."),
-        ],
-    )
-
         ],
     )
 
@@ -337,7 +338,7 @@ class RegistrationForm(FlaskForm):
                 "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden"
             )
     notgruppenduschen = BooleanField(
-                "Ich möchte nicht an einen Standort, an dem ich eine Gruppendusche nutzen müsste"
+                "Ich möchte keine Gruppendusche nutzen müssen."
             )
     nurohnegruppenduschen = BooleanField(
                 "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen"
