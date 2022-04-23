@@ -329,9 +329,6 @@ class RegistrationForm(FlaskForm):
     )
 
 
-    nurmitpartner = BooleanField(
-        "Ich komme nur in Präsenz, wenn ich mit der oben angegebenen Person zusammen kommen kann."
-    )
 
     notbinarytoiletten = BooleanField(
                 "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Toiletten zu verwenden"
@@ -346,28 +343,7 @@ class RegistrationForm(FlaskForm):
                 "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen"
             )
         
-
-    privatunterbringung = SelectField(
-        "Private Unterbringung",
-        choices=[
-             ("goe", "Göttingen"), 
-             ("koe", "Köln"), 
-             ("mue", "München (Garchingen)"),
-             ("keine", "Nichts davon."),
-         ],
-    )
-    tagesgast = SelectField(
-        "Tagesgast",
-        choices=[
-             ("goe", "Göttingen"), 
-             ("koe", "Köln"), 
-             ("mue", "München (Garchingen)"),
-             ("keine", "Nichts davon."),
-         ],
-    )
-    praesenzplatz = BooleanField(
-        "Ich möchte weniger stark priorisiert werden bei der Vergabe der Präsenzplätze."
-    )
+    
 
     foerderung = BooleanField("Ja")
 
