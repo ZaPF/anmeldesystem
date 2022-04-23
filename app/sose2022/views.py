@@ -228,8 +228,8 @@ class RegistrationForm(FlaskForm):
     nrtshirt = IntegerField(
         "Anzahl T-Shirts", [validators.optional()], widget=NumberInput(min=0, max=10)
     )
-    nottasse = BooleanField(
-         "Ich möchte keine Tagungstasse haben."
+    tasse = BooleanField(
+         "Ich möchte eine Tagungstasse haben (ca 5€)."
     )
     nottasche = BooleanField(
          "Ich möchte keine Tagungstasche haben (den Inhalt kriegst du trotzdem)."
