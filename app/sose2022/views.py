@@ -295,12 +295,12 @@ class RegistrationForm(FlaskForm):
         "Ich habe Eduroam (Internet-Zugangsdienst)."
     )
     
-    nrwticket = BooleanField(
+    nrwticket = SelectField(
         "Ich habe ein NRW-Ticket."
         choices=[
             ("nein", "Nein"),
             ("ja", "Ja"),
-            ("jaund", "Ja und ich kann jemanden darauf mitnehmen."),
+            ("jaund", "Ja und ich kann in Bochum jemanden darauf mitnehmen."),
         ],
     )
 
