@@ -210,10 +210,11 @@ class RegistrationForm(FlaskForm):
     exkursionen = [
         ("egal", "Ist mir egal"),
         ("spaziergang", "Spaziergang um den Kemnader See mit Besuch im Botanischen Garten"),
-        ("planetarium", "Planetariumvorstellung (Faszinierendes Weltall) mit anschließender Erklärung der Technik"),
+        ("planetarium", "Planetariumsvorstellung (Faszinierendes Weltall) mit anschließender Erklärung der Technik"),
         ("lehrstuhlvorstellung", "Lehrstuhlvorstellung"),
         ("bergbaumuseum", "Bergbaumuseum"),
         ("kunsttour", "Kunsttour an der RUB")
+        ("stadtfuerung", "Stadtführung durch Bochum")
         ("keine", "Keine Exkursion"),
     ]
     exkursion1 = SelectField("Erstwunsch", choices=exkursionen)
