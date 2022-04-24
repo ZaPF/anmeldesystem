@@ -213,8 +213,8 @@ class RegistrationForm(FlaskForm):
         ("planetarium", "Planetariumsvorstellung (Faszinierendes Weltall) mit anschließender Erklärung der Technik"),
         ("lehrstuhlvorstellung", "Lehrstuhlvorstellung"),
         ("bergbaumuseum", "Bergbaumuseum"),
-        ("kunsttour", "Kunsttour an der RUB")
-        ("stadtfuerung", "Stadtführung durch Bochum")
+        ("kunsttour", "Kunsttour an der RUB"),
+        ("stadtfuerung", "Stadtführung durch Bochum"),
         ("keine", "Keine Exkursion"),
     ]
     exkursion1 = SelectField("Erstwunsch", choices=exkursionen)
