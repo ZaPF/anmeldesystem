@@ -15,11 +15,11 @@ class TokenException(Exception):
 
 
 class TokenForm(FlaskForm):
-    password = StringField("Token", [validators.Required()])
+    password = StringField("Token", [validators.DataRequired()])
 
 
 class MascotForm(FlaskForm):
-    name = StringField("Name des Maskottchens", [validators.Required()])
+    name = StringField("Name des Maskottchens", [validators.DataRequired()])
     submit = SubmitField()
 
 
