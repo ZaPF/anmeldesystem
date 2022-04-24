@@ -13,7 +13,7 @@ from wtforms import (
 )
 from wtforms.fields import DateField
 from wtforms.widgets import TextArea
-from wtforms.widgets.html5 import NumberInput
+from wtforms.widgets import NumberInput 
 from app.oauth_client import oauth_remoteapp, getOAuthToken
 import json
 from datetime import datetime, time, timezone
