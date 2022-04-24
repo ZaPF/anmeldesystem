@@ -208,11 +208,12 @@ class RegistrationForm(FlaskForm):
     ##### Rahmenprogramm ####
 
     exkursionen = [
-        ("egal", "Ist mir egal (es werden noch weiter Exkursionen angekündigt)"),
+        ("egal", "Ist mir egal"),
         ("spaziergang", "Spaziergang um den Kemnader See mit Besuch im Botanischen Garten"),
         ("planetarium", "Planetariumvorstellung (Faszinierendes Weltall) mit anschließender Erklärung der Technik"),
         ("lehrstuhlvorstellung", "Lehrstuhlvorstellung"),
         ("bergbaumuseum", "Bergbaumuseum"),
+        ("kunsttour", "Kunsttour an der RUB")
         ("keine", "Keine Exkursion"),
     ]
     exkursion1 = SelectField("Erstwunsch", choices=exkursionen)
@@ -221,7 +222,7 @@ class RegistrationForm(FlaskForm):
     exkursion4 = SelectField("Viertwunsch", choices=exkursionen)
 
     bierak = BooleanField(
-        "Ich möchte am Bieraustausch AK teilnehmen."
+        "Ich möchte am Bieraustausch AK teilnehmen (ca 5-10€)."
     )
 
     # alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
@@ -236,7 +237,7 @@ class RegistrationForm(FlaskForm):
          "Ich möchte eine Tagungstasse haben (ca 5€)."
     )
     nottasche = BooleanField(
-         "Ich möchte keine Tagungstasche haben (den Inhalt kriegst du trotzdem)."
+         "Ich möchte KEINE Tagungstasche haben (den Inhalt kriegst du trotzdem)."
     )
     
 
@@ -286,8 +287,8 @@ class RegistrationForm(FlaskForm):
     modus = SelectField(
         "Ich möchte in folgendem Modus an der Tagung teilnehmen:",
         choices=[
-            ("online", "Online-Teilnahme"),
             ("present", "Präsenzteilnahme"),
+            ("online", "Online-Teilnahme"),
         ],
     )
 
@@ -313,7 +314,7 @@ class RegistrationForm(FlaskForm):
         choices=[
             ("keinfach", "ungeimpft"),
             ("geimpft", "geimpft"),
-            ("geboostert", "geimft und geboostert"),
+            ("geboostert", "geimpft und geboostert"),
             ("genesen", "genesen"),
             ("genimpft", "geimpft und genesen, bzw geimpft, geboostert und genesen"),
             ("impfbefreiung", "kann mich aus medizinischen Gründen nicht impfen lassen"),
@@ -336,12 +337,6 @@ class RegistrationForm(FlaskForm):
             )
     notbinaryduschen = BooleanField(
                 "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden"
-            )
-    notgruppenduschen = BooleanField(
-                "Ich möchte keine Gruppendusche nutzen müssen."
-            )
-    nurohnegruppenduschen = BooleanField(
-                "Wenn ich eine Gruppendusche nutzen muss, würde ich lieber gar nicht in Präsenz kommen"
             )
         
     
