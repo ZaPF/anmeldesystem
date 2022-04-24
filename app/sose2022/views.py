@@ -224,6 +224,10 @@ class RegistrationForm(FlaskForm):
     bierak = BooleanField(
         "Ich möchte am Bieraustausch AK teilnehmen (ca 5-10€)."
     )
+    
+    casino = BooleanField(
+        "Ich bringe für den Casinoabend Abendgarderobe mit (Hemd oder ähnliches reicht)"
+    )
 
     # alternativprogramm = BooleanField('Ich habe Interesse an einem Alternativprogramm zur Kneipentour')
 
