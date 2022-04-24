@@ -11,7 +11,7 @@ from wtforms import (
     validators,
     IntegerField,
 )
-from wtforms.fields.html5 import DateField
+from wtforms.fields import DateField
 from wtforms.widgets import TextArea
 from wtforms.widgets.html5 import NumberInput
 from app.oauth_client import oauth_remoteapp, getOAuthToken
