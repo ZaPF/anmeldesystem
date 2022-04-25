@@ -353,8 +353,14 @@ class RegistrationForm(FlaskForm):
             ("leise", "leise"),
         ],
     )
-        
     
+    couchsurfing = BooleanField(
+                "Ich würde auch eine Schlafmöglichkeit via Couchsurfing nutzen.",
+            )
+        
+    privatunterkunft = BooleanField(
+                "Ich habe eine private Schlafmöglichkeit.",
+            )    
 
     foerderung = BooleanField("Ja")
 
