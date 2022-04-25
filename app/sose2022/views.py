@@ -215,6 +215,9 @@ class RegistrationForm(FlaskForm):
         ("bergbaumuseum", "Bergbaumuseum"),
         ("kunsttour", "Kunsttour an der RUB"),
         ("stadtfuerung", "Stadtführung durch Bochum"),
+        ("gdata", "G-Data"),
+        ("ph1", "Platzhalter 1"),
+        ("ph2", "Platzhalter 2"),
         ("keine", "Keine Exkursion"),
     ]
     exkursion1 = SelectField("Erstwunsch", choices=exkursionen)
@@ -343,8 +346,24 @@ class RegistrationForm(FlaskForm):
     notbinaryduschen = BooleanField(
                 "Ich möchte während der ZaPF die Möglichkeit haben nicht binär-geschlechtliche Duschen zu verwenden"
             )
-        
+    schlafen = SelectField(
+        "Wie möchtest du geweckt werden?",
+        choices=[
+            ("laut", "laut"),
+            ("elaut", "eher laut"),
+            ("egal", "egal"),
+            ("eleise", "eher leise"),
+            ("leise", "leise"),
+        ],
+    )
     
+    couchsurfing = BooleanField(
+                "Ich würde auch eine Schlafmöglichkeit via Couchsurfing nutzen.",
+            )
+        
+    privatunterkunft = BooleanField(
+                "Ich habe eine private Schlafmöglichkeit.",
+            )    
 
     foerderung = BooleanField("Ja")
 
