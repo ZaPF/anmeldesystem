@@ -215,9 +215,9 @@ class RegistrationForm(FlaskForm):
         ("bergbaumuseum", "Bergbaumuseum"),
         ("kunsttour", "Kunsttour an der RUB"),
         ("stadtfuerung", "Stadtführung durch Bochum"),
+        ("gdata", "G-Data"),
         ("ph1", "Platzhalter 1"),
         ("ph2", "Platzhalter 2"),
-        ("ph3", "Platzhalter 3"),
         ("keine", "Keine Exkursion"),
     ]
     exkursion1 = SelectField("Erstwunsch", choices=exkursionen)
